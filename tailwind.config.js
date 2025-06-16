@@ -19,10 +19,10 @@ export default {
           light: "#F8FAFC",
           dark: "#0F172A",
         },
-        text: {
+        customText: {
           base: "#E2E8F0",
           muted: "#94A3B8",
-          heading: "#FFFFFF",
+          heading: "#FFFFFF"
         },
         border: {
           DEFAULT: "#334155",

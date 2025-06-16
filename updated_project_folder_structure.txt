@@ -1,0 +1,45 @@
+project-root/
+├── public/
+│   └── index.html
+├── src/
+│   ├── assets/
+│   │   └── logo.svg
+│   ├── components/
+│   │   ├── ui/
+│   │   └── layout/
+│   ├── constants/
+│   │   ├── navLinks.ts
+│   │   └── animations.ts
+│   ├── context/
+│   │   └── ThemeContext.tsx
+│   ├── hooks/
+│   │   └── useDarkMode.ts
+│   ├── lib/
+│   │   ├── pocketbase.ts
+│   │   └── clerk.ts
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── Projects.tsx
+│   │   ├── About.tsx
+│   │   ├── Resume.tsx
+│   │   └── Admin.tsx
+│   ├── routes/
+│   │   └── AppRouter.tsx
+│   ├── styles/
+│   │   └── index.css
+│   ├── types/
+│   │   ├── project.ts
+│   │   └── user.ts
+│   ├── App.tsx
+│   └── main.tsx
+├── docs/
+│   ├── pocketbase-setup.md
+│   ├── clerk-auth.md
+│   └── ai-integration-plan.md
+├── .gitignore
+├── README.md
+├── ROADMAP.md
+├── CHANGELOG.md
+├── LICENSE (MIT recommended)
+├── package.json
+└── tsconfig.json
