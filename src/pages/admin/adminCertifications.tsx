@@ -1,4 +1,4 @@
-// src/pages/admin/AdminProjects.tsx
+// src/pages/admin/AdminCertifications.tsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
@@ -7,16 +7,17 @@ import { pb } from "../../lib/pocketbase";
 import { usePocketbaseLogin } from "../../hooks/usePocketbaseLogin";
 import { toast } from "react-hot-toast";
 
-interface Project {
+interface Certification {
   id: string;
-  title: string;
-  description: string;
-  techStack: string[];
-  github_link: string;
-  live_link: string;
+  name: string;
+  issuer: string;
+  issueDate: string;
+  expiration?: string;
+  credentialUrl?: string;
+  badgeImage?: string;
 }
 
-export default function AdminProjects() {
+export default function AdminCertifications() {
   const { user } = useUser();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -25,41 +26,42 @@ export default function AdminProjects() {
   useEffect(() => {
     if (!user) navigate("/sign-in");
     if (!isLoggedIn) {
-      toast.error("You must authenticate with PocketBase to manage projects.");
+      toast.error("You must authenticate with PocketBase to manage certifications.");
       navigate("/admin");
     }
   }, [user, isLoggedIn, navigate]);
 
   const {
-    data: projects = [],
+    data: certifications = [],
     isLoading,
     isError,
-  } = useQuery<Project[]>({
-    queryKey: ["admin-projects"],
+  } = useQuery<Certification[]>({
+    queryKey: ["admin-certifications"],
     queryFn: async () => {
-      const records = await pb.collection("projects").getFullList(200);
-      return records.map((record): Project => ({
+      const records = await pb.collection("certifications").getFullList(200);
+      return records.map((record): Certification => ({
         id: record.id,
-        title: record.title,
-        description: record.description,
-        techStack: record.techStack,
-        github_link: record.github_link,
-        live_link: record.live_link,
+        name: record.name,
+        issuer: record.issuer,
+        issueDate: record.issueDate,
+        expiration: record.expiration,
+        credentialUrl: record.credentialUrl,
+        badgeImage: record.badgeImage,
       }));
     },
-    enabled: isLoggedIn, // only fetch if PB login is active
+    enabled: isLoggedIn,
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      await pb.collection("projects").delete(id);
+      await pb.collection("certifications").delete(id);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-projects"] });
-      toast.success("✅ Project deleted.");
+      queryClient.invalidateQueries({ queryKey: ["admin-certifications"] });
+      toast.success("✅ Certification deleted.");
     },
     onError: () => {
-      toast.error("❌ Failed to delete project.");
+      toast.error("❌ Failed to delete certification.");
     },
   });
 
@@ -67,48 +69,51 @@ export default function AdminProjects() {
     <section className="bg-background-dark px-6 py-20 min-h-screen text-white">
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-10 font-bold text-white text-4xl text-center">
-          Admin: Manage Projects
+          Admin: Manage Certifications
         </h1>
 
         <div className="flex justify-center mb-8">
           <button
             className="bg-primary hover:bg-primary-dark px-6 py-3 rounded-xl font-medium text-white transition"
-            onClick={() => navigate("/admin/projects/new")}
+            onClick={() => navigate("/admin/certifications/new")}
           >
-            Add New Project
+            Add New Certification
           </button>
         </div>
 
         {isLoading && (
-          <p className="text-text-muted text-center">Loading projects...</p>
+          <p className="text-text-muted text-center">Loading certifications...</p>
         )}
         {isError && (
-          <p className="text-red-500 text-center">Error loading projects.</p>
+          <p className="text-red-500 text-center">Error loading certifications.</p>
         )}
-        {!isLoading && projects.length === 0 && (
-          <p className="text-text-muted text-center">No projects found.</p>
+
+        {!isLoading && certifications.length === 0 && (
+          <p className="text-text-muted text-center">No certifications found.</p>
         )}
 
         <ul className="space-y-6">
-          {projects.map((project) => (
+          {certifications.map((cert) => (
             <li
-              key={project.id}
+              key={cert.id}
               className="bg-neutral-900 p-6 border border-border rounded-2xl"
             >
               <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center">
                 <div className="space-y-2">
-                  <h2 className="font-semibold text-white text-xl">{project.title}</h2>
-                  <p className="text-text-muted text-sm">{project.description}</p>
+                  <h2 className="font-semibold text-white text-xl">{cert.name}</h2>
+                  <p className="text-text-muted text-sm">
+                    {cert.issuer} · {cert.issueDate}
+                  </p>
                 </div>
                 <div className="flex gap-4 mt-4 sm:mt-0">
                   <button
-                    onClick={() => navigate(`/admin/projects/${project.id}/edit`)}
+                    onClick={() => navigate(`/admin/certifications/${cert.id}/edit`)}
                     className="text-blue-400 hover:underline"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => deleteMutation.mutate(project.id)}
+                    onClick={() => deleteMutation.mutate(cert.id)}
                     className="text-red-400 hover:underline"
                   >
                     Delete

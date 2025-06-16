@@ -1,50 +1,54 @@
-import { useUser, SignOutButton } from "@clerk/clerk-react";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
+import PocketBaseLoginModal from "../pages/admin/PocketBaseLoginModal";
+import { usePocketbaseLogin } from "../hooks/usePocketbaseLogin";
 
 export default function Admin() {
-  const { user } = useUser();
-  const adminRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (adminRef.current) {
-      gsap.from(adminRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: "power2.out",
-      });
-    }
-  }, []);
+  useUser();
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isLoggedIn, logout } = usePocketbaseLogin();
 
   return (
-    <section className="bg-background-light dark:bg-background-dark px-6 py-20 min-h-screen text-white">
-      <div ref={adminRef} className="space-y-6 mx-auto max-w-4xl">
-        <h2 className="font-bold text-primary dark:text-white text-4xl">Admin Dashboard</h2>
-        <p className="text-text-muted dark:text-gray-400">
-          Welcome, <span className="font-semibold">{user?.fullName}</span>.
-        </p>
+    <section className="bg-background-dark px-6 py-20 min-h-screen text-white">
+      <div className="mx-auto max-w-4xl">
+        <h1 className="mb-12 font-bold text-4xl text-center">Admin Dashboard</h1>
 
-        <div className="space-y-4">
-          <button className="bg-secondary hover:bg-secondary-dark px-4 py-2 rounded-xl text-white transition">
+        <div className="flex flex-col items-center gap-6">
+          {!isLoggedIn ? (
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-primary hover:bg-primary-dark px-6 py-3 rounded-xl font-medium text-white transition"
+            >
+              Authenticate with PocketBase
+            </button>
+          ) : (
+            <button
+              onClick={logout}
+              className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-xl font-medium text-white transition"
+            >
+              Log Out of PocketBase
+            </button>
+          )}
+
+          <button
+            onClick={() => navigate("/admin/projects")}
+            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-medium text-white transition w-full max-w-md"
+          >
             Manage Projects
           </button>
-          <button className="bg-secondary hover:bg-secondary-dark px-4 py-2 rounded-xl text-white transition">
-            Update About Me
-          </button>
-          <button className="bg-secondary hover:bg-secondary-dark px-4 py-2 rounded-xl text-white transition">
-            Upload Resume
-          </button>
-        </div>
 
-        <div className="pt-8">
-          <SignOutButton>
-            <button className="text-red-500 hover:text-red-600 underline transition">
-              Sign out
-            </button>
-          </SignOutButton>
+          <button
+            onClick={() => navigate("/admin/certifications")}
+            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-medium text-white transition w-full max-w-md"
+          >
+            Manage Certifications
+          </button>
         </div>
       </div>
+
+      <PocketBaseLoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }
