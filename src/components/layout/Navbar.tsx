@@ -1,82 +1,130 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link as ScrollLink } from "react-scroll";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 import { Menu, X } from "lucide-react";
-import clsx from "clsx";
+import gsap from "gsap";
+import logo from "../../assets/Jb (2).png";
 
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/projects", label: "Projects" },
-  { to: "/about", label: "About" },
-  { to: "/resume", label: "Resume" },
+const navItems = [
+  "Home",
+  "About",
+  "Technologies",
+  "Projects",
+  "Certifications",
+  "Experiences",
+  "Contact",
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const { isSignedIn } = useUser();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+
+  const handleAdminClick = () => {
+    if (isSignedIn) {
+      navigate("/admin");
+    } else {
+      navigate("/sign-in");
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen && menuRef.current) {
+      gsap.fromTo(
+        menuRef.current,
+        { x: "100%", opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
+      );
+    }
+  }, [isOpen]);
 
   return (
     <header className="top-0 z-50 fixed bg-background-dark border-b border-border w-full text-white">
-      <nav className="flex justify-between items-center px-6 py-4">
-        <div className="font-bold text-primary text-xl">Jackson Bryant</div>
+      <nav className="flex justify-between items-center px-6 py-4 h-24">
+        {/* Logo */}
+        <img src={logo} alt="logo" className="w-16 h-16 object-contain" />
 
-        {/* Mobile menu toggle */}
-        <button onClick={toggleMenu} className="md:hidden">
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-
-        {/* Desktop nav */}
-        <ul className="hidden md:flex gap-8 font-medium">
-          {navLinks.map((link) => (
-            <li key={link.to}>
-              <Link
-                to={link.to}
-                className={clsx(
-                  "hover:text-primary transition-colors",
-                  location.pathname === link.to && "text-primary"
-                )}
+        {/* Desktop Nav */}
+        <ul className="hidden md:flex items-center gap-8 font-medium text-lg">
+          {navItems.map((item) => (
+            <li key={item}>
+              <ScrollLink
+                to={item.toLowerCase()}
+                smooth
+                duration={600}
+                offset={-100}
+                className="hover:text-blue-400 transition-colors cursor-pointer"
               >
-                {link.label}
-              </Link>
+                {item}
+              </ScrollLink>
             </li>
           ))}
+          <li>
+            <button
+              onClick={handleAdminClick}
+              className="hover:bg-blue-400 px-4 py-1 border border-blue-400 rounded text-blue-400 hover:text-white transition-colors"
+            >
+              Admin
+            </button>
+          </li>
         </ul>
+
+        {/* Mobile Toggle */}
+        {!isOpen && (
+          <button
+            onClick={toggleMenu}
+            className="md:hidden z-[100] text-white"
+            aria-label="Open menu"
+            title="Open menu"
+          >
+            <Menu size={28} />
+          </button>
+        )}
       </nav>
 
-      {/* Mobile drawer */}
-      <div
-        className={clsx(
-          "md:hidden top-0 right-0 z-40 fixed bg-background-dark shadow-lg p-6 w-64 h-full transition-transform duration-300",
-          isOpen ? "translate-x-0" : "translate-x-full"
-        )}
-      >
-        <button
-          onClick={toggleMenu}
-          className="mb-6"
-          type="button"
-          aria-label="Close menu"
-          title="Close menu"
+      {/* Mobile Drawer */}
+      {isOpen && (
+        <div
+          ref={menuRef}
+          className="z-40 fixed inset-0 flex flex-col justify-center items-center gap-10 bg-background-dark text-white text-3xl"
         >
-          <X size={28} />
-        </button>
-        <ul className="flex flex-col gap-6 font-medium text-lg">
-          {navLinks.map((link) => (
-            <li key={link.to}>
-              <Link
-                to={link.to}
-                onClick={toggleMenu}
-                className={clsx(
-                  "hover:text-primary transition-colors",
-                  location.pathname === link.to && "text-primary"
-                )}
-              >
-                {link.label}
-              </Link>
-            </li>
+          <button
+            onClick={toggleMenu}
+            className="top-6 right-6 absolute text-white"
+            aria-label="Close menu"
+          >
+            <X size={32} />
+          </button>
+
+          {navItems.map((item) => (
+            <ScrollLink
+              key={item}
+              to={item.toLowerCase()}
+              smooth
+              duration={600}
+              offset={-100}
+              onClick={toggleMenu}
+              className="hover:text-blue-400 transition-colors cursor-pointer"
+            >
+              {item}
+            </ScrollLink>
           ))}
-        </ul>
-      </div>
+
+          <button
+            onClick={() => {
+              toggleMenu();
+              handleAdminClick();
+            }}
+            className="hover:bg-blue-400 px-4 py-2 border border-blue-400 rounded text-blue-400 hover:text-white text-lg transition"
+          >
+            Admin
+          </button>
+        </div>
+      )}
     </header>
   );
 }
