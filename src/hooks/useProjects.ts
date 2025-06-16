@@ -6,8 +6,8 @@ export interface Project {
   title: string;
   description: string;
   techStack: string[];
-  repoUrl: string;
-  demoUrl: string;
+  github_link: string;
+  live_link: string;
   image?: string;
 }
 
@@ -25,8 +25,8 @@ export function useProjects() {
           title: record.title,
           description: record.description,
           techStack: record.techStack,
-          repoUrl: record.repoUrl,
-          demoUrl: record.demoUrl,
+          github_link: record.github_link,
+          live_link: record.live_link,
           image:
             record.image && record.image !== ""
               ? `${baseUrl}/api/files/projects/${record.id}/${record.image}`
