@@ -5,10 +5,16 @@ app = "jacksonbryantportfolio-v2"
 
 [env]
   NODE_ENV = "production"
+  PORT = "8090"
 
 [[services]]
-  internal_port = 80
+  internal_port = 8090
   protocol = "tcp"
 
   [[services.ports]]
+    handlers = ["http"]
     port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
