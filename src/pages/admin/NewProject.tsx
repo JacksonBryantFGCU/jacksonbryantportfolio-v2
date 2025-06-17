@@ -35,18 +35,18 @@ export default function NewProject() {
   });
 
   return (
-    <section className="bg-background-dark px-6 py-20 min-h-screen text-white">
-      <div className="mx-auto max-w-3xl">
-        <h1 className="mb-10 pb-4 border-b border-border font-bold text-4xl text-center">
-          Add New Project
-        </h1>
+      <section className="bg-background-dark px-6 py-20 min-h-screen text-white">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="mb-10 pb-4 border-b border-border font-bold text-4xl text-center">
+            Add New Project
+          </h1>
 
-        <ProjectForm
-          onSubmit={mutation.mutate}
-          loading={mutation.isPending}
-          submitText="Create"
-        />
-      </div>
-    </section>
-  );
+          <ProjectForm
+            onSubmit={mutation.mutate}
+            loading={mutation.isPending}
+            submitText="Create"
+          />
+        </div>
+      </section>
+  )
 }

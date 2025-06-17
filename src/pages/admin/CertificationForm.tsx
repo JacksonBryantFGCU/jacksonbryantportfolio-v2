@@ -1,4 +1,3 @@
-// src/pages/admin/CertificationForm.tsx
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -15,7 +14,7 @@ type CertificationFormProps = {
 };
 
 export default function CertificationForm({
-  defaultValues = {},
+  defaultValues,
   onSubmit,
   loading,
   submitText = "Save",
@@ -27,11 +26,12 @@ export default function CertificationForm({
     formState: { errors },
   } = useForm<CertificationFormValues>({
     resolver: zodResolver(certificationSchema),
-    defaultValues,
   });
 
   useEffect(() => {
-    reset(defaultValues);
+    if (defaultValues && Object.keys(defaultValues).length > 0) {
+      reset(defaultValues);
+    }
   }, [defaultValues, reset]);
 
   const internalSubmit = (values: CertificationFormValues) => {

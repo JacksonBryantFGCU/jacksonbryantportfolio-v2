@@ -9,6 +9,7 @@ import NewCertification from "../pages/admin/newCertification"; // ✅ add this
 import EditCertification from "../pages/admin/EditCertification"; // ✅ add this
 import { SignIn } from "@clerk/clerk-react";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import AdminNavbar from "../components/layout/AdminNavbar";
 
 export default function AppRouter() {
   return (
@@ -22,6 +23,7 @@ export default function AppRouter() {
           path="/sign-in"
           element={
             <>
+              <AdminNavbar />
               <SignedOut>
                 <div className="flex flex-col justify-center items-center px-4 min-h-screen text-white text-center">
                   <h1 className="mb-2 font-bold text-3xl">Welcome Back</h1>
