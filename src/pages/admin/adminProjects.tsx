@@ -6,6 +6,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { pb } from "../../lib/pocketbase";
 import { usePocketbaseLogin } from "../../hooks/usePocketbaseLogin";
 import { toast } from "react-hot-toast";
+import AdminNavbar from "../../components/layout/AdminNavbar";
 
 interface Project {
   id: string;
@@ -64,6 +65,8 @@ export default function AdminProjects() {
   });
 
   return (
+    <>
+      <AdminNavbar />
     <section className="bg-background-dark px-6 py-20 min-h-screen text-white">
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-10 font-bold text-white text-4xl text-center">
@@ -120,5 +123,6 @@ export default function AdminProjects() {
         </ul>
       </div>
     </section>
+    </>
   );
 }
