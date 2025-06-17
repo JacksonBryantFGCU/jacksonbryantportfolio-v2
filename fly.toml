@@ -1,6 +1,14 @@
 app = "jacksonbryantportfolio-v2"
 
-[[statics]]
-  guest_path = "/app"
-  url_prefix = "/"
-  fallback = "index.html"
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+
+[[services]]
+  internal_port = 80
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 80
