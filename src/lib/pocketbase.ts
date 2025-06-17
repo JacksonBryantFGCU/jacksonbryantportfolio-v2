@@ -1,6 +1,3 @@
 import PocketBase from "pocketbase";
 
-const baseUrl = import.meta.env.PB_URL;
-const pb = new PocketBase(baseUrl);
-
-export { pb, baseUrl };
+export const pb = new PocketBase("https://jacksonbryantportfolio-v2.fly.dev/")
