@@ -2,7 +2,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { pb } from "../../lib/pocketbase";
-import CertificationForm from "./certificationForm";
+import CertificationForm from "./CertificationForm";
 import type { CertificationFormValues } from "../../schemas/certificationSchema";
 import { usePocketbaseLogin } from "../../hooks/usePocketbaseLogin";
 import { toast } from "react-hot-toast";
