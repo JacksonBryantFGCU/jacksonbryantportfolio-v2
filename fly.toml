@@ -1,9 +1,6 @@
-app = "jacksonbryantportfolio-v2"  # Replace with your Fly app name
-
-[build]
-  builder = "heroku/buildpacks:20"
+app = "jacksonbryantportfolio-v2"
 
 [[statics]]
-  guest_path = "/"
+  guest_path = "/app"
   url_prefix = "/"
   fallback = "index.html"
