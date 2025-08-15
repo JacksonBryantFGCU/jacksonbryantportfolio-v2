@@ -23,7 +23,7 @@ const Technologies: React.FC = () => {
             <div
               key={tech.id}
               onMouseEnter={() => handleSelect(tech.id)}
-              onMouseLeaver={() => handleSelect(null)}
+              onMouseLeave={() => handleSelect(null)}
               onClick={() => handleSelect(activeTech === tech.id ? null : tech.id)}
               className="relative group bg-gradient-to-r from-cyan-500 to-blue-500 hover:shadow-[0_0_20px_rgba(56,178,172,0.8)] p-[2px] rounded-2xl transition-all cursor-pointer"
             >
@@ -43,4 +43,5 @@ const Technologies: React.FC = () => {
 };
 
 export default Technologies;
+
 
