@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import gsap from "gsap";
 import TechnologyDetailsPanel from "../components/TechnologyDetailsPanel";
-import { TECHNOLOGIES } from "../constants/data/technologiesData.ts";
+import { TECHNOLOGIES } from "../constants/data/technologiesData";
 
 const Technologies: React.FC = () => {
   const [activeTech, setActiveTech] = useState<string | null>(null);
@@ -43,3 +43,4 @@ const Technologies: React.FC = () => {
 };
 
 export default Technologies;
+
