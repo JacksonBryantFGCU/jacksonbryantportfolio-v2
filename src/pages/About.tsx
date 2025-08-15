@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import aboutImg from "/assets/about-me.webp";
 import gsap from "gsap";
-import { ABOUT_TEXT } from "../constants/index.ts"
-import { ABOUT_TEXT1 } from "../constants/index.ts"
+import { ABOUT_TEXT } from "../constants/index"
+import { ABOUT_TEXT1 } from "../constants/index"
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -88,3 +88,4 @@ export default function About() {
     </section>
   );
 }
+
