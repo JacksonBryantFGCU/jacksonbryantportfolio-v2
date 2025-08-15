@@ -56,8 +56,6 @@ export default function Contact() {
             rel="noopener noreferrer"
             className="text-neutral-400 hover:text-blue-400 transition-colors contact-icon"
             aria-label="Visit my Linkedin Profile"
-            loading="lazy"
-            decoding="async"
           >
             <FaLinkedin />
           </a>
@@ -67,8 +65,6 @@ export default function Contact() {
             rel="noopener noreferrer"
             className="text-neutral-400 hover:text-blue-400 transition-colors contact-icon"
             aria-label="Visit my GitHub Profile"
-            loading="lazy"
-            decoding="async"
           >
             <FaGithub />
           </a>
@@ -78,8 +74,6 @@ export default function Contact() {
             rel="noopener noreferrer"
             className="text-neutral-400 hover:text-blue-400 transition-colors contact-icon"
             aria-label="Email Jackson Bryant"
-            loading="lazy"
-            decoding="async"
           >
             <FaEnvelope />
           </a>
@@ -92,3 +86,4 @@ export default function Contact() {
     </section>
   );
 }
+
