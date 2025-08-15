@@ -65,7 +65,6 @@ export default function About() {
               className="shadow-lg rounded-2xl max-w-full h-3/4 object-cover hover:scale-105 transition-transform duration-300"
               loading="lazy"
               decoding="async"
-              alt="About image"
             />
           </div>
 
@@ -88,4 +87,5 @@ export default function About() {
     </section>
   );
 }
+
 
