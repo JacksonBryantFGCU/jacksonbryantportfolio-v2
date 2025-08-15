@@ -1,5 +1,5 @@
 import React from "react";
-import { Technology } from "../constants/data/technologiesData.ts";
+import { Technology } from "../constants/data/technologiesData";
 
 interface Props {
   tech: Technology | null;
