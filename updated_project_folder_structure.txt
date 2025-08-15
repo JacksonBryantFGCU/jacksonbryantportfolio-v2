@@ -1,0 +1,62 @@
+project-root/
+├── public/
+│   └── vite.svg
+├── src/
+│   ├── assets/
+│   │   └── about-me.jpg
+|   |   └── JB (2).png 
+|   |   └── Jackson Bryant Resume 2025.pdf
+|   |   └── Linkedin Photo.jpg
+│   ├── components/
+│   │   └── layout/
+|   |   |   └── AdminNavbar.tsx
+|   |   |   └── Navbar.tsx
+|   |   |   └── PortfolioLayout.tsx
+│   ├── hooks/
+│   │   └── useCertification.ts
+|   |   └── useExperiences.ts
+|   |   └── usePocketbaseLogin.ts
+|   |   └── useProjects.ts
+│   ├── lib/
+│   │   ├── pocketbase.ts
+│   ├── pages/
+|   |   └── admin/
+|   |   |   └──adminCertifications.tsx
+|   |   |   └──adminProjects.tsx
+|   |   |   └──CertificationForm.tsx
+|   |   |   └──EditCertification.tsx
+|   |   |   └──EditProject.tsx
+|   |   |   └──newCertification.tsx
+|   |   |   └──NewProject.tsx
+|   |   |   └──PocketBaseLoginModal.tsx
+|   |   |   └──ProjectForm.tsx
+│   │   ├── Home.tsx
+│   │   ├── Projects.tsx
+│   │   ├── About.tsx
+│   │   ├── Certifications.tsx
+│   │   └── Admin.tsx
+│   │   └── Contact.tsx
+│   │   └── Experience.tsx
+│   │   └── FullPortfolioPage.tsx
+│   │   └── Technologies.tsx
+│   ├── routes/
+│   │   └── AppRouter.tsx
+│   │   └── ProtectedAdmin.tsx
+│   ├── schemas/
+│   │   └── certificationSchema.tsx
+│   │   └── experienceSchema.tsx
+│   │   └── projectSchema.tsx
+│   ├── App.tsx
+|   ├── index.css
+│   └── main.tsx
+├── docs/
+│   ├── pocketbase-setup.md
+│   ├── clerk-auth.md
+│   └── ai-integration-plan.md
+├── .gitignore
+├── README.md
+├── ROADMAP.md
+├── CHANGELOG.md
+├── LICENSE (MIT recommended)
+├── package.json
+└── tsconfig.json
