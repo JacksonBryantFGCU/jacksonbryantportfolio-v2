@@ -5,6 +5,7 @@ import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 
 interface Props {
   project: Project;
+  onViewMore: () => void;
 }
 
 const ProjectCard: React.FC<Props> = ({ project }) => {
