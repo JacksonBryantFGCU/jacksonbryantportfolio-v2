@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Project } from "../constants/index.ts";
+import { Project } from "../constants/index";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 
