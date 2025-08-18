@@ -3,7 +3,7 @@
 A personal, dynamic, and animation-rich portfolio built with React, TypeScript, and TailwindCSS. Designed to showcase projects, resume, and contact info, with future plans for AI-powered features.
 
 ## 🚀 Live Demo
-Coming soon...
+Visit www.jacksonbryant.com
 
 ## ✨ Features
 - GSAP-powered hero animations
@@ -18,10 +18,7 @@ Coming soon...
 - TailwindCSS
 - GSAP
 - React Router DOM
-- React Query (no Axios)
-- Clerk (Authentication)
-- PocketBase (REST API backend)
-
+- Zod
 ## 📁 Folder Structure
 See `project_folder_structure.txt`
 
