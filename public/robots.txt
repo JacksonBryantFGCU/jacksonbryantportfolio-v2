@@ -1,0 +1,6 @@
+# robots.txt for https://www.jacksonbryant.com/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.jacksonbryant.com/sitemap.xml
