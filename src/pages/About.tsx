@@ -1,91 +1,105 @@
-import { useEffect, useRef } from "react";
-import aboutImg from "/assets/about-me.webp";
-import gsap from "gsap";
-import { ABOUT_TEXT } from "../constants/index"
-import { ABOUT_TEXT1 } from "../constants/index"
+import { motion } from "framer-motion";
+import aboutImg from "/about-me.webp";
+
+const coreStack = {
+  frontend: ["React", "TypeScript", "Tailwind", "Next.js"],
+  backend: ["Node", "Express", "PostgreSQL"],
+  tools: ["Git", "Docker", "Vercel"],
+};
 
 export default function About() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(containerRef.current, {
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        ease: "power2.out",
-      });
-
-      gsap.from(imageRef.current, {
-        x: 100,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: imageRef.current,
-          start: "top 80%",
-        },
-      });
-
-      gsap.from(textRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: textRef.current,
-          start: "top 80%",
-        },
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       id="about"
-      className="px-6 py-0 pt-8 border-b border-border text-white"
+      className="px-6 py-20 border-b border-neutral-800 text-white"
     >
-      <div ref={containerRef} className="mx-auto max-w-6xl">
-        {/* Section Heading */}
-        <h2 className="bg-clip-text text-white mb-20 font-sans font-bold text-transparent text-4xl text-center">
-          About <span className="text-text-muted">Me</span>
-        </h2>
-
-        <div className="flex flex-wrap justify-center items-center">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
           {/* Image */}
-          <div className="flex justify-center lg:p-8 w-full lg:w-1/2">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="w-full lg:w-1/3 flex justify-center lg:justify-start"
+          >
             <img
-              ref={imageRef}
               src={aboutImg}
               alt="About Jackson Bryant"
-              className="shadow-lg rounded-2xl max-w-full h-3/4 object-cover hover:scale-105 transition-transform duration-300"
+              className="rounded-xl shadow-xl shadow-black/20 max-w-xs w-full object-cover"
               loading="lazy"
               decoding="async"
             />
-          </div>
+          </motion.div>
 
-          {/* Text */}
-          <div className="flex justify-center lg:justify-start w-full lg:w-1/2">
-            <div
-              ref={textRef}
-              className="space-y-6 py-6 max-w-xl font-light text-gray-300 text-xl lg:text-left text-center tracking-tight"
-            >
-              <p>
-                { ABOUT_TEXT }
+          {/* Text Content */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="w-full lg:w-2/3 lg:text-left text-center"
+          >
+            {/* Section Heading */}
+            <h2 className="text-white mb-5 lg:mb-6 font-bold text-4xl md:text-5xl tracking-tight">
+              About Me
+            </h2>
+
+            {/* Single Cohesive Paragraph */}
+            <p className="text-slate-300 text-base md:text-lg leading-relaxed max-w-sm md:max-w-xl mx-auto lg:mx-0">
+              I'm a software engineer focused on frontend development and modern web technologies.
+              I build performant, user-centered applications with clean, maintainable code.
+              My work centers on creating intuitive interfaces and scalable architectures that solve real problems.
+              Currently pursuing Software Engineering at Florida Gulf Coast University, I'm actively building projects and contributing to research initiatives.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Core Stack */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-14 lg:mt-16 bg-white/[0.03] border border-white/10 rounded-xl px-7 py-10 md:p-10 backdrop-blur-sm"
+        >
+          <h3 className="text-2xl font-semibold text-slate-100 mb-8 md:mb-10 text-center lg:text-left">
+            Core Stack
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+            {/* Frontend */}
+            <div className="text-center lg:text-left">
+              <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-3">
+                Frontend
+              </h4>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                {coreStack.frontend.join(" · ")}
               </p>
-              <p>
-                { ABOUT_TEXT1 }
+            </div>
+
+            {/* Backend */}
+            <div className="text-center lg:text-left">
+              <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-3">
+                Backend
+              </h4>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                {coreStack.backend.join(" · ")}
+              </p>
+            </div>
+
+            {/* Tools */}
+            <div className="text-center lg:text-left">
+              <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-3">
+                Tools
+              </h4>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                {coreStack.tools.join(" · ")}
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
-
-

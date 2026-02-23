@@ -41,26 +41,15 @@ export const EXPERIENCES: Experience[] = [
 ];
 
 export interface Project {
-    title: string;
-    description: string;
-    image?: string;
-    demo?: string;
-    github?: string;
-    skills?: string[];
-    featured?: boolean;
-    category?: "frontend" | "backend" | "fullstack" | "other";
-    stats?: {
-        duration?: string;
-        linesOfCode?: number;
-        users?: string;
-    };
-    details?: {
-        longDescription?: string;
-        architectureImage?: string;
-        videoDemo?: string;
-        challenges?: string[];
-        solutions?: string[];
-    };
+  title: string;
+  description: string;
+  image?: string;
+  demo?: string;
+  github?: string;
+  skills?: string[];
+  featured?: boolean;
+  category?: "frontend" | "backend" | "fullstack" | "other";
+  highlights?: string[];
 }
 
 export const PROJECTS: Project[] = [
@@ -70,87 +59,51 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/JacksonBryantFGCU/arthrex-mysurgeryfrontend",
     description:
       "A patient engagement platform connecting patients to surgeons with pre/post-surgery checklists and medical information.",
-    skills: ["React", "React-Router-DOM"],
-    image: "/assets/arthrex-mysurgery.webp",
+    skills: ["React", "React Router"],
+    image: "/arthrex-mysurgery.webp",
     featured: true,
     category: "fullstack",
-    stats: {
-      duration: "3 weeks",
-      linesOfCode: 4200,
-      users: "500+ patients"
-    },
-    details: {
-      longDescription:
-        "Arthrex MySurgery is a secure web platform that bridges communication between patients and surgeons. Built with React and React-Router-DOM for a dynamic, multi-page experience. Includes role-based authentication, interactive checklists, and mobile optimization.",
-      architectureImage: "/assets/arthrex-architecture.png",
-      videoDemo: "/assets/arthrex-demo.mp4",
-      challenges: [
-        "Ensuring HIPAA compliance while storing patient data",
-        "Designing an intuitive UX for elderly patients"
-      ],
-      solutions: [
-        "Implemented encrypted API requests and secure JWT authentication",
-        "Tested interface designs with non-technical users for accessibility"
-      ]
-    }
+    highlights: [
+      "Built interactive pre/post-surgery checklists improving patient preparedness",
+      "Integrated secure patient-surgeon communication features",
+      "Deployed production app serving real medical practice users"
+    ],
   },
   {
-    title: "Sunstone Pickleball Website",
-    image: "/assets/sunstone-pickleball.webp",
+    title: "Sunstone Pickleball",
+    image: "/sunstone-pickleball.webp",
     description:
       "A community hub for the Sunstone Pickleball Club with a gallery, player profiles, events calendar, and contact system.",
-    skills: ["React", "Tailwind CSS", "React-Router", "Framer Motion"],
+    skills: ["React", "Tailwind", "React Router", "Framer Motion"],
     demo: "https://www.sunstonepickleball.com",
     github: "https://github.com/JacksonBryantFGCU/SunstonePickleballClub",
-    featured: false,
+    featured: true,
     category: "frontend",
-    stats: {
-      duration: "2 weeks",
-      linesOfCode: 2100,
-      users: "80+ club members"
-    },
-    details: {
-      longDescription:
-        "A responsive and visually appealing website for the Sunstone Pickleball Club. Built with React and styled using Tailwind CSS, it features smooth animations with Framer Motion and an easy-to-use navigation system via React Router.",
-      architectureImage: "/assets/sunstone-architecture.png",
-      videoDemo: "/assets/sunstone-demo.mp4",
-      challenges: ["Creating a mobile-friendly events calendar", "Optimizing image-heavy gallery for fast load times"],
-      solutions: [
-        "Integrated a responsive React calendar component",
-        "Implemented lazy-loading for gallery images"
-      ]
-    }
+    highlights: [
+      "Designed responsive gallery with optimized image loading",
+      "Built dynamic events calendar with filtering capabilities",
+      "Implemented smooth page transitions with Framer Motion"
+    ],
   },
   {
     title: "Portfolio Website",
-    image: "/assets/project2.webp",
+    image: "/project2.webp",
     description:
       "A personal portfolio showcasing projects, skills, and animations with Framer Motion and GSAP.",
-    skills: ["React", "Tailwind CSS", "TypeScript", "GSAP", "Zod"],
+    skills: ["React", "Tailwind", "TypeScript", "GSAP"],
     demo: "https://jacksonbryantportfolio.netlify.app/",
     github: "https://github.com/JacksonBryantFGCU/portfolio",
-    featured: true,
+    featured: false,
     category: "frontend",
-    stats: {
-      duration: "Ongoing",
-      linesOfCode: 3000,
-      users: "Recruiters & employers"
-    },
-    details: {
-      longDescription:
-        "This portfolio is a living project showcasing my growth as a developer. It integrates Framer Motion for smooth section animations, GSAP for scroll-based effects, and a custom-built component system to ensure consistency and scalability.",
-      architectureImage: "/assets/portfolio-architecture.png",
-      videoDemo: "/assets/portfolio-demo.mp4",
-      challenges: ["Maintaining performance with multiple animations", "Keeping design consistent across sections"],
-      solutions: [
-        "Optimized animations with lazy-loaded motion components",
-        "Created a global design system with Tailwind utilities"
-      ]
-    }
+    highlights: [
+      "Crafted smooth scroll animations using GSAP ScrollTrigger",
+      "Built fully responsive design with mobile-first approach",
+      "Implemented form validation with Zod schema validation"
+    ],
   },
   {
-    title: "Upgrades by Taylor Website",
-    image: "/assets/project1.webp",
+    title: "Upgrades by Taylor",
+    image: "/project1.webp",
     description:
       "A small business website with an image gallery, contact form, and testimonial carousel.",
     skills: ["HTML", "CSS", "JavaScript", "FormSpree"],
@@ -158,19 +111,11 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/JacksonBryantFGCU/UpgradesbyTaylor",
     featured: false,
     category: "frontend",
-    stats: {
-      duration: "1 week",
-      linesOfCode: 800,
-      users: "Local business clients"
-    },
-    details: {
-      longDescription:
-        "A simple but effective static website for a small business, designed to showcase their services with a clean gallery, an easy contact form, and a rotating testimonials section.",
-      architectureImage: "/assets/upgrades-architecture.png",
-      videoDemo: "/assets/upgrades-demo.mp4",
-      challenges: ["Ensuring fast load speed without a framework"],
-      solutions: ["Minified assets and optimized image sizes"]
-    }
+    highlights: [
+      "Delivered complete business website for local client",
+      "Built custom testimonial carousel with vanilla JavaScript",
+      "Integrated FormSpree for seamless contact form submissions"
+    ],
   }
 ];
 
@@ -190,7 +135,7 @@ export const CERTIFICATIONS: Certification[] = [
     issuer: "The Linux Foundation",
     issueDate: "May 2024",
     credentialUrl: "https://freecodecamp.org/cert-link",
-    image: "assets/Screenshot 2025-04-06 190947.webp",
+    image: "/Screenshot 2025-04-06 190947.webp",
   },
   {
     id: "2",
@@ -198,7 +143,7 @@ export const CERTIFICATIONS: Certification[] = [
     issuer: "freeCodeCamp",
     issueDate: "March 2024",
     credentialUrl: "https://freecodecamp.org/cert-link",
-    image: "assets/Screenshot 2025-04-06 191010.webp",
+    image: "/Screenshot 2025-04-06 191010.webp",
   },
 ];
 
@@ -214,3 +159,24 @@ export const CONTACT: Contact = {
   email: "jackbryant5589@gmail.com"
 };
 
+export interface Leadership {
+  role: string;
+  organization: string;
+  year: string;
+  description: string;
+}
+
+export const LEADERSHIP: Leadership[] = [
+  {
+    role: "Student Math Tutor",
+    organization: "FGCU Center for Academic Achievement",
+    year: "2024 - Present",
+    description: "Mentor and guide students through complex mathematical concepts, developing communication skills and reinforcing my own understanding through teaching."
+  },
+  {
+    role: "Research Team Lead",
+    organization: "FGCU WEF Simulation Project",
+    year: "2024 - Present",
+    description: "Lead development efforts on an Unreal Engine simulation, coordinating with faculty advisors and managing project milestones."
+  }
+];

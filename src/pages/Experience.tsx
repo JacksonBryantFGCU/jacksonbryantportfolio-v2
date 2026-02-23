@@ -1,132 +1,58 @@
 // src/pages/Experience.tsx
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { EXPERIENCES } from "../constants/index";
-
-type ExperienceType = {
-  year: string;
-  role: string;
-  company: string;
-  description: string;
-  skills: string[];
-};
+import { EXPERIENCES, LEADERSHIP } from "../constants/index";
+import { Users } from "lucide-react";
 
 export default function Experience() {
-  const [experiences, setExperiences] = useState<ExperienceType[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    try {
-      setTimeout(() => {
-        setExperiences(EXPERIENCES);
-        setIsLoading(false);
-      }, 500);
-    } catch (err) {
-      console.error("Failed to load experiences:", err);
-      setIsError(true);
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (sectionRef.current && experiences.length > 0) {
-      const items = sectionRef.current.querySelectorAll(".timeline-item");
-
-      items.forEach((item, index) => {
-        const isEven = index % 2 === 0;
-        gsap.fromTo(
-          item,
-          {
-            opacity: 0,
-            x: isEven ? -50 : 50,
-            y: 30,
-          },
-          {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            delay: index * 0.15,
-          }
-        );
-      });
-    }
-  }, [experiences]);
-  
   return (
     <section
-      id="experiences"
-      ref={sectionRef}
-      className="min-h-screen text-white px-6 pt-20 pb-0 scroll-mt-32"
+      id="experience"
+      className="text-white px-6 pt-20 pb-16 scroll-mt-32"
     >
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
           Experience
         </h2>
+        <p className="text-center text-gray-400 mb-16">& Campus Involvement</p>
 
-        {isLoading && (
-          <div className="flex justify-center items-center min-h-[400px]">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"></div>
-          </div>
-        )}
-
-        {isError && (
-          <div className="text-center py-20">
-            <p className="text-red-400 text-lg mb-4">Failed to load experiences.</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg transition-colors"
-            >
-              Try Again
-            </button>
-          </div>
-        )}
-
-        {!isLoading && !isError && experiences.length === 0 && (
+        {/* Work Experience Timeline */}
+        {EXPERIENCES.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-gray-400 text-lg">No experiences found.</p>
           </div>
-        )}
-
-        {!isLoading && !isError && experiences.length > 0 && (
+        ) : (
           <div className="relative">
-            {/* Timeline line - perfectly centered */}
-            <div className="absolute  md:left-1/2 h-full w-0.5 bg-cyan-400/30 transform -translate-x-1/2"></div>
-            
-            {experiences.map((exp, index) => {
+            {/* Timeline line */}
+            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 timeline-line md:-translate-x-1/2"></div>
+
+            {EXPERIENCES.map((exp, index) => {
               const { role, company, year, description, skills } = exp;
               const isEven = index % 2 === 0;
 
               return (
-                <div 
-                  key={index} 
-                  className={`timeline-item mb-12 w-full pl-16 md:pl-0 ${isEven ? "md:pr-[50%] md:pr-8" : "md:pl-[50%] md:pl-8"}`}
+                <div
+                  key={index}
+                  className={`relative mb-12 w-full pl-16 md:pl-0 ${isEven ? "md:pr-[50%]" : "md:pl-[50%]"}`}
                 >
-                  {/* Timeline dot - perfectly centered */}
-                  <div className="absolute left-0 md:left-1/2 top-1 w-4 h-4 rounded-full bg-cyan-400 border-2 border-cyan-300 transform -translate-x-1/2"></div>
-                  
-                  <div className={`relative ${isEven ? "md:text-right md:pr-4" : "md:text-left md:pl-4"}`}>
-                    <span className="text-sm font-medium text-cyan-300">{year}</span>
+                  {/* Timeline dot */}
+                  <div className="absolute left-6 md:left-1/2 top-1 w-4 h-4 rounded-full timeline-dot border-2 -translate-x-1/2"></div>
+
+                  <div className={`${isEven ? "md:text-right md:pr-8" : "md:text-left md:pl-8"}`}>
+                    <span className="text-sm font-medium text-accent-cyan-light">{year}</span>
                     <h3 className="text-xl font-semibold text-white mt-1 mb-1">
                       {role}
                     </h3>
-                    <p className="text-gray-300 text-sm mb-3">
-                      {company}
-                    </p>
-                    
+                    <p className="text-gray-300 text-sm mb-3">{company}</p>
+
                     <p className="text-gray-400 mb-4 text-sm leading-relaxed break-words">
                       {description}
                     </p>
-                    
+
                     {skills && skills.length > 0 && (
                       <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
                         {skills.map((skill: string, i: number) => (
                           <span
                             key={i}
-                            className="px-3 py-1 text-xs font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 rounded-full"
+                            className="px-3 py-1 text-xs font-medium skill-badge border rounded-full"
                           >
                             {skill}
                           </span>
@@ -137,6 +63,49 @@ export default function Experience() {
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {/* Campus Involvement Section */}
+        {LEADERSHIP.length > 0 && (
+          <div className="mt-16 pt-12 border-t border-neutral-800">
+            <h3 className="text-2xl font-semibold text-white mb-10 text-center">
+              Campus Involvement
+            </h3>
+
+            <div className="grid gap-6">
+              {LEADERSHIP.map((item, index) => (
+                <article
+                  key={index}
+                  className="relative p-[1px] rounded-xl overflow-hidden gradient-border"
+                >
+                  <div className="flex gap-4 bg-neutral-900 rounded-xl p-6">
+                    <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-cyan-500/10 border border-cyan-500/20">
+                      <Users size={20} className="text-cyan-400" />
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                        <h4 className="text-lg font-semibold text-white">
+                          {item.role}
+                        </h4>
+                        <span className="text-sm text-gray-400">
+                          {item.organization}
+                        </span>
+                      </div>
+
+                      <span className="inline-block text-xs font-medium text-cyan-400 mb-3">
+                        {item.year}
+                      </span>
+
+                      <p className="text-gray-400 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         )}
       </div>

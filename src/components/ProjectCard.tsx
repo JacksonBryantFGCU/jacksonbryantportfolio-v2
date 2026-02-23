@@ -1,56 +1,55 @@
-import React, { useState } from "react";
+import React from "react";
 import { Project } from "../constants/index";
-import { motion, AnimatePresence } from "framer-motion";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { Info } from "lucide-react";
 
 interface Props {
   project: Project;
-  onViewMore: () => void;
+  onDetailsClick?: () => void;
 }
 
-const ProjectCard: React.FC<Props> = ({ project }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const ProjectCard: React.FC<Props> = ({ project, onDetailsClick }) => {
+  // Limit badges to 4 max
+  const displayedSkills = project.skills?.slice(0, 4) || [];
 
   return (
     <article
-      className={`relative w-full p-[2px] rounded-xl overflow-hidden transition-all duration-300 ${
-        project.featured
-          ? "bg-gradient-to-r from-cyan-500 to-blue-500 shadow-lg shadow-cyan-500/40"
-          : "bg-gradient-to-r from-gray-700 to-gray-900"
-      }`}
+      className="group relative w-full bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-5 h-full flex flex-col transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:border-white/20"
     >
-      <div className="relative flex flex-col gap-4 bg-[#15181F] rounded-xl p-6 h-full">
-        {/* Title + Links */}
-        <header>
-          <h3 className="text-xl sm:text-2xl font-semibold text-white">
-            {project.title}
-          </h3>
-          <div className="flex space-x-2 mt-2">
-            {project.demo && (
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-xl bg-cyan-600 px-3 py-1 text-xs text-gray-300 font-medium hover:bg-cyan-900 hover:underline transition"
-              >
-                Demo <FaExternalLinkAlt size={12} />
-              </a>
-            )}
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-xl bg-cyan-600 hover:bg-cyan-700 px-3 py-1 text-xs text-gray-300 font-medium transition"
-              >
-                GitHub <FaGithub size={12} />
-              </a>
-            )}
-          </div>
-        </header>
+      {/* Featured Label */}
+      {project.featured && (
+        <span className="text-xs font-medium uppercase tracking-wider text-blue-400 mb-2">
+          Featured
+        </span>
+      )}
 
-        {/* Image */}
-        {project.image && (
+      {/* Project Title */}
+      <h3 className="text-xl md:text-2xl font-bold text-slate-50 tracking-tight mb-1.5 line-clamp-1">
+        {project.title}
+      </h3>
+
+      {/* Short Description */}
+      <p className="text-slate-400 text-sm leading-relaxed mb-3 line-clamp-2 md:line-clamp-2">
+        {project.description}
+      </p>
+
+      {/* Tech Stack Badges */}
+      {displayedSkills.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {displayedSkills.map((skill, idx) => (
+            <span
+              key={idx}
+              className="bg-white/[0.07] border border-white/10 text-slate-300 text-xs px-2.5 py-0.5 rounded-full"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Screenshot */}
+      {project.image && (
+        <div className="aspect-video rounded-xl overflow-hidden mb-3 bg-slate-900/50 border border-white/10 transition-shadow duration-300 group-hover:shadow-lg">
           <img
             loading="lazy"
             src={project.image}
@@ -58,117 +57,41 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
             onError={(e) => {
               e.currentTarget.src = "/fallback-image.png";
             }}
-            className="transition-transform duration-300 hover:scale-105 mt-2 rounded-lg object-contain w-full h-auto"
+            className="w-full h-full object-contain"
           />
+        </div>
+      )}
+
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-2 mt-auto">
+        {project.demo && (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm px-3.5 py-1.5 rounded-full shadow-md hover:brightness-110 hover:-translate-y-[1px] hover:shadow-lg transition-all duration-200"
+          >
+            Live Demo <FaExternalLinkAlt size={10} />
+          </a>
         )}
-
-        {/* Short Description */}
-        <p className="text-gray-300">{project.description}</p>
-
-        {/* Skills */}
-        {Array.isArray(project.skills) && project.skills.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {project.skills.map((skill, idx) => (
-              <span
-                key={idx}
-                className="bg-cyan-600 text-white text-xs font-medium px-3 py-1 rounded-full"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/10 text-white text-sm px-3.5 py-1.5 rounded-full hover:bg-white/[0.12] transition-all duration-200"
+          >
+            GitHub <FaGithub size={12} />
+          </a>
         )}
-
-        {/* Stats Badges */}
-        {project.stats && (
-          <div className="flex flex-wrap gap-2 mt-3">
-            {project.stats.duration && (
-              <span className="bg-[#1E2230] border border-cyan-500 text-xs text-cyan-400 px-2 py-1 rounded-lg">
-                ⏳ {project.stats.duration}
-              </span>
-            )}
-            {project.stats.linesOfCode && (
-              <span className="bg-[#1E2230] border border-blue-500 text-xs text-blue-400 px-2 py-1 rounded-lg">
-                📄 {project.stats.linesOfCode.toLocaleString()} LOC
-              </span>
-            )}
-            {project.stats.users && (
-              <span className="bg-[#1E2230] border border-purple-500 text-xs text-purple-400 px-2 py-1 rounded-lg">
-                👥 {project.stats.users}
-              </span>
-            )}
-          </div>
+        {onDetailsClick && (
+          <button
+            onClick={onDetailsClick}
+            className="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/10 text-slate-300 text-sm px-3.5 py-1.5 rounded-full hover:bg-white/[0.12] hover:text-white transition-all duration-200"
+          >
+            Details <Info size={12} />
+          </button>
         )}
-
-        {/* View More Toggle */}
-        <button
-          onClick={() => setIsExpanded((prev) => !prev)}
-          className="mt-4 w-fit text-sm text-cyan-400 hover:underline"
-        >
-          {isExpanded ? "Hide Details" : "View More"}
-        </button>
-
-        {/* Expanded Details */}
-        <AnimatePresence>
-          {isExpanded && project.details && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="mt-4 overflow-hidden"
-            >
-              {/* Long Description */}
-              {project.details.longDescription && (
-                <p className="text-gray-300 mb-4">
-                  {project.details.longDescription}
-                </p>
-              )}
-
-              {/* Architecture Image */}
-              {project.details.architectureImage && (
-                <img
-                  src={project.details.architectureImage}
-                  alt="Architecture Diagram"
-                  className="rounded-lg mb-4"
-                />
-              )}
-
-              {/* Video Demo */}
-              {project.details.videoDemo && (
-                <video
-                  controls
-                  className="w-full rounded-lg mb-4"
-                  src={project.details.videoDemo}
-                />
-              )}
-
-              {/* Challenges */}
-              {project.details.challenges && (
-                <>
-                  <h4 className="text-white font-medium mb-1">Challenges</h4>
-                  <ul className="list-disc list-inside text-gray-400 mb-4">
-                    {project.details.challenges.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-
-              {/* Solutions */}
-              {project.details.solutions && (
-                <>
-                  <h4 className="text-white font-medium mb-1">Solutions</h4>
-                  <ul className="list-disc list-inside text-gray-400">
-                    {project.details.solutions.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </article>
   );

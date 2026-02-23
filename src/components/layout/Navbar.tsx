@@ -1,192 +1,202 @@
-// src/pages/Navbar.tsx
-import { useEffect, useRef, useState } from "react";
+// src/components/layout/Navbar.tsx
+import { useEffect, useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
-import { Menu, X } from "lucide-react";
-import gsap from "gsap";
-import logo from "/assets/Jb (2).webp";
+import { motion } from "framer-motion";
+import { User, FolderOpen, Briefcase, Award, Mail } from "lucide-react";
+import resumePDF from "/JacksonBryantResume2025.pdf";
 
-const navItems = [
-  { label: "Home", id: "home" },
+// Desktop nav items
+const desktopNavItems = [
   { label: "About", id: "about" },
-  { label: "Technologies", id: "tech" }, // Update this ID if needed
   { label: "Projects", id: "projects" },
+  { label: "Experience", id: "experience" },
   { label: "Certifications", id: "certifications" },
-  { label: "Experiences", id: "experiences" },
   { label: "Contact", id: "contact" },
 ];
 
+// Mobile nav items
+const mobileNavItems = [
+  { label: "About", id: "about", icon: User },
+  { label: "Projects", id: "projects", icon: FolderOpen },
+  { label: "Experience", id: "experience", icon: Briefcase },
+  { label: "Certs", id: "certifications", icon: Award },
+  { label: "Contact", id: "contact", icon: Mail },
+];
+
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const [activeItem, setActiveItem] = useState("home");
+  const [activeItem, setActiveItem] = useState("about");
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleMenu = () => setIsOpen((prev) => !prev);
-
-  // Debug function to check what sections actually exist
-  useEffect(() => {
-    const checkSections = () => {
-      console.log("=== SECTION DEBUG ===");
-      navItems.forEach(item => {
-        const element = document.getElementById(item.id);
-        console.log(`${item.label} (looking for id="${item.id}"):`, element ? "✅ FOUND" : "❌ NOT FOUND");
-        if (!element) {
-          // Try to find what IDs actually exist that might match
-          const allIds = Array.from(document.querySelectorAll('[id]')).map(el => el.id);
-          const possibleMatches = allIds.filter(id => 
-            id.toLowerCase().includes(item.label.toLowerCase().substring(0, 4))
-          );
-          if (possibleMatches.length > 0) {
-            console.log(`  Possible matches for ${item.label}:`, possibleMatches);
-          }
-        }
-      });
-      console.log("=== END DEBUG ===");
-    };
-
-    // Run debug after a short delay to ensure DOM is loaded
-    setTimeout(checkSections, 1000);
-  }, []);
-
-  // Simple scroll detection
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 150;
-      
-      const sections = navItems
-        .map(item => {
+      // Check if scrolled past threshold for enhanced styling
+      setIsScrolled(window.scrollY > 20);
+
+      // Check if near bottom of page
+      const isNearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+      if (isNearBottom) {
+        setActiveItem("contact");
+        return;
+      }
+
+      // Get all sections with their positions
+      const sections = desktopNavItems
+        .map((item) => {
           const element = document.getElementById(item.id);
           if (!element) return null;
-          
+          const rect = element.getBoundingClientRect();
           return {
             name: item.id,
-            offsetTop: element.offsetTop,
-            offsetBottom: element.offsetTop + Math.max(element.offsetHeight, 100) // Ensure minimum height for detection
+            top: rect.top,
+            bottom: rect.bottom,
           };
         })
-        .filter(Boolean)
-        .sort((a, b) => a!.offsetTop - b!.offsetTop);
+        .filter(Boolean) as { name: string; top: number; bottom: number }[];
 
       if (sections.length === 0) return;
 
-      // Find which section we're currently in
-      let currentSection = sections[0]!.name;
-      
-      for (const section of sections) {
-        if (scrollPosition >= section!.offsetTop && scrollPosition < section!.offsetBottom) {
-          currentSection = section!.name;
-          break;
-        }
-        // If we've passed this section's bottom, it could still be the active one
-        if (scrollPosition >= section!.offsetTop) {
-          currentSection = section!.name;
-        }
-      }
+      // Find the section that is most in view
+      // A section is "active" if its top is above the threshold (200px from top)
+      // and it's the last one to meet this criteria
+      const threshold = 200;
+      let currentSection = sections[0].name;
 
-      // Special case: if we're near the bottom of the page, activate contact
-      const isNearBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 100);
-      if (isNearBottom) {
-        currentSection = "contact";
+      for (const section of sections) {
+        if (section.top <= threshold) {
+          currentSection = section.name;
+        }
       }
 
       setActiveItem(currentSection);
     };
 
-    handleScroll(); // Initial check
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (isOpen && menuRef.current) {
-      gsap.fromTo(
-        menuRef.current,
-        { x: "100%", opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
-      );
-    }
-  }, [isOpen]);
-
   return (
-    <header className="top-0 z-50 fixed bg-background-dark border-b border-border w-full text-white">
-      <nav className="flex justify-between items-center px-6 py-4 h-24">
-        {/* Logo */}
-        <img 
-          src={logo} 
-          alt="Jackson Bryant's portfolio logo" 
-          className="object-contain" 
-          loading="eager" 
-          fetchPriority="high" 
-          width="64" 
-          height="64"
-        />
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8 font-medium text-xl">
-        <ul className="flex items-center gap-8">
-          {navItems.map((item) => (
-            <li key={item.label}>
-              <ScrollLink
-                to={item.id}
-                smooth
-                duration={600}
-                offset={-100}
-                className={`hover:text-blue-400 transition-colors cursor-pointer ${
-                  activeItem === item.id ? "text-blue-400" : ""
-                }`}
-                title={`Maps to ${item.label} section`}
-              >
-                {item.label}
-              </ScrollLink>
-            </li>
-          ))}
-        </ul>
-        </div>
-
-        {/* Mobile Toggle */}
-        {!isOpen && (
-          <button
-            onClick={toggleMenu}
-            className="md:hidden z-[100] text-white"
-            aria-label="Open menu"
-            aria-expanded={isOpen}
-          >
-            <Menu size={28} />
-          </button>
-        )}
-      </nav>
-
-      {/* Mobile Drawer */}
-      {isOpen && (
-        <div
-          ref={menuRef}
-          className="z-40 fixed inset-0 flex flex-col justify-center items-center gap-10 bg-background-dark text-white text-3xl"
+    <>
+      {/* ============================================ */}
+      {/* DESKTOP NAVIGATION */}
+      {/* ============================================ */}
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="fixed top-6 inset-x-0 z-50 hidden md:flex justify-center items-center gap-5"
+      >
+        {/* Navigation Pill */}
+        <nav
+          className={`
+            flex items-center gap-10 px-8 rounded-full border shadow-lg
+            transition-all duration-300
+            ${isScrolled
+              ? "py-2.5 bg-slate-900/70 backdrop-blur-xl border-white/15 shadow-xl"
+              : "py-3 bg-slate-900/50 backdrop-blur-lg border-white/10"
+            }
+          `}
         >
-          <button
-            onClick={toggleMenu}
-            className="top-6 right-6 absolute text-white"
-            aria-label="Close menu"
-            aria-expanded={isOpen}
-          >
-            <X size={32} />
-          </button>
-          {navItems.map((item) => (
+          {desktopNavItems.map((item) => (
             <ScrollLink
               key={item.label}
               to={item.id}
               smooth
               duration={600}
               offset={-100}
-              onClick={toggleMenu}
-              className={`hover:text-blue-400 transition-colors cursor-pointer ${
-                activeItem === item.id ? "text-blue-400" : ""
-              }`}
-              title={`Maps to ${item.label} section`}
+              className="relative cursor-pointer group flex flex-col items-center"
             >
-              {item.label}
+              <span
+                className={`
+                  text-base font-medium transition-all duration-300 ease-out inline-block
+                  ${activeItem === item.id
+                    ? "text-blue-400"
+                    : "text-slate-300 group-hover:text-white group-hover:-translate-y-[1px]"
+                  }
+                `}
+              >
+                {item.label}
+              </span>
+
+              {/* Active underline indicator */}
+              {activeItem === item.id && (
+                <motion.span
+                  layoutId="desktopActiveIndicator"
+                  className="absolute -bottom-1.5 left-0 right-0 mx-auto w-5 h-0.5 bg-blue-400 rounded-full"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
             </ScrollLink>
           ))}
+        </nav>
+
+        {/* Resume Button - Outside pill */}
+        <a
+          href={resumePDF}
+          download="Jackson Bryant Resume 2025.pdf"
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600/90 hover:bg-blue-500/90 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
+        >
+          Resume
+        </a>
+      </motion.header>
+
+      {/* ============================================ */}
+      {/* MOBILE BOTTOM DOCK */}
+      {/* ============================================ */}
+      <motion.nav
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-center pb-4 pt-2 bg-gradient-to-t from-slate-950/80 to-transparent"
+        style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
+      >
+        <div className="flex justify-between items-center gap-2 px-5 py-2.5 bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
+          {mobileNavItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <ScrollLink
+                key={item.label}
+                to={item.id}
+                smooth
+                duration={600}
+                offset={-80}
+                className="relative flex flex-col items-center gap-0.5 px-2 py-1 cursor-pointer group"
+              >
+                <Icon
+                  size={18}
+                  className={`
+                    transition-all duration-300
+                    ${activeItem === item.id
+                      ? "text-blue-400"
+                      : "text-slate-400 group-hover:text-white"
+                    }
+                  `}
+                />
+                <span
+                  className={`
+                    text-[10px] font-medium transition-all duration-300
+                    ${activeItem === item.id
+                      ? "text-blue-400"
+                      : "text-slate-400 group-hover:text-white"
+                    }
+                  `}
+                >
+                  {item.label}
+                </span>
+
+                {/* Active underline indicator */}
+                {activeItem === item.id && (
+                  <motion.span
+                    layoutId="mobileActiveIndicator"
+                    className="absolute -bottom-0.5 left-0 right-0 mx-auto w-4 h-0.5 bg-blue-400 rounded-full"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+              </ScrollLink>
+            );
+          })}
         </div>
-      )}
-    </header>
+      </motion.nav>
+    </>
   );
 }

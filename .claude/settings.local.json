@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm ls:*)",
+      "Bash(npm install:*)",
+      "Bash(npm_config_platform=win32 npm_config_arch=x64 npm install @rollup/rollup-win32-x64-msvc@4.58.0)",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\jackb\\\\Documents\\\\jacksonbryantportfolio-v2''; npm install @rollup/rollup-win32-x64-msvc@4.58.0\")",
+      "Bash(npm run dev:*)",
+      "Bash(node scripts/fix-rollup.js:*)",
+      "Bash(npm run build:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npx tsc:*)"
+    ]
+  }
+}

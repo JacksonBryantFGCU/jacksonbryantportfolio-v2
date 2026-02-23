@@ -18,20 +18,23 @@ const ProjectFilterBar: React.FC<Props> = ({
   onCategoryChange,
 }) => {
   return (
-    <div className="flex justify-center gap-4 mb-8 flex-wrap">
-      {categories.map((cat) => (
-        <button
-          key={cat.value}
-          onClick={() => onCategoryChange(cat.value)}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-            selectedCategory === cat.value
-              ? "bg-cyan-600 text-white"
-              : "bg-[#1E2230] text-gray-300 hover:bg-cyan-700"
-          }`}
-        >
-          {cat.label}
-        </button>
-      ))}
+    <div className="pb-6 mb-6 border-b border-white/10">
+      {/* Filter Tabs */}
+      <div className="flex justify-center gap-2 flex-wrap">
+        {categories.map((cat) => (
+          <button
+            key={cat.value}
+            onClick={() => onCategoryChange(cat.value)}
+            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              selectedCategory === cat.value
+                ? "bg-white/[0.15] text-white border border-white/20 shadow-sm"
+                : "bg-white/5 text-slate-300 border border-transparent hover:bg-white/10 hover:text-white"
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
