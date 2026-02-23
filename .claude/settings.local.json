@@ -9,7 +9,8 @@
       "Bash(node scripts/fix-rollup.js:*)",
       "Bash(npm run build:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(dir:*)"
     ]
   }
 }

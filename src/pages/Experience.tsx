@@ -1,111 +1,118 @@
 // src/pages/Experience.tsx
-import { EXPERIENCES, LEADERSHIP } from "../constants/index";
-import { Users } from "lucide-react";
+import { useMemo } from "react";
+import { motion } from "framer-motion";
+import { EXPERIENCE_ENTRIES, ExperienceEntry } from "../constants/index";
+
+// Format date display
+const formatDateRange = (startYear: number, endYear: number | null): string => {
+  const end = endYear === null ? "Present" : endYear.toString();
+  return `${startYear} – ${end}`;
+};
 
 export default function Experience() {
+  // Sort entries: by startYear (desc), then work before leadership if same year
+  const sortedEntries = useMemo<ExperienceEntry[]>(() => {
+    return [...EXPERIENCE_ENTRIES].sort((a, b) => {
+      // Sort by startYear descending
+      if (b.startYear !== a.startYear) {
+        return b.startYear - a.startYear;
+      }
+      // If same year, work comes before leadership
+      if (a.type === "work" && b.type === "leadership") return -1;
+      if (a.type === "leadership" && b.type === "work") return 1;
+      return 0;
+    });
+  }, []);
+
   return (
     <section
       id="experience"
-      className="text-white px-6 pt-20 pb-16 scroll-mt-32"
+      className="text-white px-6 py-24 border-b border-neutral-800 scroll-mt-32"
     >
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
-          Experience
-        </h2>
-        <p className="text-center text-gray-400 mb-16">& Campus Involvement</p>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <h2 className="text-4xl md:text-5xl font-semibold text-white tracking-tight">
+            Experience & Leadership
+          </h2>
+          <p className="text-slate-400 mt-2 text-sm">
+            Professional Work, Research & Campus Impact
+          </p>
+        </motion.div>
 
-        {/* Work Experience Timeline */}
-        {EXPERIENCES.length === 0 ? (
+        {/* Entry Cards */}
+        {sortedEntries.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-400 text-lg">No experiences found.</p>
+            <p className="text-slate-400 text-lg">No entries found.</p>
           </div>
         ) : (
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 timeline-line md:-translate-x-1/2"></div>
-
-            {EXPERIENCES.map((exp, index) => {
-              const { role, company, year, description, skills } = exp;
-              const isEven = index % 2 === 0;
+          <div className="space-y-8">
+            {sortedEntries.map((entry, index) => {
+              const displayedTags = entry.tags?.slice(0, 3) || [];
+              const isWork = entry.type === "work";
 
               return (
-                <div
-                  key={index}
-                  className={`relative mb-12 w-full pl-16 md:pl-0 ${isEven ? "md:pr-[50%]" : "md:pl-[50%]"}`}
+                <motion.article
+                  key={`${entry.title}-${index}`}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 transition-all duration-300 hover:bg-white/[0.07]"
                 >
-                  {/* Timeline dot */}
-                  <div className="absolute left-6 md:left-1/2 top-1 w-4 h-4 rounded-full timeline-dot border-2 -translate-x-1/2"></div>
+                  {/* Type Badge */}
+                  <span
+                    className={`inline-block text-xs font-medium uppercase tracking-wide px-2 py-0.5 rounded-full mb-3 ${
+                      isWork
+                        ? "bg-blue-500/10 text-blue-400 border border-blue-400/20"
+                        : "bg-purple-500/10 text-purple-400 border border-purple-400/20"
+                    }`}
+                  >
+                    {isWork ? "Work" : "Leadership"}
+                  </span>
 
-                  <div className={`${isEven ? "md:text-right md:pr-8" : "md:text-left md:pl-8"}`}>
-                    <span className="text-sm font-medium text-accent-cyan-light">{year}</span>
-                    <h3 className="text-xl font-semibold text-white mt-1 mb-1">
-                      {role}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-3">{company}</p>
+                  {/* Date */}
+                  <p className="text-sm text-slate-400 tracking-wide mb-2">
+                    {formatDateRange(entry.startYear, entry.endYear)}
+                  </p>
 
-                    <p className="text-gray-400 mb-4 text-sm leading-relaxed break-words">
-                      {description}
-                    </p>
+                  {/* Title */}
+                  <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-tight">
+                    {entry.title}
+                  </h3>
 
-                    {skills && skills.length > 0 && (
-                      <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
-                        {skills.map((skill: string, i: number) => (
-                          <span
-                            key={i}
-                            className="px-3 py-1 text-xs font-medium skill-badge border rounded-full"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
+                  {/* Organization */}
+                  <p className="text-slate-400 text-sm mb-4">
+                    {entry.organization}
+                  </p>
+
+                  {/* Description */}
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    {entry.description}
+                  </p>
+
+                  {/* Tags */}
+                  {displayedTags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {displayedTags.map((tag, i) => (
+                        <span
+                          key={i}
+                          className="bg-white/5 border border-white/10 text-slate-300 text-xs px-3 py-1 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </motion.article>
               );
             })}
-          </div>
-        )}
-
-        {/* Campus Involvement Section */}
-        {LEADERSHIP.length > 0 && (
-          <div className="mt-16 pt-12 border-t border-neutral-800">
-            <h3 className="text-2xl font-semibold text-white mb-10 text-center">
-              Campus Involvement
-            </h3>
-
-            <div className="grid gap-6">
-              {LEADERSHIP.map((item, index) => (
-                <article
-                  key={index}
-                  className="relative p-[1px] rounded-xl overflow-hidden gradient-border"
-                >
-                  <div className="flex gap-4 bg-neutral-900 rounded-xl p-6">
-                    <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                      <Users size={20} className="text-cyan-400" />
-                    </div>
-
-                    <div className="flex-1">
-                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
-                        <h4 className="text-lg font-semibold text-white">
-                          {item.role}
-                        </h4>
-                        <span className="text-sm text-gray-400">
-                          {item.organization}
-                        </span>
-                      </div>
-
-                      <span className="inline-block text-xs font-medium text-cyan-400 mb-3">
-                        {item.year}
-                      </span>
-
-                      <p className="text-gray-400 text-sm leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
           </div>
         )}
       </div>

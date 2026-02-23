@@ -8,35 +8,52 @@ export const ABOUT_TEXT1: string = `I am currently a sophomore at Florida Gulf C
 
 Outside of coding, I enjoy playing the piano, exploring emerging technologies, and contributing to open-source projects.`;
 
-export interface Experience {
-  year: string;
-  role: string;
-  company: string;
+export interface ExperienceEntry {
+  title: string;
+  organization: string;
   description: string;
-  skills: string[];
+  startYear: number;
+  endYear: number | null; // null = present
+  type: "work" | "leadership";
+  tags?: string[];
 }
 
-export const EXPERIENCES: Experience[] = [
+export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
   {
-    year: "2024 - Present",
-    role: "Student Math Tutor",
-    company: "FGCU",
+    title: "Student Math Tutor",
+    organization: "FGCU",
     description: "Helped students in math topics ranging from Algebra to Calculus III. Worked with students on homework, classwork, and various topics by providing guidance and clarification as needed.",
-    skills: ["Problem Solving", "Communication", "Math"]
+    startYear: 2024,
+    endYear: null,
+    type: "work",
+    tags: ["Problem Solving", "Communication", "Math"]
   },
   {
-    year: "2024 - Present",
-    role: "Research Assistant",
-    company: "FGCU",
+    title: "Research Assistant",
+    organization: "FGCU",
     description: "Led an Unreal Engine simulation project that models a Water-Energy-Food (WEF) system. Using C++ and Unreal's blueprint system, I tested, fixed bugs, and added new features to enhance the simulation's user experience.",
-    skills: ["Unreal Engine", "C++", "Virtual Reality"]
+    startYear: 2024,
+    endYear: null,
+    type: "work",
+    tags: ["Unreal Engine", "C++", "Virtual Reality"]
   },
   {
-    year: "2023 - 2024",
-    role: "Back of House Worker",
-    company: "Chick-fil-A",
+    title: "Back of House Worker",
+    organization: "Chick-fil-A",
     description: "Worked in the Back of House at Chick-fil-A, preparing food and coordinating with kitchen and front-of-house staff to ensure efficient service.",
-    skills: ["Service", "Teamwork", "Communication"]
+    startYear: 2023,
+    endYear: 2024,
+    type: "work",
+    tags: ["Service", "Teamwork", "Communication"]
+  },
+  {
+    title: "Secretary",
+    organization: "Computer Science & Software Engineering Club (CSSEC)",
+    description: "Perform tasks and duties that help CSSEC run smoothly, including taking meeting notes, managing events, room reservations, and assisting with club communications.",
+    startYear: 2025,
+    endYear: null,
+    type: "leadership",
+    tags: ["Organization", "Communication"]
   }
 ];
 
@@ -159,24 +176,3 @@ export const CONTACT: Contact = {
   email: "jackbryant5589@gmail.com"
 };
 
-export interface Leadership {
-  role: string;
-  organization: string;
-  year: string;
-  description: string;
-}
-
-export const LEADERSHIP: Leadership[] = [
-  {
-    role: "Student Math Tutor",
-    organization: "FGCU Center for Academic Achievement",
-    year: "2024 - Present",
-    description: "Mentor and guide students through complex mathematical concepts, developing communication skills and reinforcing my own understanding through teaching."
-  },
-  {
-    role: "Research Team Lead",
-    organization: "FGCU WEF Simulation Project",
-    year: "2024 - Present",
-    description: "Lead development efforts on an Unreal Engine simulation, coordinating with faculty advisors and managing project milestones."
-  }
-];

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
-import { User, FolderOpen, Briefcase, Award, Mail } from "lucide-react";
+import { User, FolderOpen, Briefcase, Award, Mail, Home } from "lucide-react";
 import resumePDF from "/JacksonBryantResume2025.pdf";
 
 // Desktop nav items
@@ -14,8 +14,9 @@ const desktopNavItems = [
   { label: "Contact", id: "contact" },
 ];
 
-// Mobile nav items
+// Mobile nav items (with Home at the start)
 const mobileNavItems = [
+  { label: "Home", id: "hero", icon: Home },
   { label: "About", id: "about", icon: User },
   { label: "Projects", id: "projects", icon: FolderOpen },
   { label: "Experience", id: "experience", icon: Briefcase },
@@ -24,13 +25,33 @@ const mobileNavItems = [
 ];
 
 export default function Navbar() {
-  const [activeItem, setActiveItem] = useState("about");
+  const [activeItem, setActiveItem] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setActiveItem("hero");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       // Check if scrolled past threshold for enhanced styling
       setIsScrolled(window.scrollY > 20);
+
+      // Check if at the hero section (before About comes into main view)
+      const aboutSection = document.getElementById("about");
+      if (aboutSection) {
+        const aboutTop = aboutSection.getBoundingClientRect().top;
+        // If About section is still far from the top, we're in the hero
+        if (aboutTop > 250) {
+          setActiveItem("hero");
+          return;
+        }
+      } else if (window.scrollY < 100) {
+        setActiveItem("hero");
+        return;
+      }
 
       // Check if near bottom of page
       const isNearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
@@ -89,14 +110,27 @@ export default function Navbar() {
         {/* Navigation Pill */}
         <nav
           className={`
-            flex items-center gap-10 px-8 rounded-full border shadow-lg
+            flex items-center gap-8 px-6 rounded-full border shadow-lg
             transition-all duration-300
             ${isScrolled
-              ? "py-2.5 bg-slate-900/70 backdrop-blur-xl border-white/15 shadow-xl"
-              : "py-3 bg-slate-900/50 backdrop-blur-lg border-white/10"
+              ? "py-2 bg-slate-900/70 backdrop-blur-xl border-white/15 shadow-xl"
+              : "py-2.5 bg-slate-900/50 backdrop-blur-lg border-white/10"
             }
           `}
         >
+          {/* Logo - Scrolls to Top */}
+          <button
+            onClick={scrollToTop}
+            className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-300"
+            aria-label="Scroll to top"
+          >
+            <img
+              src="/Jb (2).webp"
+              alt="JB Logo"
+              className="h-7 w-auto"
+            />
+          </button>
+
           {desktopNavItems.map((item) => (
             <ScrollLink
               key={item.label}
@@ -153,6 +187,49 @@ export default function Navbar() {
         <div className="flex justify-between items-center gap-2 px-5 py-2.5 bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
           {mobileNavItems.map((item) => {
             const Icon = item.icon;
+
+            // Home item uses scrollToTop instead of ScrollLink
+            if (item.id === "hero") {
+              return (
+                <button
+                  key={item.label}
+                  onClick={scrollToTop}
+                  className="relative flex flex-col items-center gap-0.5 px-2 py-1 cursor-pointer group"
+                >
+                  <Icon
+                    size={18}
+                    className={`
+                      transition-all duration-300
+                      ${activeItem === item.id
+                        ? "text-blue-400"
+                        : "text-slate-400 group-hover:text-white"
+                      }
+                    `}
+                  />
+                  <span
+                    className={`
+                      text-[10px] font-medium transition-all duration-300
+                      ${activeItem === item.id
+                        ? "text-blue-400"
+                        : "text-slate-400 group-hover:text-white"
+                      }
+                    `}
+                  >
+                    {item.label}
+                  </span>
+
+                  {/* Active underline indicator */}
+                  {activeItem === item.id && (
+                    <motion.span
+                      layoutId="mobileActiveIndicator"
+                      className="absolute -bottom-0.5 left-0 right-0 mx-auto w-4 h-0.5 bg-blue-400 rounded-full"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </button>
+              );
+            }
+
             return (
               <ScrollLink
                 key={item.label}
