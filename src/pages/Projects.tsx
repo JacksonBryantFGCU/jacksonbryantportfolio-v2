@@ -6,8 +6,28 @@ import ProjectCard from "../components/ProjectCard";
 import ProjectFilterBar from "../components/ProjectFilterBar";
 import ProjectDetailsModal from "../components/ProjectDetailsModal";
 
+// Featured projects first, then preserve array order
+const sortedProjects = [...PROJECTS].sort((a, b) => {
+  if (a.featured && !b.featured) return -1;
+  if (!a.featured && b.featured) return 1;
+  return 0;
+});
+
+// Only show filter tabs for categories that have at least one project
+type ProjectCategory = NonNullable<Project["category"]>;
+const availableCategories: string[] = [
+  "all",
+  ...Array.from(
+    new Set(
+      sortedProjects
+        .map((p) => p.category)
+        .filter((c): c is ProjectCategory => c !== undefined)
+    )
+  ),
+];
+
 export default function Projects() {
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>(PROJECTS);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>(sortedProjects);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,10 +35,10 @@ export default function Projects() {
   // Filter logic
   useEffect(() => {
     if (selectedCategory === "all") {
-      setFilteredProjects(PROJECTS);
+      setFilteredProjects(sortedProjects);
     } else {
       setFilteredProjects(
-        PROJECTS.filter((p) => p.category === selectedCategory)
+        sortedProjects.filter((p) => p.category === selectedCategory)
       );
     }
   }, [selectedCategory]);
@@ -55,6 +75,7 @@ export default function Projects() {
           <ProjectFilterBar
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
+            categories={availableCategories}
           />
 
           {filteredProjects.length === 0 ? (

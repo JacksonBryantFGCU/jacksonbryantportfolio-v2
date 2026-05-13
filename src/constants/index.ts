@@ -71,69 +71,85 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    title: "Arthrex MySurgery",
-    demo: "https://www.arthrexmysurgery.com",
-    github: "https://github.com/JacksonBryantFGCU/arthrex-mysurgeryfrontend",
+    title: "Zonta Club of Naples Website",
+    demo: "https://zontaclubofnaples.org",
+    image: "/zonta-club.png",
     description:
-      "A patient engagement platform connecting patients to surgeons with pre/post-surgery checklists and medical information.",
-    skills: ["React", "React Router"],
-    image: "/arthrex-mysurgery.webp",
+      "Full-stack membership and content website for a nonprofit organization, supporting membership applications, payments, events, scholarships, donations, and CMS-managed content.",
+    skills: ["React", "TypeScript", "Node.js", "Express", "Sanity CMS", "Square", "Stripe", "Vercel", "Render"],
     featured: true,
     category: "fullstack",
     highlights: [
-      "Built interactive pre/post-surgery checklists improving patient preparedness",
-      "Integrated secure patient-surgeon communication features",
-      "Deployed production app serving real medical practice users"
+      "Built a production client website with responsive frontend pages and backend API workflows.",
+      "Integrated CMS-managed content for events, scholarships, and membership-related pages.",
+      "Implemented payment workflows and deployment across frontend and backend hosting platforms.",
+      "Worked through real client requirements, content changes, and deployment constraints.",
     ],
   },
   {
-    title: "Sunstone Pickleball",
-    image: "/sunstone-pickleball.webp",
+    title: "ACE.AI Mock Interview Platform",
+    image: "/ACE-AI.png",
     description:
-      "A community hub for the Sunstone Pickleball Club with a gallery, player profiles, events calendar, and contact system.",
-    skills: ["React", "Tailwind", "React Router", "Framer Motion"],
-    demo: "https://www.sunstonepickleball.com",
-    github: "https://github.com/JacksonBryantFGCU/SunstonePickleballClub",
+      "AI-powered mock interview platform with voice-driven behavioral interviews and technical coding interview support.",
+    skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "Vapi", "Supabase", "OpenAI"],
     featured: true,
-    category: "frontend",
+    category: "fullstack",
     highlights: [
-      "Designed responsive gallery with optimized image loading",
-      "Built dynamic events calendar with filtering capabilities",
-      "Implemented smooth page transitions with Framer Motion"
+      "Built real-time mock interview flows for behavioral and technical interview practice.",
+      "Integrated AI-generated questions, voice interaction, and coding interview workflows.",
+      "Added frontend interview panels, Monaco editor support, and backend orchestration routes.",
+      "Won 3rd place overall and a company challenge award at a hackathon.",
     ],
   },
   {
-    title: "Portfolio Website",
-    image: "/project2.webp",
+    title: "Team Project Management System",
+    image: "/TPMS.png",
     description:
-      "A personal portfolio showcasing projects, skills, and animations with Framer Motion and GSAP.",
-    skills: ["React", "Tailwind", "TypeScript", "GSAP"],
+      "Project management platform designed for software engineering courses to help instructors and students track team progress, milestones, contributions, and project risks.",
+    skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "PostgreSQL", "Supabase"],
+    featured: true,
+    category: "fullstack",
+    highlights: [
+      "Designed dashboards for instructors and student teams.",
+      "Modeled project data around teams, milestones, tasks, risks, and individual contributions.",
+      "Planned integrations with tools like GitHub, Canvas, Jira, and Teams.",
+      "Focused on requirements engineering, system design, and scalable full-stack architecture.",
+    ],
+  },
+  {
+    title: "Jackson Bryant Portfolio",
+    image: "/portfolio.png",
+    description:
+      "Personal developer portfolio built to showcase projects, experience, certifications, technical skills, and contact information.",
+    skills: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"],
     demo: "https://jacksonbryantportfolio.netlify.app/",
-    github: "https://github.com/JacksonBryantFGCU/portfolio",
+    github: "https://github.com/JacksonBryantFGCU/jacksonbryantportfolio-v2",
     featured: false,
     category: "frontend",
     highlights: [
-      "Crafted smooth scroll animations using GSAP ScrollTrigger",
-      "Built fully responsive design with mobile-first approach",
-      "Implemented form validation with Zod schema validation"
+      "Built a responsive portfolio with reusable components and polished UI sections.",
+      "Organized projects, experience, certifications, and contact information for recruiters.",
+      "Used modern animations and styling while keeping the site professional.",
+      "Deployed the site with optimized production builds.",
     ],
   },
   {
-    title: "Upgrades by Taylor",
-    image: "/project1.webp",
+    title: "Upgrades by Taylor Website",
+    demo: "https://upgrades-by-taylor.com",
+    image: "/upgradesbytaylor.png",
     description:
-      "A small business website with an image gallery, contact form, and testimonial carousel.",
-    skills: ["HTML", "CSS", "JavaScript", "FormSpree"],
-    demo: "https://linkedin.com",
+      "Static business website for an independent contractor, designed to present services, project photos, contact information, and business credibility.",
+    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
     github: "https://github.com/JacksonBryantFGCU/UpgradesbyTaylor",
     featured: false,
     category: "frontend",
     highlights: [
-      "Delivered complete business website for local client",
-      "Built custom testimonial carousel with vanilla JavaScript",
-      "Integrated FormSpree for seamless contact form submissions"
+      "Built a responsive business website from a provided design direction.",
+      "Structured pages for services, gallery, contact, and company information.",
+      "Focused on clean layout, strong calls to action, and mobile responsiveness.",
+      "Prepared the site for client-facing deployment and branding assets.",
     ],
-  }
+  },
 ];
 
 export interface Certification {

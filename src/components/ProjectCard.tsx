@@ -55,7 +55,7 @@ const ProjectCard: React.FC<Props> = ({ project, onDetailsClick }) => {
             src={project.image}
             alt={`${project.title} screenshot`}
             onError={(e) => {
-              e.currentTarget.src = "/fallback-image.png";
+              e.currentTarget.style.display = "none";
             }}
             className="w-full h-full object-contain"
           />

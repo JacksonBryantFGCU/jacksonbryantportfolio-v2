@@ -37,7 +37,7 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
 
   if (!project) return null;
 
-  const displayedSkills = project.skills?.slice(0, 6) || [];
+  const displayedSkills = project.skills || [];
 
   return (
     <AnimatePresence>
@@ -76,16 +76,15 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
 
             {/* Scroll Wrapper */}
             <div className="overflow-y-auto max-h-[90vh] modal-scrollbar">
-              {/* Screenshot with gradient overlay */}
+              {/* Screenshot */}
               {project.image && (
-                <div className="relative w-full aspect-[16/9] max-h-[380px] overflow-hidden">
+                <div className="relative w-full aspect-[16/9] max-h-[380px] overflow-hidden bg-slate-950 flex items-center justify-center">
                   <img
                     src={project.image}
                     alt={`${project.title} screenshot`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
-                  {/* Bottom gradient overlay */}
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-900/60 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-900/50 to-transparent pointer-events-none" />
                 </div>
               )}
 
