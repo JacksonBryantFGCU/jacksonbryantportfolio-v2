@@ -1,4 +1,4 @@
-export const HERO_CONTENT: string = `I am a passionate frontend developer with a strong focus on crafting dynamic and scalable web applications. With over a year of hands-on experience, I specialize in React, Tailwind CSS, JavaScript, and modern frameworks like Next.js, Node.js, Express, and MongoDB. I am dedicated to building intuitive and user-centered websites that are functional, visually appealing, and optimized for seamless user experiences and performance.`;
+export const HERO_CONTENT: string = `I am a passionate frontend developer with a strong focus on crafting dynamic and scalable web applications. With 2–3 years of hands-on experience, I specialize in React, Tailwind CSS, TypeScript, and modern frameworks like Next.js, Node.js, Express, and Electron. I am dedicated to building intuitive and user-centered software that is functional, visually appealing, and optimized for seamless user experiences and performance.`;
 
 export const ABOUT_TEXT: string = `I am a dedicated frontend developer with a passion for building user-friendly, performant, and visually appealing web applications. With over a year of experience, I have worked extensively with React, Next.js, Tailwind CSS, React-Router, and Framer Motion, focusing on creating scalable, responsive, and engaging user experiences.
 
@@ -102,18 +102,53 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    title: "Team Project Management System",
-    image: "/TPMS.png",
+    title: "Dev Operator",
+    image: "/devoperator.png",
+    github: "https://github.com/JacksonBryantFGCU/dev-operator",
     description:
-      "Project management platform designed for software engineering courses to help instructors and students track team progress, milestones, contributions, and project risks.",
-    skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "PostgreSQL", "Supabase"],
+      "AI-augmented desktop workspace built with Electron that lets developers manage projects, run forge tooling, commit code, and control dev servers through a unified command interface with voice support.",
+    skills: ["Electron", "React", "TypeScript", "Vite", "Anthropic SDK", "Zod", "Execa"],
     featured: true,
     category: "fullstack",
     highlights: [
-      "Designed dashboards for instructors and student teams.",
-      "Modeled project data around teams, milestones, tasks, risks, and individual contributions.",
-      "Planned integrations with tools like GitHub, Canvas, Jira, and Teams.",
-      "Focused on requirements engineering, system design, and scalable full-stack architecture.",
+      "Built a unified command bar accepting typed or spoken input to run git operations, manage dev servers, and trigger project tooling.",
+      "Integrated the Anthropic SDK for AI-powered command generation and prompt building.",
+      "Implemented a multi-project sidebar with live git branch/status, server state, and one-click GitHub access.",
+      "Added Electron safeStorage-encrypted GitHub PAT for live issue and PR counts without exposing credentials.",
+    ],
+  },
+  {
+    title: "AskLisa",
+    image: "/askLisa.png",
+    demo: "https://asksunstonelisa.com",
+    github: "https://github.com/JacksonBryantFGCU/askLisa",
+    description:
+      "Lightweight web app that lets visitors submit questions or messages directly to Lisa, with real-time push notifications delivered via ntfy so she never misses an inquiry.",
+    skills: ["React", "TypeScript", "Tailwind CSS", "Supabase", "ntfy"],
+    featured: false,
+    category: "frontend",
+    highlights: [
+      "Built a clean submission form with Supabase as the backend data store for incoming messages.",
+      "Integrated ntfy push notifications to alert Lisa in real time whenever a new message is submitted.",
+      "Deployed a production site with a custom domain and mobile-friendly responsive layout.",
+      "Kept the implementation lightweight and focused — no unnecessary dependencies or backend overhead.",
+    ],
+  },
+  {
+    title: "Wellon CPR Website",
+    image: "/welloncpr.png",
+    demo: "https://welloncpr.com",
+    github: "https://github.com/JacksonBryantFGCU/cpr-website",
+    description:
+      "Professional business website for a CPR and first-aid training provider, built to present course offerings, certification information, and a contact pathway for new students.",
+    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+    featured: false,
+    category: "frontend",
+    highlights: [
+      "Built a responsive, client-facing website to establish online presence for a CPR training business.",
+      "Structured pages for course offerings, certification details, and contact information.",
+      "Focused on clean visual hierarchy, clear calls to action, and mobile responsiveness.",
+      "Delivered a production-ready site optimized for a non-technical client audience.",
     ],
   },
   {
