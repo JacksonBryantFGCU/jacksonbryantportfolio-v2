@@ -65,7 +65,7 @@ export default function Home() {
             variants={itemVariants}
             className="mt-5 text-xl sm:text-2xl lg:text-3xl font-medium text-blue-400/90"
           >
-            Frontend-Focused Software Engineer
+            Fullstack Software Engineer
           </motion.h2>
 
           {/* Positioning Statement */}
