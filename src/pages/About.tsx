@@ -2,10 +2,11 @@ import { motion } from "framer-motion";
 import aboutImg from "/about-me.webp";
 
 const coreStack = {
-  frontend: ["React", "TypeScript", "Tailwind", "Next.js"],
+  frontend: ["React", "TypeScript", "Tailwind"],
   backend: ["Node", "Express", "PostgreSQL"],
-  tools: ["Git", "Docker", "Vercel"],
+  tools: ["Git", "Vercel"],
 };
+
 
 export default function About() {
   return (
@@ -68,35 +69,23 @@ export default function About() {
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-            {/* Frontend */}
-            <div className="text-center lg:text-left">
-              <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-3">
-                Frontend
-              </h4>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                {coreStack.frontend.join(" · ")}
-              </p>
-            </div>
-
-            {/* Backend */}
-            <div className="text-center lg:text-left">
-              <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-3">
-                Backend
-              </h4>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                {coreStack.backend.join(" · ")}
-              </p>
-            </div>
-
-            {/* Tools */}
-            <div className="text-center lg:text-left">
-              <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-3">
-                Tools
-              </h4>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                {coreStack.tools.join(" · ")}
-              </p>
-            </div>
+            {(Object.entries(coreStack) as [keyof typeof coreStack, string[]][]).map(([category, skills]) => (
+              <div key={category} className="text-center lg:text-left">
+                <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-3">
+                  {category}
+                </h4>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+                  {skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="bg-white/[0.07] border border-white/10 text-slate-300 text-xs px-3 py-1 rounded-full"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>
