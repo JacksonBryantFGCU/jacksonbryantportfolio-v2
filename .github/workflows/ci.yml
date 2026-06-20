@@ -1,0 +1,78 @@
+name: CI
+
+# Run on every push to main and on every pull request that targets main.
+# PRs get validated before merge; pushes to main act as a safety net for
+# anything that lands directly on the default branch.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# If a new commit is pushed to the same branch/PR while a run is still going,
+# cancel the older run. Saves CI minutes and gives faster feedback on the
+# latest code instead of waiting on stale runs.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least-privilege token: this workflow only reads the repo, it never needs
+# to write commits, comments, or releases.
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Lint, type-check & build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Pull the repository code into the runner so the later steps can act on it.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Install a pinned Node major version and turn on npm's dependency cache.
+      # 'cache: npm' keys off package-lock.json, so installs are fast on repeat
+      # runs and only re-download when the lockfile actually changes.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # 'npm ci' installs exactly what package-lock.json specifies — reproducible,
+      # never mutates the lockfile, and fails if it's out of sync with package.json.
+      # The repo's postinstall (scripts/fix-rollup.js) also runs here and pulls the
+      # correct Rollup native binding for the Linux runner.
+      - name: Install dependencies
+        run: npm ci
+
+      # Static analysis with ESLint (flat config in eslint.config.js).
+      # Catches React-hooks mistakes, dead code, and style issues before they
+      # reach review. Runs early because it's the cheapest check.
+      - name: Lint
+        run: npm run lint
+
+      # Type safety across the whole project. 'tsc -b' builds the referenced
+      # TS configs (app + node) in --noEmit mode, surfacing type errors and
+      # the strict checks enabled in tsconfig (noUnusedLocals, etc.).
+      # Separated from the build so a type failure is obvious in the logs.
+      - name: Type check
+        run: npx tsc -b
+
+      # Production build with Vite. Confirms the app actually compiles and
+      # bundles — catches issues that lint/type-check miss (bad imports,
+      # asset resolution, Vite/Rollup config problems).
+      - name: Build
+        run: npm run build
+
+      # Keep the compiled output from the default branch so it can be
+      # inspected or reused (e.g. manual deploy checks). Only uploaded on
+      # pushes to main to avoid storing an artifact for every PR run.
+      - name: Upload build artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
