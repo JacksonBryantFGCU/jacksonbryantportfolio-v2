@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { PROJECTS, Project } from "../constants/index";
-import ProjectCard from "../components/ProjectCard";
+import ProjectCard from "../components/ProjectPanel";
 import ProjectFilterBar from "../components/ProjectFilterBar";
 import ProjectDetailsModal from "../components/ProjectDetailsModal";
 
