@@ -1,7 +1,7 @@
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 import { FileText, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
-import resumePDF from "/JacksonBryantResume2025.pdf";
+import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
 
 export default function Contact() {
   const scrollToTop = () => {
@@ -57,7 +57,7 @@ export default function Contact() {
         >
           <a
             href={resumePDF}
-            download="Jackson Bryant Resume 2025.pdf"
+            download="Jackson Bryant Resume Fall 2026.pdf"
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white bg-blue-500 hover:bg-blue-400 rounded-full shadow-lg shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02]"
           >
             <FileText size={16} />

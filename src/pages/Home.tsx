@@ -1,6 +1,6 @@
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { motion } from "framer-motion";
-import resumePDF from "/JacksonBryantResume2025.pdf";
+import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
 import LinkedinPhoto from "/LinkedinPhoto.jpg";
 
 const containerVariants = {
@@ -84,7 +84,7 @@ export default function Home() {
             {/* Primary Button */}
             <a
               href={resumePDF}
-              download="Jackson Bryant Resume 2025.pdf"
+              download="Jackson Bryant Resume Fall 2026.pdf"
               className="px-6 py-3 text-sm font-medium tracking-wide text-white btn-primary rounded-full shadow-md hover:shadow-lg hover:brightness-110 hover:-translate-y-[2px] transition-all duration-300 ease-out"
               aria-label="Download Resume"
             >
