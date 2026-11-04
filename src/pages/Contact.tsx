@@ -3,7 +3,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { ArrowUp, Check, Copy, Mail } from "lucide-react";
 import { m } from "framer-motion";
 
-const EMAIL = "jacksonbryant.dev@gmail.com";
+const EMAIL = "jackbryant5589@gmail.com";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -29,15 +29,15 @@ export default function Contact() {
     >
       <div className="max-w-4xl mx-auto text-center text-white">
         {/* Name */}
-        <m.h3
+        <m.h2
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-semibold tracking-tight"
         >
-          Jackson Bryant
-        </m.h3>
+          Get in touch
+        </m.h2>
 
         {/* Primary CTA Text */}
         <m.p
@@ -47,7 +47,7 @@ export default function Contact() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-6 text-lg text-slate-300 max-w-2xl mx-auto"
         >
-          Let's build something amazing together. I'm open to freelance work and software engineering internships.
+          I'm looking for software engineering internships, and I'm open to freelance website projects.
         </m.p>
 
         {/* Secondary Text */}
@@ -58,7 +58,7 @@ export default function Contact() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="mt-3 text-slate-400 text-base max-w-xl mx-auto"
         >
-          Feel free to reach out if you're looking for a reliable, driven developer.
+          Email is the fastest way to reach me.
         </m.p>
 
         {/* Email with copy */}

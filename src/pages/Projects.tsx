@@ -1,5 +1,5 @@
 // src/pages/Projects.tsx
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { PROJECTS, type Project } from "../constants/index";
 import ProjectCard from "../components/ProjectPanel";
 import FeaturedProjectCard from "../components/FeaturedProjectCard";
@@ -17,7 +17,7 @@ const availableCategories: string[] = [
 
 export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { featured, more } = useMemo(() => {
@@ -29,15 +29,25 @@ export default function Projects() {
     };
   }, [selectedCategory]);
 
+  // Order the details view walks through: featured first, then the rest
+  const ordered = useMemo(() => [...featured, ...more], [featured, more]);
+  const selectedProject = selectedIndex !== null ? ordered[selectedIndex] ?? null : null;
+
   const openDetails = (project: Project) => {
-    setSelectedProject(project);
+    setSelectedIndex(ordered.indexOf(project));
     setIsModalOpen(true);
   };
 
-  const closeDetails = () => {
+  const closeDetails = useCallback(() => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedProject(null), 200);
-  };
+    setTimeout(() => setSelectedIndex(null), 200);
+  }, []);
+
+  const showPrev = useCallback(() => setSelectedIndex((i) => (i !== null && i > 0 ? i - 1 : i)), []);
+  const showNext = useCallback(
+    () => setSelectedIndex((i) => (i !== null && i < ordered.length - 1 ? i + 1 : i)),
+    [ordered.length]
+  );
 
   return (
     <>
@@ -81,7 +91,14 @@ export default function Projects() {
         </div>
       </section>
 
-      <ProjectDetailsModal project={selectedProject} isOpen={isModalOpen} onClose={closeDetails} />
+      <ProjectDetailsModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={closeDetails}
+        onPrev={selectedIndex !== null && selectedIndex > 0 ? showPrev : undefined}
+        onNext={selectedIndex !== null && selectedIndex < ordered.length - 1 ? showNext : undefined}
+        position={selectedIndex !== null ? { index: selectedIndex + 1, total: ordered.length } : undefined}
+      />
     </>
   );
 }

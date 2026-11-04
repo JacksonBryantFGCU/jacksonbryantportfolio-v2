@@ -12,7 +12,7 @@ const desktopNavItems = [
   { label: "Contact", id: "contact" },
 ];
 
-// Mobile dock items (the résumé is added at the end as a highlighted action)
+// Mobile dock items (the resume is added at the end as a highlighted action)
 const mobileNavItems = [
   { label: "About", id: "about", icon: User },
   { label: "Projects", id: "projects", icon: FolderOpen },
@@ -141,7 +141,7 @@ export default function Navbar() {
           download="Jackson Bryant Resume Fall 2026.pdf"
           className="px-4 py-2 text-sm font-medium text-white bg-blue-600/90 hover:bg-blue-500/90 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
         >
-          Résumé
+          Resume
         </a>
       </m.header>
 
@@ -182,14 +182,14 @@ export default function Navbar() {
             );
           })}
 
-          {/* Résumé: always one tap away */}
+          {/* Resume: always one tap away */}
           <a
             href={resumePDF}
             download="Jackson Bryant Resume Fall 2026.pdf"
             className="ml-1 flex flex-col items-center gap-0.5 rounded-full bg-blue-600 px-3.5 py-2 text-white"
           >
             <FileText size={18} aria-hidden="true" />
-            <span className="text-[10px] font-medium">Résumé</span>
+            <span className="text-[10px] font-medium">Resume</span>
           </a>
         </div>
       </nav>

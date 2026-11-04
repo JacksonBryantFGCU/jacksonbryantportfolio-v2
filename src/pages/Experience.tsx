@@ -3,24 +3,13 @@ import { useMemo } from "react";
 import { m } from "framer-motion";
 import { EXPERIENCE_ENTRIES, ExperienceEntry } from "../constants/index";
 
-// Format date display
-const formatDateRange = (startYear: number, endYear: number | null): string => {
-  const end = endYear === null ? "Present" : endYear.toString();
-  return `${startYear} – ${end}`;
-};
-
 export default function Experience() {
   // Sort entries: by startYear (desc), then work before leadership if same year
   const sortedEntries = useMemo<ExperienceEntry[]>(() => {
     return [...EXPERIENCE_ENTRIES].sort((a, b) => {
-      // Sort by startYear descending
-      if (b.startYear !== a.startYear) {
-        return b.startYear - a.startYear;
-      }
-      // If same year, work comes before leadership
-      if (a.type === "work" && b.type === "leadership") return -1;
-      if (a.type === "leadership" && b.type === "work") return 1;
-      return 0;
+      // Work before leadership, then newest first within each
+      if (a.type !== b.type) return a.type === "work" ? -1 : 1;
+      return b.sortDate.localeCompare(a.sortDate);
     });
   }, []);
 
@@ -54,7 +43,7 @@ export default function Experience() {
         ) : (
           <div className="space-y-8">
             {sortedEntries.map((entry, index) => {
-              const displayedTags = entry.tags?.slice(0, 3) || [];
+              const displayedTags = entry.tags?.slice(0, 4) || [];
               const isWork = entry.type === "work";
 
               return (
@@ -79,7 +68,7 @@ export default function Experience() {
 
                   {/* Date */}
                   <p className="text-sm text-slate-400 tracking-wide mb-2">
-                    {formatDateRange(entry.startYear, entry.endYear)}
+                    {entry.period}
                   </p>
 
                   {/* Title */}
