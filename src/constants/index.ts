@@ -60,6 +60,7 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
 export interface Project {
   title: string;
   description: string;
+  /** Base path of the screenshot; the -800.webp and -1400.webp files are used */
   image?: string;
   demo?: string;
   github?: string;
@@ -73,7 +74,7 @@ export const PROJECTS: Project[] = [
   {
     title: "Zonta Club of Naples Website",
     demo: "https://zontaclubofnaples.org",
-    image: "/zonta-club.png",
+    image: "/images/projects/zonta-club",
     description:
       "Full-stack membership and content website for a nonprofit organization, supporting membership applications, payments, events, scholarships, donations, and CMS-managed content.",
     skills: ["React", "TypeScript", "Node.js", "Express", "Sanity CMS", "Square", "Stripe", "Vercel", "Render"],
@@ -88,7 +89,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "ACE.AI Mock Interview Platform",
-    image: "/ACE-AI.png",
+    image: "/images/projects/ace-ai",
     description:
       "AI-powered mock interview platform with voice-driven behavioral interviews and technical coding interview support.",
     skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "Vapi", "Supabase", "OpenAI"],
@@ -103,7 +104,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Dev Operator",
-    image: "/devoperator.png",
+    image: "/images/projects/dev-operator",
     github: "https://github.com/JacksonBryantFGCU/dev-operator",
     description:
       "AI-augmented desktop workspace built with Electron that lets developers manage projects, run forge tooling, commit code, and control dev servers through a unified command interface with voice support.",
@@ -119,7 +120,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "AskLisa",
-    image: "/askLisa.png",
+    image: "/images/projects/asklisa",
     demo: "https://asksunstonelisa.com",
     github: "https://github.com/JacksonBryantFGCU/askLisa",
     description:
@@ -136,7 +137,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Wellon CPR Website",
-    image: "/welloncpr.png",
+    image: "/images/projects/wellon-cpr",
     demo: "https://welloncpr.com",
     github: "https://github.com/JacksonBryantFGCU/cpr-website",
     description:
@@ -153,7 +154,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Jackson Bryant Portfolio",
-    image: "/portfolio.png",
+    image: "/images/projects/portfolio",
     description:
       "Personal developer portfolio built to showcase projects, experience, certifications, technical skills, and contact information.",
     skills: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"],
@@ -171,7 +172,7 @@ export const PROJECTS: Project[] = [
   {
     title: "Upgrades by Taylor Website",
     demo: "https://upgrades-by-taylor.com",
-    image: "/upgradesbytaylor.png",
+    image: "/images/projects/upgrades-by-taylor",
     description:
       "Static business website for an independent contractor, designed to present services, project photos, contact information, and business credibility.",
     skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
@@ -192,26 +193,43 @@ export interface Certification {
   name: string;
   issuer: string;
   issueDate: string;
-  credentialUrl: string;
+  credentialUrl?: string;
+  /** Shown when there is no public verification link */
+  credentialId?: string;
+  /** Base path of the certificate image; -600.webp and -1200.webp files are used */
   image: string;
+  /** Pixel size of the full-size (-1200) image */
+  imageSize: [number, number];
 }
 
 export const CERTIFICATIONS: Certification[] = [
   {
+    id: "3",
+    name: "Relational Database",
+    issuer: "freeCodeCamp",
+    issueDate: "October 2026",
+    credentialUrl: "https://www.freecodecamp.org/certification/fcc9736ba88-0cad-4eb6-b72b-271aa251ff30/relational-databases-v9",
+    image: "/images/certs/freecodecamp-relational-database",
+    imageSize: [1200, 808],
+  },
+  {
     id: "1",
     name: "Securing Projects with OpenSSF",
     issuer: "The Linux Foundation",
-    issueDate: "May 2024",
-    credentialUrl: "https://freecodecamp.org/cert-link",
-    image: "/Screenshot 2025-04-06 190947.webp",
+    issueDate: "March 2025",
+    // The Linux Foundation has no public verification page; show the certificate ID instead
+    credentialId: "LF-2vz4wqoaqk",
+    image: "/images/certs/linux-foundation-openssf",
+    imageSize: [1180, 906],
   },
   {
     id: "2",
     name: "Scientific Computing with Python",
     issuer: "freeCodeCamp",
-    issueDate: "March 2024",
-    credentialUrl: "https://freecodecamp.org/cert-link",
-    image: "/Screenshot 2025-04-06 191010.webp",
+    issueDate: "April 2025",
+    credentialUrl: "https://www.freecodecamp.org/certification/JacksonBryantFGCU/scientific-computing-with-python-v7",
+    image: "/images/certs/freecodecamp-python",
+    imageSize: [1200, 809],
   },
 ];
 

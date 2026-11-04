@@ -1,6 +1,6 @@
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 import { FileText, ArrowUp } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
 
 export default function Contact() {
@@ -15,7 +15,7 @@ export default function Contact() {
     >
       <div className="max-w-4xl mx-auto text-center text-white">
         {/* Name */}
-        <motion.h3
+        <m.h3
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -23,10 +23,10 @@ export default function Contact() {
           className="text-4xl md:text-5xl font-semibold tracking-tight"
         >
           Jackson Bryant
-        </motion.h3>
+        </m.h3>
 
         {/* Primary CTA Text */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -34,10 +34,10 @@ export default function Contact() {
           className="mt-6 text-lg text-slate-300 max-w-2xl mx-auto"
         >
           Let's build something amazing together. I'm open to freelance work and software engineering internships.
-        </motion.p>
+        </m.p>
 
         {/* Secondary Text */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -45,10 +45,10 @@ export default function Contact() {
           className="mt-3 text-slate-400 text-base max-w-xl mx-auto"
         >
           Feel free to reach out if you're looking for a reliable, driven developer.
-        </motion.p>
+        </m.p>
 
         {/* Resume Download */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -63,10 +63,10 @@ export default function Contact() {
             <FileText size={16} />
             Download Resume
           </a>
-        </motion.div>
+        </m.div>
 
         {/* Social Icons */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -100,10 +100,10 @@ export default function Contact() {
           >
             <FaEnvelope />
           </a>
-        </motion.div>
+        </m.div>
 
         {/* Back to Top */}
-        <motion.button
+        <m.button
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -113,18 +113,18 @@ export default function Contact() {
         >
           <ArrowUp size={14} />
           Back to Top
-        </motion.button>
+        </m.button>
 
         {/* Copyright */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mt-4 text-slate-500 text-sm"
         >
-          © 2025 Jackson Bryant. All rights reserved.
-        </motion.p>
+          © {new Date().getFullYear()} Jackson Bryant. All rights reserved.
+        </m.p>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 // src/pages/Experience.tsx
 import { useMemo } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { EXPERIENCE_ENTRIES, ExperienceEntry } from "../constants/index";
 
 // Format date display
@@ -31,7 +31,7 @@ export default function Experience() {
     >
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -44,7 +44,7 @@ export default function Experience() {
           <p className="text-slate-400 mt-2 text-sm">
             Professional Work, Research & Campus Impact
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Entry Cards */}
         {sortedEntries.length === 0 ? (
@@ -58,7 +58,7 @@ export default function Experience() {
               const isWork = entry.type === "work";
 
               return (
-                <motion.article
+                <m.article
                   key={`${entry.title}-${index}`}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -110,7 +110,7 @@ export default function Experience() {
                       ))}
                     </div>
                   )}
-                </motion.article>
+                </m.article>
               );
             })}
           </div>

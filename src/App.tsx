@@ -1,24 +1,26 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
+import { LazyMotion, MotionConfig, domAnimation } from "framer-motion";
 import FullPortfolioPage from "./pages/FullPortfolioPage";
+import { isHomePath } from "./lib/paths";
 
-export default function App() {
+interface AppProps {
+  path: string;
+}
+
+export default function App({ path }: AppProps) {
   return (
-    <BrowserRouter>
-      <main className="min-h-screen font-sans text-text-base transition-colors duration-300 bg-background-dark text-white">
-        <Routes>
-          <Route path="/" element={<FullPortfolioPage />} />
-          <Route
-            path="*"
-            element={
-              <div className="flex justify-center items-center min-h-screen text-white text-xl">
-                Page not found
-              </div>
-            }
-          />
-        </Routes>
-        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-      </main>
-    </BrowserRouter>
+    <LazyMotion features={domAnimation} strict>
+      <MotionConfig reducedMotion="user">
+        <div className="min-h-screen font-sans transition-colors duration-300 bg-background-dark text-white">
+          {isHomePath(path) ? (
+            <FullPortfolioPage />
+          ) : (
+            <main className="flex flex-col gap-4 justify-center items-center min-h-screen text-white text-xl">
+              <p>Page not found</p>
+              <a href="/" className="text-blue-400 hover:text-blue-300 text-base">Go to the home page</a>
+            </main>
+          )}
+        </div>
+      </MotionConfig>
+    </LazyMotion>
   );
 }

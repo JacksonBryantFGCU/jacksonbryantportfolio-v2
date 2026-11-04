@@ -1,7 +1,6 @@
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
-import LinkedinPhoto from "/LinkedinPhoto.jpg";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -46,38 +45,38 @@ export default function Home() {
     >
       <div className="flex lg:flex-row flex-col justify-between items-center max-w-7xl mx-auto">
         {/* Left Side - Text Content */}
-        <motion.div
+        <m.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="flex flex-col items-center lg:items-start w-full lg:w-1/2 lg:text-left text-center"
         >
           {/* Name */}
-          <motion.h1
+          <m.h1
             variants={itemVariants}
             className="font-bold text-5xl sm:text-6xl lg:text-7xl tracking-tight text-white"
           >
             Jackson Bryant
-          </motion.h1>
+          </m.h1>
 
           {/* Title */}
-          <motion.h2
+          <m.h2
             variants={itemVariants}
             className="mt-5 text-xl sm:text-2xl lg:text-3xl font-medium text-blue-400/90"
           >
-            Fullstack Software Engineer
-          </motion.h2>
+            Software Engineer
+          </m.h2>
 
           {/* Positioning Statement */}
-          <motion.p
+          <m.p
             variants={itemVariants}
             className="mt-5 text-slate-300 text-base sm:text-lg max-w-lg leading-relaxed"
           >
             I design and build performant web applications with a focus on intuitive interfaces and scalable architecture.
-          </motion.p>
+          </m.p>
 
           {/* CTA Buttons */}
-          <motion.div
+          <m.div
             variants={itemVariants}
             className="flex sm:flex-row flex-col items-center gap-5 mt-10"
           >
@@ -112,17 +111,17 @@ export default function Home() {
                 <FaGithub className="text-lg" />
               </a>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Right Side - Image */}
-        <motion.div
+        <m.div
           variants={imageVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="flex justify-center mt-14 lg:mt-0 w-full lg:w-1/2"
         >
-          <motion.div
+          <m.div
             animate={{
               y: [0, -4, 0],
             }}
@@ -137,13 +136,18 @@ export default function Home() {
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-blue-500/15 via-transparent to-blue-400/10 blur-2xl" />
 
             <img
-              src={LinkedinPhoto}
+              src="/images/jackson-portrait-640.webp"
+              srcSet="/images/jackson-portrait-320.webp 320w, /images/jackson-portrait-640.webp 640w, /images/jackson-portrait-800.webp 800w"
+              sizes="(min-width: 1024px) 384px, (min-width: 640px) 320px, 288px"
+              width={800}
+              height={1000}
               alt="Jackson Bryant"
-              className="relative rounded-xl w-72 sm:w-80 lg:w-96 shadow-xl shadow-black/30"
+              className="relative rounded-xl w-72 sm:w-80 lg:w-96 h-auto shadow-xl shadow-black/30"
               loading="eager"
+              fetchPriority="high"
             />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );

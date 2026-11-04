@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import aboutImg from "/about-me.webp";
+import { m } from "framer-motion";
 
 const coreStack = {
   frontend: ["React", "TypeScript", "Tailwind"],
@@ -17,7 +16,7 @@ export default function About() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
           {/* Image */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -25,16 +24,20 @@ export default function About() {
             className="w-full lg:w-1/3 flex justify-center lg:justify-start"
           >
             <img
-              src={aboutImg}
+              src="/images/about-480.webp"
+              srcSet="/images/about-320.webp 320w, /images/about-480.webp 480w, /images/about-640.webp 640w"
+              sizes="320px"
+              width={640}
+              height={883}
               alt="About Jackson Bryant"
               className="rounded-xl shadow-xl shadow-black/20 max-w-xs w-full object-cover"
               loading="lazy"
               decoding="async"
             />
-          </motion.div>
+          </m.div>
 
           {/* Text Content */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -48,16 +51,16 @@ export default function About() {
 
             {/* Single Cohesive Paragraph */}
             <p className="text-slate-300 text-base md:text-lg leading-relaxed max-w-sm md:max-w-xl mx-auto lg:mx-0">
-              I'm a software engineer focused on frontend development and modern web technologies.
+              I'm a software engineer who builds modern web applications, from the interface to the API behind it.
               I build performant, user-centered applications with clean, maintainable code.
               My work centers on creating intuitive interfaces and scalable architectures that solve real problems.
               Currently pursuing Software Engineering at Florida Gulf Coast University, I'm actively building projects and contributing to research initiatives.
             </p>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Core Stack */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -87,7 +90,7 @@ export default function About() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

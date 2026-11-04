@@ -1,5 +1,5 @@
 // src/pages/Certifications.tsx
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { CERTIFICATIONS } from "../constants";
 import { ExternalLink } from "lucide-react";
 
@@ -11,7 +11,7 @@ export default function Certifications() {
     >
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -24,17 +24,18 @@ export default function Certifications() {
           <p className="text-slate-400 mt-2 text-sm">
             Professional Development & Credentials
           </p>
-        </motion.div>
+        </m.div>
 
         {CERTIFICATIONS.length === 0 ? (
           <p className="text-slate-400 text-lg text-center">No certifications found.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {CERTIFICATIONS.map((cert, idx) => {
-              const { id, name, issuer, issueDate, credentialUrl, image } = cert;
+              const { id, name, issuer, issueDate, credentialUrl, credentialId, image, imageSize } = cert;
+              const [fullWidth, fullHeight] = imageSize;
 
               return (
-                <motion.article
+                <m.article
                   key={`${name}-${issuer || id || idx}`}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -60,6 +61,13 @@ export default function Certifications() {
                     </p>
                   </div>
 
+                  {/* Certificate ID when there is no public verification link */}
+                  {!credentialUrl && credentialId && (
+                    <p className="text-slate-400 text-sm">
+                      Certificate ID <span className="font-mono text-slate-300">{credentialId}</span>
+                    </p>
+                  )}
+
                   {/* View Certificate Button */}
                   {credentialUrl && typeof credentialUrl === "string" && (
                     <a
@@ -73,24 +81,29 @@ export default function Certifications() {
                     </a>
                   )}
 
-                  {/* Certificate Image */}
+                  {/* Certificate thumbnail - opens the full image */}
                   {image && (
-                    <div className="mt-4 w-full">
-                      <div className="w-full overflow-hidden rounded-md md:rounded-lg bg-slate-900/50">
-                        <img
-                          src={image}
-                          alt={`${name} certificate`}
-                          loading="lazy"
-                          decoding="async"
-                          onError={(e) => {
-                            e.currentTarget.src = "/fallback-image.png";
-                          }}
-                          className="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 active:scale-[0.98] transition-all duration-300"
-                        />
-                      </div>
-                    </div>
+                    <a
+                      href={`${image}-1200.webp`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 block w-full overflow-hidden rounded-md md:rounded-lg bg-slate-900/50 border border-white/10"
+                      aria-label={`Open full ${name} certificate image`}
+                    >
+                      <img
+                        src={`${image}-600.webp`}
+                        srcSet={`${image}-600.webp 600w, ${image}-1200.webp ${fullWidth}w`}
+                        sizes="(min-width: 1024px) 460px, (min-width: 768px) 45vw, calc(100vw - 88px)"
+                        width={fullWidth}
+                        height={fullHeight}
+                        alt={`${name} certificate`}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-auto grayscale-[30%] group-hover:grayscale-0 transition-all duration-300"
+                      />
+                    </a>
                   )}
-                </motion.article>
+                </m.article>
               );
             })}
           </div>
