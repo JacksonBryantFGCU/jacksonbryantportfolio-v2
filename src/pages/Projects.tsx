@@ -1,7 +1,8 @@
 // src/pages/Projects.tsx
 import { useCallback, useMemo, useState } from "react";
 import { PROJECTS, type Project } from "../constants/index";
-import ProjectCard from "../components/ProjectPanel";
+import ProjectRow from "../components/ProjectPanel";
+import SectionHeader from "../components/SectionHeader";
 import FeaturedProjectCard from "../components/FeaturedProjectCard";
 import ProjectFilterBar from "../components/ProjectFilterBar";
 import ProjectDetailsModal from "../components/ProjectDetailsModal";
@@ -51,9 +52,13 @@ export default function Projects() {
 
   return (
     <>
-      <section id="projects" className="px-6 sm:px-16 py-20 md:py-24 border-t border-neutral-800 text-white">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="text-white mb-8 font-bold text-4xl md:text-5xl text-center tracking-tight">Projects</h2>
+      <section id="projects" aria-labelledby="projects-title" className="section">
+        <div className="container-page">
+          <SectionHeader
+            id="projects"
+            title="Projects"
+            intro="Live sites for clients, a hackathon win, and tools I built for my own workflow."
+          />
 
           <ProjectFilterBar
             selectedCategory={selectedCategory}
@@ -62,7 +67,7 @@ export default function Projects() {
           />
 
           {featured.length > 0 && (
-            <div className="space-y-16 md:space-y-24 mt-4">
+            <div className="space-y-24 md:space-y-32">
               {featured.map((project, idx) => (
                 <FeaturedProjectCard
                   key={project.title}
@@ -75,19 +80,17 @@ export default function Projects() {
           )}
 
           {more.length > 0 && (
-            <div className={featured.length > 0 ? "mt-20 md:mt-24" : "mt-4"}>
-              <h3 className="text-xl font-semibold text-slate-200 mb-6">More projects</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className={featured.length > 0 ? "mt-28 md:mt-36" : ""}>
+              <h3 className="mb-6 font-display text-2xl font-semibold tracking-tight">More projects</h3>
+              <ul className="border-b border-line">
                 {more.map((project) => (
-                  <ProjectCard key={project.title} project={project} onDetailsClick={() => openDetails(project)} />
+                  <ProjectRow key={project.title} project={project} onDetailsClick={() => openDetails(project)} />
                 ))}
-              </div>
+              </ul>
             </div>
           )}
 
-          {featured.length === 0 && more.length === 0 && (
-            <p className="text-slate-400 text-lg text-center">No projects found.</p>
-          )}
+          {featured.length === 0 && more.length === 0 && <p className="text-muted">No projects in this category yet.</p>}
         </div>
       </section>
 

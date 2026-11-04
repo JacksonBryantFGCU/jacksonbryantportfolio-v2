@@ -10,13 +10,13 @@ export default function App({ path }: AppProps) {
   return (
     <LazyMotion features={domAnimation} strict>
       <MotionConfig reducedMotion="user">
-        <div className="min-h-screen font-sans transition-colors duration-300 bg-background-dark text-white">
+        <div className="min-h-screen bg-ink font-sans text-text">
           {isHomePath(path) ? (
             <FullPortfolioPage />
           ) : (
-            <main className="flex flex-col gap-4 justify-center items-center min-h-screen text-white text-xl">
-              <p>Page not found</p>
-              <a href="/" className="text-blue-400 hover:text-blue-300 text-base">Go to the home page</a>
+            <main className="container-page flex min-h-screen flex-col justify-center gap-4">
+              <h1 className="font-display text-5xl font-semibold tracking-tight">Page not found</h1>
+              <a href="/" className="text-link w-fit">Go to the home page</a>
             </main>
           )}
         </div>

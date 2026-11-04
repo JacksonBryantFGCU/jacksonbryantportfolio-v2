@@ -81,10 +81,7 @@ export default function Navbar() {
           className={`
             flex items-center gap-8 px-6 rounded-full border shadow-lg
             transition-all duration-300
-            ${isScrolled
-              ? "py-2 bg-slate-900/70 backdrop-blur-xl border-white/15 shadow-xl"
-              : "py-2.5 bg-slate-900/50 backdrop-blur-lg border-white/10"
-            }
+            ${isScrolled ? "py-2 bg-ink/75 border-line backdrop-blur-xl" : "py-2.5 bg-ink/40 border-line/60 backdrop-blur-lg"}
           `}
         >
           {/* Logo - back to top */}
@@ -113,11 +110,8 @@ export default function Navbar() {
               >
                 <span
                   className={`
-                    text-base font-medium transition-all duration-300 ease-out inline-block
-                    ${isActive
-                      ? "text-blue-400"
-                      : "text-slate-300 group-hover:text-white group-hover:-translate-y-[1px]"
-                    }
+                    text-[15px] transition-colors duration-200 inline-block
+                    ${isActive ? "text-text" : "text-muted group-hover:text-text"}
                   `}
                 >
                   {item.label}
@@ -126,7 +120,7 @@ export default function Navbar() {
                 {/* Active underline indicator */}
                 <span
                   aria-hidden="true"
-                  className={`absolute -bottom-1.5 left-0 right-0 mx-auto w-5 h-0.5 bg-blue-400 rounded-full transition-all duration-300 ${
+                  className={`absolute -bottom-1.5 left-0 right-0 mx-auto w-5 h-0.5 bg-accent rounded-full transition-all duration-300 ${
                     isActive ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
                   }`}
                 />
@@ -139,7 +133,7 @@ export default function Navbar() {
         <a
           href={resumePDF}
           download="Jackson Bryant Resume Fall 2026.pdf"
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600/90 hover:bg-blue-500/90 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
+          className="btn-primary px-4 py-2"
         >
           Resume
         </a>
@@ -150,14 +144,14 @@ export default function Navbar() {
       {/* ============================================ */}
       <nav
         aria-label="Main"
-        className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-center pb-4 pt-2 bg-gradient-to-t from-slate-950/80 to-transparent"
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-center pb-4 pt-2"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
       >
-        <div className="flex justify-between items-center gap-1 pl-3 pr-1.5 py-1.5 bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
+        <div className="flex justify-between items-center gap-1 pl-3 pr-1.5 py-1.5 bg-ink/75 backdrop-blur-xl border border-line rounded-full shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)]">
           {mobileNavItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeItem === item.id;
-            const color = isActive ? "text-blue-400" : "text-slate-400 group-hover:text-white";
+            const color = isActive ? "text-text" : "text-muted group-hover:text-text";
 
             return (
               <a
@@ -174,7 +168,7 @@ export default function Navbar() {
                 {/* Active underline indicator */}
                 <span
                   aria-hidden="true"
-                  className={`absolute -bottom-0.5 left-0 right-0 mx-auto w-4 h-0.5 bg-blue-400 rounded-full transition-all duration-300 ${
+                  className={`absolute -bottom-0.5 left-0 right-0 mx-auto w-4 h-0.5 bg-accent rounded-full transition-all duration-300 ${
                     isActive ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
                   }`}
                 />
@@ -186,7 +180,7 @@ export default function Navbar() {
           <a
             href={resumePDF}
             download="Jackson Bryant Resume Fall 2026.pdf"
-            className="ml-1 flex flex-col items-center gap-0.5 rounded-full bg-blue-600 px-3.5 py-2 text-white"
+            className="ml-1 flex flex-col items-center gap-0.5 rounded-full bg-accent px-3.5 py-2 text-white"
           >
             <FileText size={18} aria-hidden="true" />
             <span className="text-[10px] font-medium">Resume</span>

@@ -128,7 +128,7 @@ export const PROJECTS: Project[] = [
     image: "/images/projects/ace-ai",
     skills: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Vapi", "OpenAI"],
     featured: true,
-    label: "Hackathon · 3rd place",
+    label: "3rd place, EagleHacks 2026",
     category: "fullstack",
   },
   {
@@ -265,7 +265,7 @@ export const PROOF_POINTS: ProofPoint[] = [
 
 export const EDUCATION = {
   degree: "B.S. Software Engineering",
-  school: "Florida Gulf Coast University · Fort Myers, FL",
+  school: "Florida Gulf Coast University, Fort Myers, FL",
   graduation: "May 2027",
   courses: ["Requirements Engineering & Analysis", "Computer Security", "Software Testing", "Data Engineering"],
 };

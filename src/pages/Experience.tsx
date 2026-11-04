@@ -1,109 +1,52 @@
 // src/pages/Experience.tsx
-import { useMemo } from "react";
-import { m } from "framer-motion";
-import { EXPERIENCE_ENTRIES, ExperienceEntry } from "../constants/index";
+import { EXPERIENCE_ENTRIES, type ExperienceEntry } from "../constants/index";
+import SectionHeader from "../components/SectionHeader";
+
+const newestFirst = (a: ExperienceEntry, b: ExperienceEntry) => b.sortDate.localeCompare(a.sortDate);
+
+const GROUPS: { title: string; entries: ExperienceEntry[] }[] = [
+  { title: "Work and research", entries: EXPERIENCE_ENTRIES.filter((e) => e.type === "work").sort(newestFirst) },
+  { title: "Leadership", entries: EXPERIENCE_ENTRIES.filter((e) => e.type === "leadership").sort(newestFirst) },
+];
 
 export default function Experience() {
-  // Sort entries: by startYear (desc), then work before leadership if same year
-  const sortedEntries = useMemo<ExperienceEntry[]>(() => {
-    return [...EXPERIENCE_ENTRIES].sort((a, b) => {
-      // Work before leadership, then newest first within each
-      if (a.type !== b.type) return a.type === "work" ? -1 : 1;
-      return b.sortDate.localeCompare(a.sortDate);
-    });
-  }, []);
-
   return (
-    <section
-      id="experience"
-      className="text-white px-6 sm:px-16 py-20 md:py-24 border-t border-neutral-800"
-    >
-      <div className="max-w-4xl mx-auto">
-        {/* Section Header */}
-        <m.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <h2 className="text-4xl md:text-5xl font-semibold text-white tracking-tight">
-            Experience & Leadership
-          </h2>
-          <p className="text-slate-400 mt-2 text-sm">
-            Professional Work, Research & Campus Impact
-          </p>
-        </m.div>
+    <section id="experience" aria-labelledby="experience-title" className="section">
+      <div className="container-page">
+        <SectionHeader
+          id="experience"
+          title="Experience"
+          intro="Research, tutoring and campus leadership at Florida Gulf Coast University."
+        />
 
-        {/* Entry Cards */}
-        {sortedEntries.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-slate-400 text-lg">No entries found.</p>
-          </div>
-        ) : (
-          <div className="space-y-8">
-            {sortedEntries.map((entry, index) => {
-              const displayedTags = entry.tags?.slice(0, 4) || [];
-              const isWork = entry.type === "work";
+        <div className="space-y-16">
+          {GROUPS.map((group) => (
+            <div key={group.title} className="grid md:grid-cols-12 gap-x-8 gap-y-6">
+              <h3 className="md:col-span-3 font-display text-lg font-semibold">{group.title}</h3>
 
-              return (
-                <m.article
-                  key={`${entry.title}-${index}`}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  className="bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 transition-all duration-300 hover:bg-white/[0.07]"
-                >
-                  {/* Type Badge */}
-                  <span
-                    className={`inline-block text-xs font-medium uppercase tracking-wide px-2 py-0.5 rounded-full mb-3 ${
-                      isWork
-                        ? "bg-blue-500/10 text-blue-400 border border-blue-400/20"
-                        : "bg-purple-500/10 text-purple-400 border border-purple-400/20"
-                    }`}
-                  >
-                    {isWork ? "Work" : "Leadership"}
-                  </span>
-
-                  {/* Date */}
-                  <p className="text-sm text-slate-400 tracking-wide mb-2">
-                    {entry.period}
-                  </p>
-
-                  {/* Title */}
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-tight">
-                    {entry.title}
-                  </h3>
-
-                  {/* Organization */}
-                  <p className="text-slate-400 text-sm mb-4">
-                    {entry.organization}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-slate-300 text-sm leading-relaxed">
-                    {entry.description}
-                  </p>
-
-                  {/* Tags */}
-                  {displayedTags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {displayedTags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className="bg-white/5 border border-white/10 text-slate-300 text-xs px-3 py-1 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </m.article>
-              );
-            })}
-          </div>
-        )}
+              {/* Timeline: a vertical line with a marker per role */}
+              <ol className="md:col-span-9 relative border-l border-line">
+                {group.entries.map((entry, idx) => (
+                  <li key={entry.title} className="relative pl-8 pb-12 last:pb-0">
+                    <span
+                      aria-hidden="true"
+                      className={`absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full ring-4 ring-ink ${
+                        idx === 0 ? "bg-accent" : "bg-line"
+                      }`}
+                    />
+                    <p className="text-sm text-muted">{entry.period}</p>
+                    <h4 className="mt-1 font-display text-xl md:text-2xl font-semibold tracking-tight">{entry.title}</h4>
+                    <p className="mt-0.5 text-muted">{entry.organization}</p>
+                    <p className="mt-3 max-w-2xl leading-relaxed">{entry.description}</p>
+                    {entry.tags && entry.tags.length > 0 && (
+                      <p className="mt-3 text-sm text-muted">{entry.tags.join(", ")}</p>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
