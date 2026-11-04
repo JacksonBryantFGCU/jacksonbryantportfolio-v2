@@ -54,8 +54,10 @@ const ProjectCard: React.FC<Props> = ({ project, onDetailsClick }) => {
             loading="lazy"
             decoding="async"
             src={`${project.image}-800.webp`}
-            srcSet={`${project.image}-800.webp 800w, ${project.image}-1400.webp 1400w`}
-            sizes="(min-width: 768px) 460px, 100vw"
+            srcSet={`${project.image}-480.webp 480w, ${project.image}-800.webp 800w, ${project.image}-1400.webp 1400w`}
+            sizes="(min-width: 1024px) 460px, (min-width: 768px) 45vw, calc(100vw - 48px)"
+            width={800}
+            height={450}
             alt={`${project.title} screenshot`}
             onError={(e) => {
               e.currentTarget.style.display = "none";

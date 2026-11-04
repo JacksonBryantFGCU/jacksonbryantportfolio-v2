@@ -11,6 +11,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Native smooth scrolling for in-page links; sections clear the fixed nav */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+section[id] {
+    scroll-margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+    section[id] {
+        scroll-margin-top: 104px;
+    }
+}
+
 /* Respect the OS "reduce motion" setting for CSS transitions and smooth scrolling */
 @media (prefers-reduced-motion: reduce) {
     html {

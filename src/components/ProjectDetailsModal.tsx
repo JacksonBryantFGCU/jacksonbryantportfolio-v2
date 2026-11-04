@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Project } from "../constants/index";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { X } from "lucide-react";
@@ -47,7 +47,7 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -60,7 +60,7 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
           {/* Modal Container - handles rounded clipping */}
-          <motion.div
+          <m.div
             ref={modalRef}
             tabIndex={-1}
             role="dialog"
@@ -89,7 +89,7 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
                 <div className="relative w-full aspect-[16/9] max-h-[380px] overflow-hidden bg-slate-950 flex items-center justify-center">
                   <img
                     src={`${project.image}-1400.webp`}
-                    srcSet={`${project.image}-800.webp 800w, ${project.image}-1400.webp 1400w`}
+                    srcSet={`${project.image}-480.webp 480w, ${project.image}-800.webp 800w, ${project.image}-1400.webp 1400w`}
                     sizes="(min-width: 768px) 768px, 100vw"
                     alt={`${project.title} screenshot`}
                     className="w-full h-full object-contain"
@@ -181,8 +181,8 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
                 </div>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

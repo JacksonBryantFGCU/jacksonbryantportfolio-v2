@@ -17,7 +17,7 @@ export default function FullPortfolioPage() {
         }}
         className="text-white"
       >
-        <section id="home"><Home /></section>
+        <Home />
         <About />
         <Projects />
         <Experience />

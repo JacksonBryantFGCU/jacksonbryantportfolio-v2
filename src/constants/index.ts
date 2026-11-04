@@ -194,7 +194,12 @@ export interface Certification {
   issuer: string;
   issueDate: string;
   credentialUrl?: string;
+  /** Shown when there is no public verification link */
+  credentialId?: string;
+  /** Base path of the certificate image; -600.webp and -1200.webp files are used */
   image: string;
+  /** Pixel size of the full-size (-1200) image */
+  imageSize: [number, number];
 }
 
 export const CERTIFICATIONS: Certification[] = [
@@ -203,8 +208,10 @@ export const CERTIFICATIONS: Certification[] = [
     name: "Securing Projects with OpenSSF",
     issuer: "The Linux Foundation",
     issueDate: "March 2025",
-    // TODO: add the Linux Foundation verification link (certificate ID LF-2vz4wqoaqk)
-    image: "/Screenshot 2025-04-06 190947.webp",
+    // The Linux Foundation has no public verification page; show the certificate ID instead
+    credentialId: "LF-2vz4wqoaqk",
+    image: "/images/certs/linux-foundation-openssf",
+    imageSize: [1180, 906],
   },
   {
     id: "2",
@@ -212,7 +219,8 @@ export const CERTIFICATIONS: Certification[] = [
     issuer: "freeCodeCamp",
     issueDate: "April 2025",
     credentialUrl: "https://www.freecodecamp.org/certification/JacksonBryantFGCU/scientific-computing-with-python-v7",
-    image: "/Screenshot 2025-04-06 191010.webp",
+    image: "/images/certs/freecodecamp-python",
+    imageSize: [1200, 809],
   },
 ];
 

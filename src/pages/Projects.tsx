@@ -1,6 +1,6 @@
 // src/pages/Projects.tsx
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { PROJECTS, Project } from "../constants/index";
 import ProjectCard from "../components/ProjectPanel";
 import ProjectFilterBar from "../components/ProjectFilterBar";
@@ -61,7 +61,7 @@ export default function Projects() {
       >
         <div className="mx-auto max-w-5xl">
           {/* Section Heading */}
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -69,7 +69,7 @@ export default function Projects() {
             className="text-white mb-8 font-bold text-4xl md:text-5xl text-center tracking-tight"
           >
             Projects
-          </motion.h2>
+          </m.h2>
 
           {/* Filter Bar */}
           <ProjectFilterBar
@@ -83,7 +83,7 @@ export default function Projects() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
               {filteredProjects.map((project, idx) => (
-                <motion.div
+                <m.div
                   key={`${project.title}-${idx}`}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -94,7 +94,7 @@ export default function Projects() {
                     project={project}
                     onDetailsClick={() => handleDetailsClick(project)}
                   />
-                </motion.div>
+                </m.div>
               ))}
             </div>
           )}
