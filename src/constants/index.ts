@@ -20,6 +20,24 @@ export interface ExperienceEntry {
 
 export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
   {
+    title: "Autonomous Driving Research Assistant",
+    organization: "FGCU Computing & Software Engineering Department",
+    description: "Set up the research team's autonomous driving platform: installed Ubuntu 22.04 and ROS 2 Humble, deployed a Livox MID-360 LiDAR sensor by configuring its ROS drivers and integrating the pipeline into Autoware, and assembled the hardware (network switch, battery and CAN cabling) for live LiDAR operation.",
+    startYear: 2026,
+    endYear: null,
+    type: "work",
+    tags: ["ROS 2", "Autoware", "LiDAR", "Ubuntu"]
+  },
+  {
+    title: "President",
+    organization: "Computer Science & Software Engineering Club (CSSEC)",
+    description: "Lead FGCU's Computer Science & Software Engineering Club.",
+    startYear: 2026,
+    endYear: null,
+    type: "leadership",
+    tags: ["Leadership"]
+  },
+  {
     title: "Student Math Tutor",
     organization: "FGCU",
     description: "Helped students in math topics ranging from Algebra to Calculus III. Worked with students on homework, classwork, and various topics by providing guidance and clarification as needed.",
@@ -27,33 +45,6 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
     endYear: null,
     type: "work",
     tags: ["Problem Solving", "Communication", "Math"]
-  },
-  {
-    title: "Research Assistant",
-    organization: "FGCU",
-    description: "Led an Unreal Engine simulation project that models a Water-Energy-Food (WEF) system. Using C++ and Unreal's blueprint system, I tested, fixed bugs, and added new features to enhance the simulation's user experience.",
-    startYear: 2024,
-    endYear: null,
-    type: "work",
-    tags: ["Unreal Engine", "C++", "Virtual Reality"]
-  },
-  {
-    title: "Back of House Worker",
-    organization: "Chick-fil-A",
-    description: "Worked in the Back of House at Chick-fil-A, preparing food and coordinating with kitchen and front-of-house staff to ensure efficient service.",
-    startYear: 2023,
-    endYear: 2024,
-    type: "work",
-    tags: ["Service", "Teamwork", "Communication"]
-  },
-  {
-    title: "Secretary",
-    organization: "Computer Science & Software Engineering Club (CSSEC)",
-    description: "Perform tasks and duties that help CSSEC run smoothly, including taking meeting notes, managing events, room reservations, and assisting with club communications.",
-    startYear: 2025,
-    endYear: null,
-    type: "leadership",
-    tags: ["Organization", "Communication"]
   }
 ];
 
@@ -241,6 +232,15 @@ export const CERTIFICATIONS: Certification[] = [
     imageSize: [1200, 808],
   },
   {
+    id: "2",
+    name: "Scientific Computing with Python",
+    issuer: "freeCodeCamp",
+    issueDate: "April 2025",
+    credentialUrl: "https://www.freecodecamp.org/certification/JacksonBryantFGCU/scientific-computing-with-python-v7",
+    image: "/images/certs/freecodecamp-python",
+    imageSize: [1200, 809],
+  },
+  {
     id: "1",
     name: "Securing Projects with OpenSSF",
     issuer: "The Linux Foundation",
@@ -249,15 +249,6 @@ export const CERTIFICATIONS: Certification[] = [
     credentialId: "LF-2vz4wqoaqk",
     image: "/images/certs/linux-foundation-openssf",
     imageSize: [1180, 906],
-  },
-  {
-    id: "2",
-    name: "Scientific Computing with Python",
-    issuer: "freeCodeCamp",
-    issueDate: "April 2025",
-    credentialUrl: "https://www.freecodecamp.org/certification/JacksonBryantFGCU/scientific-computing-with-python-v7",
-    image: "/images/certs/freecodecamp-python",
-    imageSize: [1200, 809],
   },
 ];
 
