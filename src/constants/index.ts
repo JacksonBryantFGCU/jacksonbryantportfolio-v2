@@ -204,6 +204,15 @@ export interface Certification {
 
 export const CERTIFICATIONS: Certification[] = [
   {
+    id: "3",
+    name: "Relational Database",
+    issuer: "freeCodeCamp",
+    issueDate: "October 2026",
+    credentialUrl: "https://www.freecodecamp.org/certification/fcc9736ba88-0cad-4eb6-b72b-271aa251ff30/relational-databases-v9",
+    image: "/images/certs/freecodecamp-relational-database",
+    imageSize: [1200, 808],
+  },
+  {
     id: "1",
     name: "Securing Projects with OpenSSF",
     issuer: "The Linux Foundation",
