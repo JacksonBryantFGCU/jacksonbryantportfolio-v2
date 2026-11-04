@@ -60,6 +60,7 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
 export interface Project {
   title: string;
   description: string;
+  /** Base path of the screenshot; the -800.webp and -1400.webp files are used */
   image?: string;
   demo?: string;
   github?: string;
@@ -73,7 +74,7 @@ export const PROJECTS: Project[] = [
   {
     title: "Zonta Club of Naples Website",
     demo: "https://zontaclubofnaples.org",
-    image: "/zonta-club.png",
+    image: "/images/projects/zonta-club",
     description:
       "Full-stack membership and content website for a nonprofit organization, supporting membership applications, payments, events, scholarships, donations, and CMS-managed content.",
     skills: ["React", "TypeScript", "Node.js", "Express", "Sanity CMS", "Square", "Stripe", "Vercel", "Render"],
@@ -88,7 +89,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "ACE.AI Mock Interview Platform",
-    image: "/ACE-AI.png",
+    image: "/images/projects/ace-ai",
     description:
       "AI-powered mock interview platform with voice-driven behavioral interviews and technical coding interview support.",
     skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "Vapi", "Supabase", "OpenAI"],
@@ -103,7 +104,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Dev Operator",
-    image: "/devoperator.png",
+    image: "/images/projects/dev-operator",
     github: "https://github.com/JacksonBryantFGCU/dev-operator",
     description:
       "AI-augmented desktop workspace built with Electron that lets developers manage projects, run forge tooling, commit code, and control dev servers through a unified command interface with voice support.",
@@ -119,7 +120,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "AskLisa",
-    image: "/askLisa.png",
+    image: "/images/projects/asklisa",
     demo: "https://asksunstonelisa.com",
     github: "https://github.com/JacksonBryantFGCU/askLisa",
     description:
@@ -136,7 +137,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Wellon CPR Website",
-    image: "/welloncpr.png",
+    image: "/images/projects/wellon-cpr",
     demo: "https://welloncpr.com",
     github: "https://github.com/JacksonBryantFGCU/cpr-website",
     description:
@@ -153,7 +154,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Jackson Bryant Portfolio",
-    image: "/portfolio.png",
+    image: "/images/projects/portfolio",
     description:
       "Personal developer portfolio built to showcase projects, experience, certifications, technical skills, and contact information.",
     skills: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"],
@@ -171,7 +172,7 @@ export const PROJECTS: Project[] = [
   {
     title: "Upgrades by Taylor Website",
     demo: "https://upgrades-by-taylor.com",
-    image: "/upgradesbytaylor.png",
+    image: "/images/projects/upgrades-by-taylor",
     description:
       "Static business website for an independent contractor, designed to present services, project photos, contact information, and business credibility.",
     skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
@@ -192,7 +193,7 @@ export interface Certification {
   name: string;
   issuer: string;
   issueDate: string;
-  credentialUrl: string;
+  credentialUrl?: string;
   image: string;
 }
 
@@ -201,16 +202,16 @@ export const CERTIFICATIONS: Certification[] = [
     id: "1",
     name: "Securing Projects with OpenSSF",
     issuer: "The Linux Foundation",
-    issueDate: "May 2024",
-    credentialUrl: "https://freecodecamp.org/cert-link",
+    issueDate: "March 2025",
+    // TODO: add the Linux Foundation verification link (certificate ID LF-2vz4wqoaqk)
     image: "/Screenshot 2025-04-06 190947.webp",
   },
   {
     id: "2",
     name: "Scientific Computing with Python",
     issuer: "freeCodeCamp",
-    issueDate: "March 2024",
-    credentialUrl: "https://freecodecamp.org/cert-link",
+    issueDate: "April 2025",
+    credentialUrl: "https://www.freecodecamp.org/certification/JacksonBryantFGCU/scientific-computing-with-python-v7",
     image: "/Screenshot 2025-04-06 191010.webp",
   },
 ];

@@ -52,7 +52,10 @@ const ProjectCard: React.FC<Props> = ({ project, onDetailsClick }) => {
         <div className="aspect-video rounded-xl overflow-hidden mb-3 bg-slate-900/50 border border-white/10 transition-shadow duration-300 group-hover:shadow-lg">
           <img
             loading="lazy"
-            src={project.image}
+            decoding="async"
+            src={`${project.image}-800.webp`}
+            srcSet={`${project.image}-800.webp 800w, ${project.image}-1400.webp 1400w`}
+            sizes="(min-width: 768px) 460px, 100vw"
             alt={`${project.title} screenshot`}
             onError={(e) => {
               e.currentTarget.style.display = "none";

@@ -123,7 +123,7 @@ export default function Contact() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mt-4 text-slate-500 text-sm"
         >
-          © 2025 Jackson Bryant. All rights reserved.
+          © {new Date().getFullYear()} Jackson Bryant. All rights reserved.
         </motion.p>
       </div>
     </section>

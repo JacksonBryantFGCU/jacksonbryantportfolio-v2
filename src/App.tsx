@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { MotionConfig } from "framer-motion";
 import FullPortfolioPage from "./pages/FullPortfolioPage";
 
 export default function App() {
   return (
+    <MotionConfig reducedMotion="user">
     <BrowserRouter>
       <main className="min-h-screen font-sans text-text-base transition-colors duration-300 bg-background-dark text-white">
         <Routes>
@@ -20,5 +22,6 @@ export default function App() {
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       </main>
     </BrowserRouter>
+    </MotionConfig>
   );
 }

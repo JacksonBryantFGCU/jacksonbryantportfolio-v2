@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import aboutImg from "/about-me.webp";
 
 const coreStack = {
   frontend: ["React", "TypeScript", "Tailwind"],
@@ -25,7 +24,9 @@ export default function About() {
             className="w-full lg:w-1/3 flex justify-center lg:justify-start"
           >
             <img
-              src={aboutImg}
+              src="/images/about-640.webp"
+              width={640}
+              height={883}
               alt="About Jackson Bryant"
               className="rounded-xl shadow-xl shadow-black/20 max-w-xs w-full object-cover"
               loading="lazy"
@@ -48,7 +49,7 @@ export default function About() {
 
             {/* Single Cohesive Paragraph */}
             <p className="text-slate-300 text-base md:text-lg leading-relaxed max-w-sm md:max-w-xl mx-auto lg:mx-0">
-              I'm a software engineer focused on frontend development and modern web technologies.
+              I'm a software engineer who builds modern web applications, from the interface to the API behind it.
               I build performant, user-centered applications with clean, maintainable code.
               My work centers on creating intuitive interfaces and scalable architectures that solve real problems.
               Currently pursuing Software Engineering at Florida Gulf Coast University, I'm actively building projects and contributing to research initiatives.

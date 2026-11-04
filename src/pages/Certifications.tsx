@@ -73,22 +73,23 @@ export default function Certifications() {
                     </a>
                   )}
 
-                  {/* Certificate Image */}
+                  {/* Certificate thumbnail - opens the full image */}
                   {image && (
-                    <div className="mt-4 w-full">
-                      <div className="w-full overflow-hidden rounded-md md:rounded-lg bg-slate-900/50">
-                        <img
-                          src={image}
-                          alt={`${name} certificate`}
-                          loading="lazy"
-                          decoding="async"
-                          onError={(e) => {
-                            e.currentTarget.src = "/fallback-image.png";
-                          }}
-                          className="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 active:scale-[0.98] transition-all duration-300"
-                        />
-                      </div>
-                    </div>
+                    <a
+                      href={image}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 block w-full overflow-hidden rounded-md md:rounded-lg bg-slate-900/50 border border-white/10"
+                      aria-label={`Open full ${name} certificate image`}
+                    >
+                      <img
+                        src={image}
+                        alt={`${name} certificate`}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-40 object-cover object-top grayscale-[30%] group-hover:grayscale-0 transition-all duration-300"
+                      />
+                    </a>
                   )}
                 </motion.article>
               );

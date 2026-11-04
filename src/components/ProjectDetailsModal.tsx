@@ -12,10 +12,14 @@ interface Props {
 
 const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
 
   // Focus trap and ESC close
   useEffect(() => {
     if (!isOpen) return;
+
+    // Remember what had focus so it can be restored when the modal closes
+    returnFocusRef.current = document.activeElement as HTMLElement | null;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -32,6 +36,7 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
+      returnFocusRef.current?.focus();
     };
   }, [isOpen, onClose]);
 
@@ -58,6 +63,9 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
           <motion.div
             ref={modalRef}
             tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -80,7 +88,9 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
               {project.image && (
                 <div className="relative w-full aspect-[16/9] max-h-[380px] overflow-hidden bg-slate-950 flex items-center justify-center">
                   <img
-                    src={project.image}
+                    src={`${project.image}-1400.webp`}
+                    srcSet={`${project.image}-800.webp 800w, ${project.image}-1400.webp 1400w`}
+                    sizes="(min-width: 768px) 768px, 100vw"
                     alt={`${project.title} screenshot`}
                     className="w-full h-full object-contain"
                   />
@@ -98,7 +108,7 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
                 )}
 
                 {/* Title */}
-                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-4">
+                <h3 id="project-modal-title" className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-4">
                   {project.title}
                 </h3>
 

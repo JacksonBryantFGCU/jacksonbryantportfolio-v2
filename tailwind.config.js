@@ -58,7 +58,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ["Inter Variable", "Inter", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
       },
       borderRadius: {
         xl: "1rem",

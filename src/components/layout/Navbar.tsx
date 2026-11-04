@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
 import { User, FolderOpen, Briefcase, Award, Mail, Home } from "lucide-react";
-import resumePDF from "/JacksonBryantResume2025.pdf";
+import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
 
 // Desktop nav items
 const desktopNavItems = [
@@ -167,7 +167,7 @@ export default function Navbar() {
         {/* Resume Button - Outside pill */}
         <a
           href={resumePDF}
-          download="Jackson Bryant Resume 2025.pdf"
+          download="Jackson Bryant Resume Fall 2026.pdf"
           className="px-4 py-2 text-sm font-medium text-white bg-blue-600/90 hover:bg-blue-500/90 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
         >
           Resume

@@ -1,7 +1,6 @@
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { motion } from "framer-motion";
 import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
-import LinkedinPhoto from "/LinkedinPhoto.jpg";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -48,7 +47,7 @@ export default function Home() {
         {/* Left Side - Text Content */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="flex flex-col items-center lg:items-start w-full lg:w-1/2 lg:text-left text-center"
         >
@@ -65,7 +64,7 @@ export default function Home() {
             variants={itemVariants}
             className="mt-5 text-xl sm:text-2xl lg:text-3xl font-medium text-blue-400/90"
           >
-            Fullstack Software Engineer
+            Software Engineer
           </motion.h2>
 
           {/* Positioning Statement */}
@@ -137,10 +136,15 @@ export default function Home() {
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-blue-500/15 via-transparent to-blue-400/10 blur-2xl" />
 
             <img
-              src={LinkedinPhoto}
+              src="/images/jackson-portrait-800.webp"
+              srcSet="/images/jackson-portrait-480.webp 480w, /images/jackson-portrait-800.webp 800w"
+              sizes="(min-width: 1024px) 384px, (min-width: 640px) 320px, 288px"
+              width={800}
+              height={1000}
               alt="Jackson Bryant"
-              className="relative rounded-xl w-72 sm:w-80 lg:w-96 shadow-xl shadow-black/30"
+              className="relative rounded-xl w-72 sm:w-80 lg:w-96 h-auto shadow-xl shadow-black/30"
               loading="eager"
+              fetchPriority="high"
             />
           </motion.div>
         </motion.div>
