@@ -66,6 +66,8 @@ export interface Project {
   github?: string;
   skills?: string[];
   featured?: boolean;
+  /** Built for a real client (shown as "Client work") */
+  client?: boolean;
   category?: "frontend" | "backend" | "fullstack" | "other";
   highlights?: string[];
 }
@@ -79,6 +81,7 @@ export const PROJECTS: Project[] = [
       "Full-stack membership and content website for a nonprofit organization, supporting membership applications, payments, events, scholarships, donations, and CMS-managed content.",
     skills: ["React", "TypeScript", "Node.js", "Express", "Sanity CMS", "Square", "Stripe", "Vercel", "Render"],
     featured: true,
+    client: true,
     category: "fullstack",
     highlights: [
       "Built a production client website with responsive frontend pages and backend API workflows.",
@@ -88,12 +91,48 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    title: "Wellon CPR Website",
+    image: "/images/projects/wellon-cpr",
+    demo: "https://welloncpr.com",
+    github: "https://github.com/JacksonBryantFGCU/cpr-website",
+    description:
+      "Professional business website for a CPR and first-aid training provider, built to present course offerings, certification information, and a contact pathway for new students.",
+    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+    featured: true,
+    client: true,
+    category: "frontend",
+    highlights: [
+      "Built a responsive, client-facing website to establish online presence for a CPR training business.",
+      "Structured pages for course offerings, certification details, and contact information.",
+      "Focused on clean visual hierarchy, clear calls to action, and mobile responsiveness.",
+      "Delivered a production-ready site optimized for a non-technical client audience.",
+    ],
+  },
+  {
+    title: "Upgrades by Taylor Website",
+    demo: "https://upgrades-by-taylor.com",
+    image: "/images/projects/upgrades-by-taylor",
+    description:
+      "Static business website for an independent contractor, designed to present services, project photos, contact information, and business credibility.",
+    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+    github: "https://github.com/JacksonBryantFGCU/UpgradesbyTaylor",
+    featured: true,
+    client: true,
+    category: "frontend",
+    highlights: [
+      "Built a responsive business website from a provided design direction.",
+      "Structured pages for services, gallery, contact, and company information.",
+      "Focused on clean layout, strong calls to action, and mobile responsiveness.",
+      "Prepared the site for client-facing deployment and branding assets.",
+    ],
+  },
+  {
     title: "ACE.AI Mock Interview Platform",
     image: "/images/projects/ace-ai",
     description:
       "AI-powered mock interview platform with voice-driven behavioral interviews and technical coding interview support.",
     skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "Vapi", "Supabase", "OpenAI"],
-    featured: true,
+    featured: false,
     category: "fullstack",
     highlights: [
       "Built real-time mock interview flows for behavioral and technical interview practice.",
@@ -109,7 +148,7 @@ export const PROJECTS: Project[] = [
     description:
       "AI-augmented desktop workspace built with Electron that lets developers manage projects, run forge tooling, commit code, and control dev servers through a unified command interface with voice support.",
     skills: ["Electron", "React", "TypeScript", "Vite", "Anthropic SDK", "Zod", "Execa"],
-    featured: true,
+    featured: false,
     category: "fullstack",
     highlights: [
       "Built a unified command bar accepting typed or spoken input to run git operations, manage dev servers, and trigger project tooling.",
@@ -136,23 +175,6 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    title: "Wellon CPR Website",
-    image: "/images/projects/wellon-cpr",
-    demo: "https://welloncpr.com",
-    github: "https://github.com/JacksonBryantFGCU/cpr-website",
-    description:
-      "Professional business website for a CPR and first-aid training provider, built to present course offerings, certification information, and a contact pathway for new students.",
-    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
-    featured: false,
-    category: "frontend",
-    highlights: [
-      "Built a responsive, client-facing website to establish online presence for a CPR training business.",
-      "Structured pages for course offerings, certification details, and contact information.",
-      "Focused on clean visual hierarchy, clear calls to action, and mobile responsiveness.",
-      "Delivered a production-ready site optimized for a non-technical client audience.",
-    ],
-  },
-  {
     title: "Jackson Bryant Portfolio",
     image: "/images/projects/portfolio",
     description:
@@ -169,24 +191,27 @@ export const PROJECTS: Project[] = [
       "Deployed the site with optimized production builds.",
     ],
   },
-  {
-    title: "Upgrades by Taylor Website",
-    demo: "https://upgrades-by-taylor.com",
-    image: "/images/projects/upgrades-by-taylor",
-    description:
-      "Static business website for an independent contractor, designed to present services, project photos, contact information, and business credibility.",
-    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
-    github: "https://github.com/JacksonBryantFGCU/UpgradesbyTaylor",
-    featured: false,
-    category: "frontend",
-    highlights: [
-      "Built a responsive business website from a provided design direction.",
-      "Structured pages for services, gallery, contact, and company information.",
-      "Focused on clean layout, strong calls to action, and mobile responsiveness.",
-      "Prepared the site for client-facing deployment and branding assets.",
-    ],
-  },
 ];
+
+export interface ProofPoint {
+  value: string;
+  label: string;
+}
+
+// Shown right under the hero. Keep these to facts that are on the résumé.
+export const PROOF_POINTS: ProofPoint[] = [
+  { value: "3", label: "Client websites live in production" },
+  { value: "3rd place", label: "EagleHacks 2026, plus a company challenge win" },
+  { value: "Research", label: "Undergraduate research assistant at FGCU" },
+  { value: "May 2027", label: "B.S. Software Engineering graduation" },
+];
+
+export const EDUCATION = {
+  degree: "B.S. Software Engineering",
+  school: "Florida Gulf Coast University · Fort Myers, FL",
+  graduation: "May 2027",
+  courses: ["Requirements Engineering & Analysis", "Computer Security", "Software Testing", "Data Engineering"],
+};
 
 export interface Certification {
   id: string;

@@ -1,9 +1,23 @@
-import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
-import { FileText, ArrowUp } from "lucide-react";
+import { useState } from "react";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { ArrowUp, Check, Copy, Mail } from "lucide-react";
 import { m } from "framer-motion";
-import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
+
+const EMAIL = "jacksonbryant.dev@gmail.com";
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${EMAIL}`;
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -11,7 +25,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative px-6 pt-20 pb-16 border-t border-white/10 scroll-mt-32"
+      className="relative px-6 pt-20 pb-32 md:pb-16 border-t border-neutral-800"
     >
       <div className="max-w-4xl mx-auto text-center text-white">
         {/* Name */}
@@ -47,25 +61,31 @@ export default function Contact() {
           Feel free to reach out if you're looking for a reliable, driven developer.
         </m.p>
 
-        {/* Resume Download */}
+        {/* Email with copy */}
         <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex justify-center mt-8"
+          className="mt-8 inline-flex items-center gap-1 rounded-full bg-white/5 border border-white/10 pl-5 pr-1.5 py-1.5"
         >
-          <a
-            href={resumePDF}
-            download="Jackson Bryant Resume Fall 2026.pdf"
-            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white bg-blue-500 hover:bg-blue-400 rounded-full shadow-lg shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02]"
-          >
-            <FileText size={16} />
-            Download Resume
+          <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 text-slate-100 hover:text-white">
+            <Mail size={16} aria-hidden="true" className="text-slate-400" />
+            {EMAIL}
           </a>
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-200 hover:bg-white/15"
+            aria-label={copied ? "Email copied" : "Copy email address"}
+          >
+            {copied ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
+            {copied ? "Copied" : "Copy"}
+          </button>
+          <span className="sr-only" aria-live="polite">{copied ? "Email copied to clipboard" : ""}</span>
         </m.div>
 
-        {/* Social Icons */}
+        {/* Profiles */}
         <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -77,28 +97,17 @@ export default function Contact() {
             href="https://www.linkedin.com/in/jacksonbryant-dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-white text-xl transition-all duration-200 hover:scale-110"
-            aria-label="Visit my LinkedIn Profile"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm transition-colors duration-200"
           >
-            <FaLinkedin />
+            <FaLinkedin className="text-lg" aria-hidden="true" /> LinkedIn
           </a>
           <a
             href="https://github.com/JacksonBryantFGCU"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-white text-xl transition-all duration-200 hover:scale-110"
-            aria-label="Visit my GitHub Profile"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm transition-colors duration-200"
           >
-            <FaGithub />
-          </a>
-          <a
-            href="mailto:jacksonbryant.dev@gmail.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-slate-400 hover:text-white text-xl transition-all duration-200 hover:scale-110"
-            aria-label="Email Jackson Bryant"
-          >
-            <FaEnvelope />
+            <FaGithub className="text-lg" aria-hidden="true" /> GitHub
           </a>
         </m.div>
 

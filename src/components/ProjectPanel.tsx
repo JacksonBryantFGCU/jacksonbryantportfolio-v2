@@ -1,5 +1,5 @@
 import React from "react";
-import { Project } from "../constants/index";
+import type { Project } from "../constants/index";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { Info } from "lucide-react";
 
@@ -8,75 +8,37 @@ interface Props {
   onDetailsClick?: () => void;
 }
 
+// Compact card for the "More projects" grid: no screenshot (it's in the Details view)
 const ProjectCard: React.FC<Props> = ({ project, onDetailsClick }) => {
-  // Limit badges to 4 max
   const displayedSkills = project.skills?.slice(0, 4) || [];
 
   return (
-    <article
-      className="group relative w-full bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-5 h-full flex flex-col transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:border-white/20"
-    >
-      {/* Featured Label */}
-      {project.featured && (
-        <span className="text-xs font-medium uppercase tracking-wider text-blue-400 mb-2">
-          Featured
-        </span>
-      )}
+    <article className="h-full flex flex-col bg-white/[0.03] border border-white/10 rounded-2xl p-5 md:p-6 transition-colors duration-200 hover:border-white/20">
+      <h3 className="text-lg md:text-xl font-semibold text-slate-50 tracking-tight">{project.title}</h3>
+      <p className="mt-2 text-slate-400 text-sm leading-relaxed line-clamp-2">{project.description}</p>
 
-      {/* Project Title */}
-      <h3 className="text-xl md:text-2xl font-bold text-slate-50 tracking-tight mb-1.5 line-clamp-1">
-        {project.title}
-      </h3>
-
-      {/* Short Description */}
-      <p className="text-slate-400 text-sm leading-relaxed mb-3 line-clamp-2 md:line-clamp-2">
-        {project.description}
-      </p>
-
-      {/* Tech Stack Badges */}
       {displayedSkills.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {displayedSkills.map((skill, idx) => (
-            <span
-              key={idx}
+        <ul className="flex flex-wrap gap-1.5 mt-4" aria-label="Built with">
+          {displayedSkills.map((skill) => (
+            <li
+              key={skill}
               className="bg-white/[0.07] border border-white/10 text-slate-300 text-xs px-2.5 py-0.5 rounded-full"
             >
               {skill}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
 
-      {/* Screenshot */}
-      {project.image && (
-        <div className="aspect-video rounded-xl overflow-hidden mb-3 bg-slate-900/50 border border-white/10 transition-shadow duration-300 group-hover:shadow-lg">
-          <img
-            loading="lazy"
-            decoding="async"
-            src={`${project.image}-800.webp`}
-            srcSet={`${project.image}-480.webp 480w, ${project.image}-800.webp 800w, ${project.image}-1400.webp 1400w`}
-            sizes="(min-width: 1024px) 460px, (min-width: 768px) 45vw, calc(100vw - 48px)"
-            width={800}
-            height={450}
-            alt={`${project.title} screenshot`}
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-            className="w-full h-full object-contain"
-          />
-        </div>
-      )}
-
-      {/* Action Buttons */}
-      <div className="flex flex-wrap gap-2 mt-auto">
+      <div className="flex flex-wrap gap-2 mt-auto pt-5">
         {project.demo && (
           <a
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm px-3.5 py-1.5 rounded-full shadow-md hover:brightness-110 hover:-translate-y-[1px] hover:shadow-lg transition-all duration-200"
+            className="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/10 text-white text-sm px-3.5 py-1.5 rounded-full hover:bg-white/[0.12] transition-colors duration-200"
           >
-            Live Demo <FaExternalLinkAlt size={10} />
+            Live <FaExternalLinkAlt size={10} aria-hidden="true" />
           </a>
         )}
         {project.github && (
@@ -84,17 +46,18 @@ const ProjectCard: React.FC<Props> = ({ project, onDetailsClick }) => {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/10 text-white text-sm px-3.5 py-1.5 rounded-full hover:bg-white/[0.12] transition-all duration-200"
+            className="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/10 text-white text-sm px-3.5 py-1.5 rounded-full hover:bg-white/[0.12] transition-colors duration-200"
           >
-            GitHub <FaGithub size={12} />
+            Code <FaGithub size={12} aria-hidden="true" />
           </a>
         )}
         {onDetailsClick && (
           <button
+            type="button"
             onClick={onDetailsClick}
-            className="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/10 text-slate-300 text-sm px-3.5 py-1.5 rounded-full hover:bg-white/[0.12] hover:text-white transition-all duration-200"
+            className="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/10 text-slate-300 text-sm px-3.5 py-1.5 rounded-full hover:bg-white/[0.12] hover:text-white transition-colors duration-200"
           >
-            Details <Info size={12} />
+            Details <Info size={12} aria-hidden="true" />
           </button>
         )}
       </div>

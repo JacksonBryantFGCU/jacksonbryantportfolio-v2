@@ -1,103 +1,63 @@
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { m } from "framer-motion";
-import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
+import { ArrowRight } from "lucide-react";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-};
+const PORTRAIT_SRCSET =
+  "/images/jackson-portrait-320.webp 320w, /images/jackson-portrait-640.webp 640w, /images/jackson-portrait-800.webp 800w";
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut" as const,
-    },
-  },
-};
-
-const imageVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.7,
-      ease: "easeOut" as const,
-    },
-  },
-};
+const socialLinkClass =
+  "w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:bg-white/10 transition-colors duration-200";
 
 export default function Home() {
   return (
-    <section
-      id="home"
-      className="px-6 sm:px-16 pt-28 sm:pt-36 pb-20 border-b border-neutral-800 text-white"
-    >
-      <div className="flex lg:flex-row flex-col justify-between items-center max-w-7xl mx-auto">
-        {/* Left Side - Text Content */}
-        <m.div
-          variants={containerVariants}
-          initial={false}
-          animate="visible"
-          className="flex flex-col items-center lg:items-start w-full lg:w-1/2 lg:text-left text-center"
-        >
-          {/* Name */}
-          <m.h1
-            variants={itemVariants}
-            className="font-bold text-5xl sm:text-6xl lg:text-7xl tracking-tight text-white"
-          >
+    <section id="home" className="px-6 sm:px-16 pt-10 md:pt-36 pb-12 md:pb-16 text-white">
+      <div className="flex flex-col lg:flex-row items-center lg:justify-between gap-6 lg:gap-16 max-w-6xl mx-auto">
+        {/* Photo: small above the name on phones, beside the text on desktop */}
+        <div className="order-first lg:order-last shrink-0">
+          <img
+            src="/images/jackson-portrait-640.webp"
+            srcSet={PORTRAIT_SRCSET}
+            sizes="(min-width: 1024px) 320px, (min-width: 640px) 160px, 112px"
+            width={800}
+            height={1000}
+            alt="Jackson Bryant"
+            className="w-28 sm:w-40 lg:w-80 h-auto rounded-2xl shadow-xl shadow-black/30 border border-white/10"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </div>
+
+        {/* Text */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-2xl">
+          <h1 className="font-bold text-5xl sm:text-6xl lg:text-7xl tracking-tight text-white">
             Jackson Bryant
-          </m.h1>
+          </h1>
+          <p className="mt-4 text-xl sm:text-2xl font-medium text-blue-400/90">Software Engineer</p>
+          <p className="mt-5 text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl">
+            I build production websites and full-stack apps for nonprofits and small businesses,
+            and I&apos;m finishing a B.S. in Software Engineering at Florida Gulf Coast University.
+          </p>
 
-          {/* Title */}
-          <m.h2
-            variants={itemVariants}
-            className="mt-5 text-xl sm:text-2xl lg:text-3xl font-medium text-blue-400/90"
-          >
-            Software Engineer
-          </m.h2>
-
-          {/* Positioning Statement */}
-          <m.p
-            variants={itemVariants}
-            className="mt-5 text-slate-300 text-base sm:text-lg max-w-lg leading-relaxed"
-          >
-            I design and build performant web applications with a focus on intuitive interfaces and scalable architecture.
-          </m.p>
-
-          {/* CTA Buttons */}
-          <m.div
-            variants={itemVariants}
-            className="flex sm:flex-row flex-col items-center gap-5 mt-10"
-          >
-            {/* Primary Button */}
+          {/* Actions */}
+          <div className="flex flex-wrap justify-center lg:justify-start items-center gap-3 mt-8">
             <a
-              href={resumePDF}
-              download="Jackson Bryant Resume Fall 2026.pdf"
-              className="px-6 py-3 text-sm font-medium tracking-wide text-white btn-primary rounded-full shadow-md hover:shadow-lg hover:brightness-110 hover:-translate-y-[2px] transition-all duration-300 ease-out"
-              aria-label="Download Resume"
+              href="#projects"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white btn-primary rounded-full shadow-md hover:brightness-110 transition-[filter] duration-200"
             >
-              Download Resume
+              View projects <ArrowRight size={16} aria-hidden="true" />
             </a>
-
-            {/* Social Icons */}
-            <div className="flex items-center gap-3">
+            <a
+              href="#contact"
+              className="px-6 py-3 text-sm font-medium text-slate-200 bg-white/5 border border-white/15 rounded-full hover:bg-white/10 hover:text-white transition-colors duration-200"
+            >
+              Contact
+            </a>
+            <div className="flex items-center gap-2 sm:ml-2">
               <a
                 href="https://www.linkedin.com/in/jacksonbryant-dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:bg-white/10 hover:-translate-y-[2px] transition-all duration-300"
-                aria-label="LinkedIn Profile"
+                className={socialLinkClass}
+                aria-label="LinkedIn profile"
               >
                 <FaLinkedin className="text-lg" />
               </a>
@@ -105,49 +65,14 @@ export default function Home() {
                 href="https://github.com/JacksonBryantFGCU"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:bg-white/10 hover:-translate-y-[2px] transition-all duration-300"
-                aria-label="GitHub Profile"
+                className={socialLinkClass}
+                aria-label="GitHub profile"
               >
                 <FaGithub className="text-lg" />
               </a>
             </div>
-          </m.div>
-        </m.div>
-
-        {/* Right Side - Image */}
-        <m.div
-          variants={imageVariants}
-          initial={false}
-          animate="visible"
-          className="flex justify-center mt-14 lg:mt-0 w-full lg:w-1/2"
-        >
-          <m.div
-            animate={{
-              y: [0, -4, 0],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="relative"
-          >
-            {/* Gradient glow effect */}
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-blue-500/15 via-transparent to-blue-400/10 blur-2xl" />
-
-            <img
-              src="/images/jackson-portrait-640.webp"
-              srcSet="/images/jackson-portrait-320.webp 320w, /images/jackson-portrait-640.webp 640w, /images/jackson-portrait-800.webp 800w"
-              sizes="(min-width: 1024px) 384px, (min-width: 640px) 320px, 288px"
-              width={800}
-              height={1000}
-              alt="Jackson Bryant"
-              className="relative rounded-xl w-72 sm:w-80 lg:w-96 h-auto shadow-xl shadow-black/30"
-              loading="eager"
-              fetchPriority="high"
-            />
-          </m.div>
-        </m.div>
+          </div>
+        </div>
       </div>
     </section>
   );
