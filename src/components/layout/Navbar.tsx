@@ -5,19 +5,19 @@ import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
 
 // Desktop nav items
 const desktopNavItems = [
+  { label: "About", id: "about" },
   { label: "Projects", id: "projects" },
   { label: "Experience", id: "experience" },
   { label: "Education", id: "education" },
-  { label: "About", id: "about" },
   { label: "Contact", id: "contact" },
 ];
 
 // Mobile dock items (the résumé is added at the end as a highlighted action)
 const mobileNavItems = [
+  { label: "About", id: "about", icon: User },
   { label: "Projects", id: "projects", icon: FolderOpen },
   { label: "Experience", id: "experience", icon: Briefcase },
   { label: "Education", id: "education", icon: GraduationCap },
-  { label: "About", id: "about", icon: User },
   { label: "Contact", id: "contact", icon: Mail },
 ];
 

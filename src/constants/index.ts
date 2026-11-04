@@ -68,6 +68,8 @@ export interface Project {
   featured?: boolean;
   /** Built for a real client (shown as "Client work") */
   client?: boolean;
+  /** Short label for featured projects that aren't client work */
+  label?: string;
   category?: "frontend" | "backend" | "fullstack" | "other";
   highlights?: string[];
 }
@@ -91,21 +93,19 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    title: "Wellon CPR Website",
-    image: "/images/projects/wellon-cpr",
-    demo: "https://welloncpr.com",
-    github: "https://github.com/JacksonBryantFGCU/cpr-website",
+    title: "ACE.AI Mock Interview Platform",
+    image: "/images/projects/ace-ai",
     description:
-      "Professional business website for a CPR and first-aid training provider, built to present course offerings, certification information, and a contact pathway for new students.",
-    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+      "AI-powered mock interview platform with voice-driven behavioral interviews and technical coding interview support.",
+    skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "Vapi", "Supabase", "OpenAI"],
     featured: true,
-    client: true,
-    category: "frontend",
+    label: "Hackathon · 3rd place",
+    category: "fullstack",
     highlights: [
-      "Built a responsive, client-facing website to establish online presence for a CPR training business.",
-      "Structured pages for course offerings, certification details, and contact information.",
-      "Focused on clean visual hierarchy, clear calls to action, and mobile responsiveness.",
-      "Delivered a production-ready site optimized for a non-technical client audience.",
+      "Built real-time mock interview flows for behavioral and technical interview practice.",
+      "Integrated AI-generated questions, voice interaction, and coding interview workflows.",
+      "Added frontend interview panels, Monaco editor support, and backend orchestration routes.",
+      "Won 3rd place overall and a company challenge award at a hackathon.",
     ],
   },
   {
@@ -124,21 +124,6 @@ export const PROJECTS: Project[] = [
       "Structured pages for services, gallery, contact, and company information.",
       "Focused on clean layout, strong calls to action, and mobile responsiveness.",
       "Prepared the site for client-facing deployment and branding assets.",
-    ],
-  },
-  {
-    title: "ACE.AI Mock Interview Platform",
-    image: "/images/projects/ace-ai",
-    description:
-      "AI-powered mock interview platform with voice-driven behavioral interviews and technical coding interview support.",
-    skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "Vapi", "Supabase", "OpenAI"],
-    featured: false,
-    category: "fullstack",
-    highlights: [
-      "Built real-time mock interview flows for behavioral and technical interview practice.",
-      "Integrated AI-generated questions, voice interaction, and coding interview workflows.",
-      "Added frontend interview panels, Monaco editor support, and backend orchestration routes.",
-      "Won 3rd place overall and a company challenge award at a hackathon.",
     ],
   },
   {
@@ -189,6 +174,24 @@ export const PROJECTS: Project[] = [
       "Organized projects, experience, certifications, and contact information for recruiters.",
       "Used modern animations and styling while keeping the site professional.",
       "Deployed the site with optimized production builds.",
+    ],
+  },
+  {
+    title: "Wellon CPR Website",
+    image: "/images/projects/wellon-cpr",
+    demo: "https://welloncpr.com",
+    github: "https://github.com/JacksonBryantFGCU/cpr-website",
+    description:
+      "Professional business website for a CPR and first-aid training provider, built to present course offerings, certification information, and a contact pathway for new students.",
+    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+    featured: false,
+    client: true,
+    category: "frontend",
+    highlights: [
+      "Built a responsive, client-facing website to establish online presence for a CPR training business.",
+      "Structured pages for course offerings, certification details, and contact information.",
+      "Focused on clean visual hierarchy, clear calls to action, and mobile responsiveness.",
+      "Delivered a production-ready site optimized for a non-technical client audience.",
     ],
   },
 ];

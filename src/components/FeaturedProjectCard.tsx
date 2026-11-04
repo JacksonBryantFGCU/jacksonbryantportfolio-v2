@@ -33,8 +33,10 @@ export default function FeaturedProjectCard({ project, onDetailsClick, reverse =
       )}
 
       <div className="md:col-span-2">
-        {project.client && (
-          <span className="text-xs font-medium uppercase tracking-widest text-blue-400">Client work</span>
+        {(project.client || project.label) && (
+          <span className="text-xs font-medium uppercase tracking-widest text-blue-400">
+            {project.client ? "Client work" : project.label}
+          </span>
         )}
         <h3 className="mt-2 text-2xl md:text-3xl font-bold text-slate-50 tracking-tight">{project.title}</h3>
         <p className="mt-3 text-slate-300 leading-relaxed">{project.description}</p>

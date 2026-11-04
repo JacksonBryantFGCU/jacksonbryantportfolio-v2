@@ -20,10 +20,10 @@ export default function FullPortfolioPage() {
       >
         <Home />
         <ProofStrip />
+        <About />
         <Projects />
         <Experience />
         <Education />
-        <About />
         <Contact />
       </main>
     </>
