@@ -1,57 +1,80 @@
-export const HERO_CONTENT: string = `I am a passionate frontend developer with a strong focus on crafting dynamic and scalable web applications. With 2–3 years of hands-on experience, I specialize in React, Tailwind CSS, TypeScript, and modern frameworks like Node.js, Express, and Electron. I am dedicated to building intuitive and user-centered software that is functional, visually appealing, and optimized for seamless user experiences and performance.`;
-
-export const ABOUT_TEXT: string = `I am a dedicated frontend developer with a passion for building user-friendly, performant, and visually appealing web applications. With over a year of experience, I have worked extensively with React, Tailwind CSS, React-Router, and Framer Motion, focusing on creating scalable, responsive, and engaging user experiences.
-
-My journey in web development started with a curiosity for how things work, which has grown into a career where I continuously learn, adapt, and tackle new challenges. I thrive in collaborative environments, enjoy problem-solving, and take pride in delivering high-quality solutions.`;
-
-export const ABOUT_TEXT1: string = `I am currently a sophomore at Florida Gulf Coast University, pursuing a B.S. in Software Engineering. My coursework includes Data Structures & Algorithms, Calculus III, Discrete Mathematics, and Computer Security, giving me a strong foundation in both theoretical and practical aspects of computing. Beyond academics, I am actively building projects, solving LeetCode problems, and expanding my knowledge independently.
-
-Outside of coding, I enjoy playing the piano, exploring emerging technologies, and contributing to open-source projects.`;
-
 export interface ExperienceEntry {
   title: string;
   organization: string;
+  /** One sentence: what you did and what came of it */
   description: string;
-  startYear: number;
-  endYear: number | null; // null = present
+  /** Display dates, e.g. "Mar 2026 – Present" */
+  period: string;
+  /** Used for ordering (newest first) */
+  sortDate: string;
   type: "work" | "leadership";
   tags?: string[];
 }
 
+// Facts here come from the Fall 2026 résumé
 export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
   {
     title: "Autonomous Driving Research Assistant",
     organization: "FGCU Computing & Software Engineering Department",
-    description: "Set up the research team's autonomous driving platform: installed Ubuntu 22.04 and ROS 2 Humble, deployed a Livox MID-360 LiDAR sensor by configuring its ROS drivers and integrating the pipeline into Autoware, and assembled the hardware (network switch, battery and CAN cabling) for live LiDAR operation.",
-    startYear: 2026,
-    endYear: null,
+    description:
+      "Brought up the lab's LiDAR pipeline: set up Ubuntu 22.04 and ROS 2 Humble, configured the Livox MID-360 drivers and integrated them into Autoware, and assembled the network, power and CAN cabling for live operation.",
+    period: "Mar 2026 – Present",
+    sortDate: "2026-03",
     type: "work",
-    tags: ["ROS 2", "Autoware", "LiDAR", "Ubuntu"]
+    tags: ["ROS 2", "Autoware", "LiDAR", "Ubuntu"],
+  },
+  {
+    title: "Student Leader (Math Tutor)",
+    organization: "FGCU Center for Academic Achievement",
+    description:
+      "Tutor students in Calculus III, Linear Algebra, Mathematical Foundations and Differential Equations, working with staff and campus partners on student success.",
+    period: "Apr 2024 – Present",
+    sortDate: "2024-04",
+    type: "work",
   },
   {
     title: "President",
     organization: "Computer Science & Software Engineering Club (CSSEC)",
     description: "Lead FGCU's Computer Science & Software Engineering Club.",
-    startYear: 2026,
-    endYear: null,
+    period: "Aug 2026 – Present",
+    sortDate: "2026-08",
     type: "leadership",
-    tags: ["Leadership"]
   },
   {
-    title: "Student Math Tutor",
-    organization: "FGCU",
-    description: "Helped students in math topics ranging from Algebra to Calculus III. Worked with students on homework, classwork, and various topics by providing guidance and clarification as needed.",
-    startYear: 2024,
-    endYear: null,
-    type: "work",
-    tags: ["Problem Solving", "Communication", "Math"]
-  }
+    title: "WCE Ambassador",
+    organization: "Whitaker College of Engineering, FGCU",
+    description: "Represent the Whitaker College of Engineering as a student ambassador.",
+    period: "Fall 2026 – Present",
+    sortDate: "2026-08",
+    type: "leadership",
+  },
+  {
+    title: "Student Representative",
+    organization: "FGCU Industry Advisory Board",
+    description: "Represent students on FGCU's Industry Advisory Board.",
+    period: "Spring 2026 – Present",
+    sortDate: "2026-01",
+    type: "leadership",
+  },
 ];
 
 export interface Project {
   title: string;
+  /** One line shown on cards */
   description: string;
-  /** Base path of the screenshot; the -800.webp and -1400.webp files are used */
+  /** Who it was for and what they needed */
+  problem: string;
+  /** Your part in it */
+  role: string;
+  /** What you built: about three concrete bullets */
+  highlights: string[];
+  /** What came of it */
+  result?: string;
+  /** e.g. "Live", "Released", "Hackathon prototype" */
+  status: string;
+  /** e.g. "Dec 2025"; leave out if unknown */
+  date?: string;
+  /** Base path of the screenshot; the -480/-800/-1400.webp files are used */
   image?: string;
   demo?: string;
   github?: string;
@@ -62,130 +85,170 @@ export interface Project {
   /** Short label for featured projects that aren't client work */
   label?: string;
   category?: "frontend" | "backend" | "fullstack" | "other";
-  highlights?: string[];
 }
 
 export const PROJECTS: Project[] = [
   {
     title: "Zonta Club of Naples Website",
+    description:
+      "Membership, payments, events and scholarships for a Naples nonprofit, with content the club edits itself.",
+    problem:
+      "The Zonta Club of Naples needed one website to handle membership applications, payments, events, scholarships and donations, with content its members can update without a developer.",
+    role: "Design and full-stack development",
+    highlights: [
+      "Turned the club's requirements into features: membership applications, event and scholarship pages, donations and payments.",
+      "Built a React and TypeScript frontend with a Node.js/Express API connected to Stripe, Square and Sanity CMS.",
+      "Deployed on Vercel and Render, with end-to-end tests to validate production functionality.",
+    ],
+    result: "Live at zontaclubofnaples.org.",
+    status: "Live",
+    date: "Dec 2025",
     demo: "https://zontaclubofnaples.org",
     image: "/images/projects/zonta-club",
-    description:
-      "Full-stack membership and content website for a nonprofit organization, supporting membership applications, payments, events, scholarships, donations, and CMS-managed content.",
-    skills: ["React", "TypeScript", "Node.js", "Express", "Sanity CMS", "Square", "Stripe", "Vercel", "Render"],
+    skills: ["React", "TypeScript", "Node.js", "Express", "Sanity CMS", "Stripe", "Square", "Vercel", "Render"],
     featured: true,
     client: true,
     category: "fullstack",
-    highlights: [
-      "Built a production client website with responsive frontend pages and backend API workflows.",
-      "Integrated CMS-managed content for events, scholarships, and membership-related pages.",
-      "Implemented payment workflows and deployment across frontend and backend hosting platforms.",
-      "Worked through real client requirements, content changes, and deployment constraints.",
-    ],
   },
   {
     title: "ACE.AI Mock Interview Platform",
-    image: "/images/projects/ace-ai",
     description:
-      "AI-powered mock interview platform with voice-driven behavioral interviews and technical coding interview support.",
-    skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "Vapi", "Supabase", "OpenAI"],
+      "Voice-driven mock interviews for behavioral and technical rounds, built in 36 hours at EagleHacks.",
+    problem:
+      "Practicing interviews alone doesn't feel like the real thing. ACE.AI runs realistic mock interviews by voice, with AI-generated questions for behavioral and technical rounds.",
+    role: "Backend lead on a hackathon team",
+    highlights: [
+      "Led the backend: Node.js/Express with JWT authentication and PostgreSQL for secure interview sessions.",
+      "Integrated Vapi for low-latency voice input and output and a natural conversation flow.",
+      "Added AI-generated questions and a technical round with an in-browser Monaco code editor.",
+    ],
+    result: "Shipped a working product in 36 hours and won 3rd place overall plus a company challenge award at EagleHacks 2026.",
+    status: "Prototype",
+    date: "Mar 2026",
+    image: "/images/projects/ace-ai",
+    skills: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Vapi", "OpenAI"],
     featured: true,
     label: "Hackathon · 3rd place",
     category: "fullstack",
-    highlights: [
-      "Built real-time mock interview flows for behavioral and technical interview practice.",
-      "Integrated AI-generated questions, voice interaction, and coding interview workflows.",
-      "Added frontend interview panels, Monaco editor support, and backend orchestration routes.",
-      "Won 3rd place overall and a company challenge award at a hackathon.",
-    ],
   },
   {
     title: "Upgrades by Taylor Website",
+    description: "Services, project gallery and quote requests for an independent home-improvement contractor.",
+    problem:
+      "An independent contractor needed a professional site to show their services and past work and turn visitors into quote requests.",
+    role: "Frontend development from the client's design direction",
+    highlights: [
+      "Built a responsive React site from the client's design direction and branding.",
+      "Created pages for services, a project photo gallery, company information and contact.",
+      "Added clear \"Get a quote\" calls to action and a mobile-first layout.",
+    ],
+    result: "Live at upgrades-by-taylor.com.",
+    status: "Live",
     demo: "https://upgrades-by-taylor.com",
-    image: "/images/projects/upgrades-by-taylor",
-    description:
-      "Static business website for an independent contractor, designed to present services, project photos, contact information, and business credibility.",
-    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
     github: "https://github.com/JacksonBryantFGCU/UpgradesbyTaylor",
+    image: "/images/projects/upgrades-by-taylor",
+    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
     featured: true,
     client: true,
     category: "frontend",
-    highlights: [
-      "Built a responsive business website from a provided design direction.",
-      "Structured pages for services, gallery, contact, and company information.",
-      "Focused on clean layout, strong calls to action, and mobile responsiveness.",
-      "Prepared the site for client-facing deployment and branding assets.",
-    ],
   },
   {
     title: "Dev Operator",
-    image: "/images/projects/dev-operator",
+    description: "A desktop workspace that runs git, dev servers and project tooling from typed or spoken commands.",
+    problem:
+      "Day-to-day development is spread across terminals, git and browser tabs. Dev Operator puts those tasks in one desktop app you can drive by typing or talking.",
+    role: "Creator",
+    highlights: [
+      "Built a command bar that takes typed or spoken input (via Vapi) to run git operations, manage dev servers and open project tooling.",
+      "Added Claude-powered commit messages, code analysis and implementation prompts through the Anthropic SDK.",
+      "Built a multi-project sidebar with live git status and GitHub issue and PR counts, with API keys encrypted by Electron safeStorage.",
+    ],
+    result: "Released v1.0.0 with multi-platform builds from a GitHub Actions release workflow.",
+    status: "Released",
     github: "https://github.com/JacksonBryantFGCU/dev-operator",
-    description:
-      "AI-augmented desktop workspace built with Electron that lets developers manage projects, run forge tooling, commit code, and control dev servers through a unified command interface with voice support.",
-    skills: ["Electron", "React", "TypeScript", "Vite", "Anthropic SDK", "Zod", "Execa"],
+    image: "/images/projects/dev-operator",
+    skills: ["Electron", "React", "TypeScript", "Vite", "Anthropic SDK", "Vapi"],
     featured: false,
     category: "fullstack",
-    highlights: [
-      "Built a unified command bar accepting typed or spoken input to run git operations, manage dev servers, and trigger project tooling.",
-      "Integrated the Anthropic SDK for AI-powered command generation and prompt building.",
-      "Implemented a multi-project sidebar with live git branch/status, server state, and one-click GitHub access.",
-      "Added Electron safeStorage-encrypted GitHub PAT for live issue and PR counts without exposing credentials.",
-    ],
   },
   {
     title: "AskLisa",
-    image: "/images/projects/asklisa",
+    description: "A neighborhood Q&A site that notifies Lisa the moment someone sends a question.",
+    problem:
+      "Lisa answers neighbors' questions about the Sunstone community and needed a simple way to collect them without missing any.",
+    role: "Developer",
+    highlights: [
+      "Built a question form backed by Supabase, plus a page of answered questions.",
+      "Sent real-time push notifications through ntfy, with email notifications from a Supabase function.",
+      "Kept it lightweight: a small React app with no custom server to maintain.",
+    ],
+    result: "Live at asksunstonelisa.com.",
+    status: "Live",
     demo: "https://asksunstonelisa.com",
     github: "https://github.com/JacksonBryantFGCU/askLisa",
-    description:
-      "Lightweight web app that lets visitors submit questions or messages directly to Lisa, with real-time push notifications delivered via ntfy so she never misses an inquiry.",
+    image: "/images/projects/asklisa",
     skills: ["React", "TypeScript", "Tailwind CSS", "Supabase", "ntfy"],
     featured: false,
     category: "frontend",
-    highlights: [
-      "Built a clean submission form with Supabase as the backend data store for incoming messages.",
-      "Integrated ntfy push notifications to alert Lisa in real time whenever a new message is submitted.",
-      "Deployed a production site with a custom domain and mobile-friendly responsive layout.",
-      "Kept the implementation lightweight and focused — no unnecessary dependencies or backend overhead.",
-    ],
   },
   {
     title: "Jackson Bryant Portfolio",
-    image: "/images/projects/portfolio",
-    description:
-      "Personal developer portfolio built to showcase projects, experience, certifications, technical skills, and contact information.",
-    skills: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"],
-    demo: "https://jacksonbryantportfolio.netlify.app/",
+    description: "This site: a fast, accessible portfolio that puts client work first.",
+    problem:
+      "A portfolio has about 30 seconds to make its case, so it has to load instantly on a phone and get to the work fast.",
+    role: "Design and development",
+    highlights: [
+      "Pre-rendered the React page to static HTML at build time, so content shows before any JavaScript runs.",
+      "Cut the page from about 12 MB to under 1 MB with responsive WebP images and a smaller bundle.",
+      "Made it accessible: real links, an accessible project dialog and reduced-motion support.",
+    ],
+    result: "Scores 98–100 across Lighthouse's mobile performance, accessibility, best practices and SEO audits.",
+    status: "Live",
+    demo: "https://www.jacksonbryant.com",
     github: "https://github.com/JacksonBryantFGCU/jacksonbryantportfolio-v2",
+    image: "/images/projects/portfolio",
+    skills: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"],
     featured: false,
     category: "frontend",
-    highlights: [
-      "Built a responsive portfolio with reusable components and polished UI sections.",
-      "Organized projects, experience, certifications, and contact information for recruiters.",
-      "Used modern animations and styling while keeping the site professional.",
-      "Deployed the site with optimized production builds.",
-    ],
   },
   {
     title: "Wellon CPR Website",
-    image: "/images/projects/wellon-cpr",
+    description: "Course listings and certification info for a CPR and first-aid training provider.",
+    problem:
+      "A CPR and first-aid training provider needed a website that presents its courses and certifications and makes it easy for new students to get in touch.",
+    role: "Frontend development",
+    highlights: [
+      "Built a responsive site with pages for course offerings, certification details and contact.",
+      "Designed a clear visual hierarchy and calls to action for a non-technical audience.",
+      "Delivered a production-ready site on the client's own domain.",
+    ],
+    result: "Live at welloncpr.com.",
+    status: "Live",
     demo: "https://welloncpr.com",
     github: "https://github.com/JacksonBryantFGCU/cpr-website",
-    description:
-      "Professional business website for a CPR and first-aid training provider, built to present course offerings, certification information, and a contact pathway for new students.",
+    image: "/images/projects/wellon-cpr",
     skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
     featured: false,
     client: true,
     category: "frontend",
-    highlights: [
-      "Built a responsive, client-facing website to establish online presence for a CPR training business.",
-      "Structured pages for course offerings, certification details, and contact information.",
-      "Focused on clean visual hierarchy, clear calls to action, and mobile responsiveness.",
-      "Delivered a production-ready site optimized for a non-technical client audience.",
-    ],
   },
 ];
+
+export const ABOUT = {
+  headline: "I build software that ships to real users.",
+  paragraphs: [
+    "I'm a senior in Software Engineering at Florida Gulf Coast University, graduating in May 2027. Most of what I build goes live: websites for a Naples nonprofit and local businesses, a mock-interview platform my team built at EagleHacks, and a desktop tool for my own development workflow.",
+    "Beyond client work, I'm a research assistant on FGCU's autonomous driving project, president of the Computer Science & Software Engineering Club, and a tutor for upper-level math. I'm looking for software engineering internships and I'm open to freelance web projects.",
+  ],
+};
+
+export const CORE_STACK: Record<string, string[]> = {
+  Languages: ["TypeScript", "JavaScript", "Python", "SQL", "Java", "C++"],
+  Frontend: ["React", "Next.js", "Tailwind CSS"],
+  Backend: ["Node.js", "Express", "PostgreSQL", "Supabase"],
+  Testing: ["Vitest", "Selenium", "JUnit"],
+  Tools: ["Git", "Vite", "Sanity CMS", "Stripe", "Vapi"],
+};
 
 export interface ProofPoint {
   value: string;
