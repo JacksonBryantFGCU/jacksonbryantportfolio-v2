@@ -3,7 +3,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { ArrowUp, Check, Copy, Mail } from "lucide-react";
 import { m } from "framer-motion";
 
-const EMAIL = "jacksonbryant.dev@gmail.com";
+const EMAIL = "jackbryant5589@gmail.com";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
