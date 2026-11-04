@@ -10,32 +10,30 @@ const LABELS: Record<string, string> = {
   all: "All",
   frontend: "Frontend",
   backend: "Backend",
-  fullstack: "Fullstack",
+  fullstack: "Full-stack",
   other: "Other",
 };
 
-const ProjectFilterBar: React.FC<Props> = ({
-  selectedCategory,
-  onCategoryChange,
-  categories,
-}) => {
+// Segmented control for filtering projects by type
+const ProjectFilterBar: React.FC<Props> = ({ selectedCategory, onCategoryChange, categories }) => {
   return (
-    <div className="pb-6 mb-6 border-b border-white/10">
-      <div className="flex justify-center gap-2 flex-wrap">
-        {categories.map((cat) => (
+    <div role="group" aria-label="Filter projects" className="mb-14 inline-flex rounded-full border border-line p-1">
+      {categories.map((cat) => {
+        const selected = selectedCategory === cat;
+        return (
           <button
             key={cat}
+            type="button"
+            aria-pressed={selected}
             onClick={() => onCategoryChange(cat)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-              selectedCategory === cat
-                ? "bg-white/[0.15] text-white border border-white/20 shadow-sm"
-                : "bg-white/5 text-slate-300 border border-transparent hover:bg-white/10 hover:text-white"
+            className={`rounded-full px-4 py-1.5 text-sm transition-colors duration-200 ${
+              selected ? "bg-text text-ink font-medium" : "text-muted hover:text-text"
             }`}
           >
             {LABELS[cat] ?? cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 };

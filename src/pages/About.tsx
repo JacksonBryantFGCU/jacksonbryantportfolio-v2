@@ -1,45 +1,34 @@
-import { m } from "framer-motion";
 import { ABOUT, CORE_STACK } from "../constants";
 
 export default function About() {
   return (
-    <section id="about" className="px-6 sm:px-16 py-20 md:py-24 border-t border-neutral-800 text-white">
-      <div className="mx-auto max-w-6xl grid lg:grid-cols-5 gap-12 lg:gap-16">
-        <m.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="lg:col-span-3"
-        >
-          <h2 className="text-sm font-medium uppercase tracking-widest text-slate-500">About</h2>
-          <p className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-white leading-tight">
+    <section id="about" aria-labelledby="about-title" className="section">
+      <div className="container-page grid lg:grid-cols-12 gap-x-8 gap-y-16">
+        <div className="lg:col-span-7">
+          <h2 id="about-title" className="sr-only">
+            About
+          </h2>
+          <p className="font-display text-3xl md:text-5xl font-semibold leading-[1.05] tracking-[-0.03em]">
             {ABOUT.headline}
           </p>
           {ABOUT.paragraphs.map((text) => (
-            <p key={text.slice(0, 24)} className="mt-5 text-slate-300 text-base md:text-lg leading-relaxed">
+            <p key={text.slice(0, 24)} className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
               {text}
             </p>
           ))}
-        </m.div>
+        </div>
 
-        <m.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="lg:col-span-2"
-        >
-          <h3 className="text-sm font-medium uppercase tracking-widest text-slate-500">Core stack</h3>
-          <dl className="mt-4 divide-y divide-white/10 border-y border-white/10">
+        <div className="lg:col-span-4 lg:col-start-9">
+          <h3 className="font-display text-lg font-semibold">Core stack</h3>
+          <dl className="mt-4 border-t border-line">
             {Object.entries(CORE_STACK).map(([group, skills]) => (
-              <div key={group} className="py-4 grid grid-cols-[6.5rem_1fr] gap-3 items-baseline">
-                <dt className="text-sm text-slate-400">{group}</dt>
-                <dd className="text-sm text-slate-200 leading-relaxed">{skills.join(" · ")}</dd>
+              <div key={group} className="grid grid-cols-[6.5rem_1fr] gap-3 border-b border-line py-3.5">
+                <dt className="text-sm text-muted">{group}</dt>
+                <dd className="text-sm leading-relaxed">{skills.join(", ")}</dd>
               </div>
             ))}
           </dl>
-        </m.div>
+        </div>
       </div>
     </section>
   );

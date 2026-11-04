@@ -12,12 +12,7 @@ export default function FullPortfolioPage() {
   return (
     <>
       <Navbar />
-      <main
-        style={{
-          background: "linear-gradient(90deg, #121726 0%, #0c1122 30%, #060714 100%)",
-        }}
-        className="text-white"
-      >
+      <main>
         <Home />
         <ProofStrip />
         <About />
