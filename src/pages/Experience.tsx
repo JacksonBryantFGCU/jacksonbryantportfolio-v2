@@ -27,7 +27,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="text-white px-6 py-24 border-b border-neutral-800 scroll-mt-32"
+      className="text-white px-6 sm:px-16 py-20 md:py-24 border-t border-neutral-800"
     >
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}

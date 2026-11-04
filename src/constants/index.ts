@@ -20,6 +20,24 @@ export interface ExperienceEntry {
 
 export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
   {
+    title: "Autonomous Driving Research Assistant",
+    organization: "FGCU Computing & Software Engineering Department",
+    description: "Set up the research team's autonomous driving platform: installed Ubuntu 22.04 and ROS 2 Humble, deployed a Livox MID-360 LiDAR sensor by configuring its ROS drivers and integrating the pipeline into Autoware, and assembled the hardware (network switch, battery and CAN cabling) for live LiDAR operation.",
+    startYear: 2026,
+    endYear: null,
+    type: "work",
+    tags: ["ROS 2", "Autoware", "LiDAR", "Ubuntu"]
+  },
+  {
+    title: "President",
+    organization: "Computer Science & Software Engineering Club (CSSEC)",
+    description: "Lead FGCU's Computer Science & Software Engineering Club.",
+    startYear: 2026,
+    endYear: null,
+    type: "leadership",
+    tags: ["Leadership"]
+  },
+  {
     title: "Student Math Tutor",
     organization: "FGCU",
     description: "Helped students in math topics ranging from Algebra to Calculus III. Worked with students on homework, classwork, and various topics by providing guidance and clarification as needed.",
@@ -27,33 +45,6 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
     endYear: null,
     type: "work",
     tags: ["Problem Solving", "Communication", "Math"]
-  },
-  {
-    title: "Research Assistant",
-    organization: "FGCU",
-    description: "Led an Unreal Engine simulation project that models a Water-Energy-Food (WEF) system. Using C++ and Unreal's blueprint system, I tested, fixed bugs, and added new features to enhance the simulation's user experience.",
-    startYear: 2024,
-    endYear: null,
-    type: "work",
-    tags: ["Unreal Engine", "C++", "Virtual Reality"]
-  },
-  {
-    title: "Back of House Worker",
-    organization: "Chick-fil-A",
-    description: "Worked in the Back of House at Chick-fil-A, preparing food and coordinating with kitchen and front-of-house staff to ensure efficient service.",
-    startYear: 2023,
-    endYear: 2024,
-    type: "work",
-    tags: ["Service", "Teamwork", "Communication"]
-  },
-  {
-    title: "Secretary",
-    organization: "Computer Science & Software Engineering Club (CSSEC)",
-    description: "Perform tasks and duties that help CSSEC run smoothly, including taking meeting notes, managing events, room reservations, and assisting with club communications.",
-    startYear: 2025,
-    endYear: null,
-    type: "leadership",
-    tags: ["Organization", "Communication"]
   }
 ];
 
@@ -66,6 +57,10 @@ export interface Project {
   github?: string;
   skills?: string[];
   featured?: boolean;
+  /** Built for a real client (shown as "Client work") */
+  client?: boolean;
+  /** Short label for featured projects that aren't client work */
+  label?: string;
   category?: "frontend" | "backend" | "fullstack" | "other";
   highlights?: string[];
 }
@@ -79,6 +74,7 @@ export const PROJECTS: Project[] = [
       "Full-stack membership and content website for a nonprofit organization, supporting membership applications, payments, events, scholarships, donations, and CMS-managed content.",
     skills: ["React", "TypeScript", "Node.js", "Express", "Sanity CMS", "Square", "Stripe", "Vercel", "Render"],
     featured: true,
+    client: true,
     category: "fullstack",
     highlights: [
       "Built a production client website with responsive frontend pages and backend API workflows.",
@@ -94,6 +90,7 @@ export const PROJECTS: Project[] = [
       "AI-powered mock interview platform with voice-driven behavioral interviews and technical coding interview support.",
     skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "Vapi", "Supabase", "OpenAI"],
     featured: true,
+    label: "Hackathon · 3rd place",
     category: "fullstack",
     highlights: [
       "Built real-time mock interview flows for behavioral and technical interview practice.",
@@ -103,13 +100,31 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    title: "Upgrades by Taylor Website",
+    demo: "https://upgrades-by-taylor.com",
+    image: "/images/projects/upgrades-by-taylor",
+    description:
+      "Static business website for an independent contractor, designed to present services, project photos, contact information, and business credibility.",
+    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+    github: "https://github.com/JacksonBryantFGCU/UpgradesbyTaylor",
+    featured: true,
+    client: true,
+    category: "frontend",
+    highlights: [
+      "Built a responsive business website from a provided design direction.",
+      "Structured pages for services, gallery, contact, and company information.",
+      "Focused on clean layout, strong calls to action, and mobile responsiveness.",
+      "Prepared the site for client-facing deployment and branding assets.",
+    ],
+  },
+  {
     title: "Dev Operator",
     image: "/images/projects/dev-operator",
     github: "https://github.com/JacksonBryantFGCU/dev-operator",
     description:
       "AI-augmented desktop workspace built with Electron that lets developers manage projects, run forge tooling, commit code, and control dev servers through a unified command interface with voice support.",
     skills: ["Electron", "React", "TypeScript", "Vite", "Anthropic SDK", "Zod", "Execa"],
-    featured: true,
+    featured: false,
     category: "fullstack",
     highlights: [
       "Built a unified command bar accepting typed or spoken input to run git operations, manage dev servers, and trigger project tooling.",
@@ -136,23 +151,6 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    title: "Wellon CPR Website",
-    image: "/images/projects/wellon-cpr",
-    demo: "https://welloncpr.com",
-    github: "https://github.com/JacksonBryantFGCU/cpr-website",
-    description:
-      "Professional business website for a CPR and first-aid training provider, built to present course offerings, certification information, and a contact pathway for new students.",
-    skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
-    featured: false,
-    category: "frontend",
-    highlights: [
-      "Built a responsive, client-facing website to establish online presence for a CPR training business.",
-      "Structured pages for course offerings, certification details, and contact information.",
-      "Focused on clean visual hierarchy, clear calls to action, and mobile responsiveness.",
-      "Delivered a production-ready site optimized for a non-technical client audience.",
-    ],
-  },
-  {
     title: "Jackson Bryant Portfolio",
     image: "/images/projects/portfolio",
     description:
@@ -170,23 +168,44 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    title: "Upgrades by Taylor Website",
-    demo: "https://upgrades-by-taylor.com",
-    image: "/images/projects/upgrades-by-taylor",
+    title: "Wellon CPR Website",
+    image: "/images/projects/wellon-cpr",
+    demo: "https://welloncpr.com",
+    github: "https://github.com/JacksonBryantFGCU/cpr-website",
     description:
-      "Static business website for an independent contractor, designed to present services, project photos, contact information, and business credibility.",
+      "Professional business website for a CPR and first-aid training provider, built to present course offerings, certification information, and a contact pathway for new students.",
     skills: ["React", "TypeScript", "Vite", "Tailwind CSS"],
-    github: "https://github.com/JacksonBryantFGCU/UpgradesbyTaylor",
     featured: false,
+    client: true,
     category: "frontend",
     highlights: [
-      "Built a responsive business website from a provided design direction.",
-      "Structured pages for services, gallery, contact, and company information.",
-      "Focused on clean layout, strong calls to action, and mobile responsiveness.",
-      "Prepared the site for client-facing deployment and branding assets.",
+      "Built a responsive, client-facing website to establish online presence for a CPR training business.",
+      "Structured pages for course offerings, certification details, and contact information.",
+      "Focused on clean visual hierarchy, clear calls to action, and mobile responsiveness.",
+      "Delivered a production-ready site optimized for a non-technical client audience.",
     ],
   },
 ];
+
+export interface ProofPoint {
+  value: string;
+  label: string;
+}
+
+// Shown right under the hero. Keep these to facts that are on the résumé.
+export const PROOF_POINTS: ProofPoint[] = [
+  { value: "3", label: "Client websites live in production" },
+  { value: "3rd place", label: "EagleHacks 2026, plus a company challenge win" },
+  { value: "Research", label: "Undergraduate research assistant at FGCU" },
+  { value: "May 2027", label: "B.S. Software Engineering graduation" },
+];
+
+export const EDUCATION = {
+  degree: "B.S. Software Engineering",
+  school: "Florida Gulf Coast University · Fort Myers, FL",
+  graduation: "May 2027",
+  courses: ["Requirements Engineering & Analysis", "Computer Security", "Software Testing", "Data Engineering"],
+};
 
 export interface Certification {
   id: string;
@@ -213,6 +232,15 @@ export const CERTIFICATIONS: Certification[] = [
     imageSize: [1200, 808],
   },
   {
+    id: "2",
+    name: "Scientific Computing with Python",
+    issuer: "freeCodeCamp",
+    issueDate: "April 2025",
+    credentialUrl: "https://www.freecodecamp.org/certification/JacksonBryantFGCU/scientific-computing-with-python-v7",
+    image: "/images/certs/freecodecamp-python",
+    imageSize: [1200, 809],
+  },
+  {
     id: "1",
     name: "Securing Projects with OpenSSF",
     issuer: "The Linux Foundation",
@@ -221,15 +249,6 @@ export const CERTIFICATIONS: Certification[] = [
     credentialId: "LF-2vz4wqoaqk",
     image: "/images/certs/linux-foundation-openssf",
     imageSize: [1180, 906],
-  },
-  {
-    id: "2",
-    name: "Scientific Computing with Python",
-    issuer: "freeCodeCamp",
-    issueDate: "April 2025",
-    credentialUrl: "https://www.freecodecamp.org/certification/JacksonBryantFGCU/scientific-computing-with-python-v7",
-    image: "/images/certs/freecodecamp-python",
-    imageSize: [1200, 809],
   },
 ];
 

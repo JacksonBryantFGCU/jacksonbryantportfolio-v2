@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { m } from "framer-motion";
-import { User, FolderOpen, Briefcase, Award, Mail, Home } from "lucide-react";
+import { User, FolderOpen, Briefcase, GraduationCap, Mail, FileText } from "lucide-react";
 import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
 
 // Desktop nav items
@@ -8,17 +8,16 @@ const desktopNavItems = [
   { label: "About", id: "about" },
   { label: "Projects", id: "projects" },
   { label: "Experience", id: "experience" },
-  { label: "Certifications", id: "certifications" },
+  { label: "Education", id: "education" },
   { label: "Contact", id: "contact" },
 ];
 
-// Mobile nav items (with Home at the start)
+// Mobile dock items (the résumé is added at the end as a highlighted action)
 const mobileNavItems = [
-  { label: "Home", id: "home", icon: Home },
   { label: "About", id: "about", icon: User },
   { label: "Projects", id: "projects", icon: FolderOpen },
   { label: "Experience", id: "experience", icon: Briefcase },
-  { label: "Certs", id: "certifications", icon: Award },
+  { label: "Education", id: "education", icon: GraduationCap },
   { label: "Contact", id: "contact", icon: Mail },
 ];
 
@@ -33,9 +32,9 @@ export default function Navbar() {
       frame = 0;
       setIsScrolled(window.scrollY > 20);
 
-      // In the hero until the About section approaches the top
-      const aboutSection = document.getElementById("about");
-      if (aboutSection && aboutSection.getBoundingClientRect().top > 250) {
+      // In the hero until the first section approaches the top
+      const firstSection = document.getElementById(desktopNavItems[0].id);
+      if (firstSection && firstSection.getBoundingClientRect().top > 250) {
         setActiveItem("home");
         return;
       }
@@ -47,7 +46,7 @@ export default function Navbar() {
       }
 
       // Last section whose top has passed the threshold
-      let current = "about";
+      let current = desktopNavItems[0].id;
       for (const item of desktopNavItems) {
         const el = document.getElementById(item.id);
         if (el && el.getBoundingClientRect().top <= 200) current = item.id;
@@ -142,7 +141,7 @@ export default function Navbar() {
           download="Jackson Bryant Resume Fall 2026.pdf"
           className="px-4 py-2 text-sm font-medium text-white bg-blue-600/90 hover:bg-blue-500/90 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
         >
-          Resume
+          Résumé
         </a>
       </m.header>
 
@@ -154,7 +153,7 @@ export default function Navbar() {
         className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-center pb-4 pt-2 bg-gradient-to-t from-slate-950/80 to-transparent"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
       >
-        <div className="flex justify-between items-center gap-2 px-5 py-2.5 bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
+        <div className="flex justify-between items-center gap-1 pl-3 pr-1.5 py-1.5 bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-full shadow-lg">
           {mobileNavItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeItem === item.id;
@@ -165,7 +164,7 @@ export default function Navbar() {
                 key={item.label}
                 href={`#${item.id}`}
                 aria-current={isActive ? "true" : undefined}
-                className="relative flex flex-col items-center gap-0.5 px-2 py-1 group"
+                className="relative flex flex-col items-center gap-0.5 px-1.5 py-1 group"
               >
                 <Icon size={18} aria-hidden="true" className={`transition-all duration-300 ${color}`} />
                 <span className={`text-[10px] font-medium transition-all duration-300 ${color}`}>
@@ -182,6 +181,16 @@ export default function Navbar() {
               </a>
             );
           })}
+
+          {/* Résumé: always one tap away */}
+          <a
+            href={resumePDF}
+            download="Jackson Bryant Resume Fall 2026.pdf"
+            className="ml-1 flex flex-col items-center gap-0.5 rounded-full bg-blue-600 px-3.5 py-2 text-white"
+          >
+            <FileText size={18} aria-hidden="true" />
+            <span className="text-[10px] font-medium">Résumé</span>
+          </a>
         </div>
       </nav>
     </>

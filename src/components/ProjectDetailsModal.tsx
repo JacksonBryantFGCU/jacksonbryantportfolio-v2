@@ -101,9 +101,9 @@ const ProjectDetailsModal: React.FC<Props> = ({ project, isOpen, onClose }) => {
               {/* Content */}
               <div className="p-6 md:p-8">
                 {/* Featured Label */}
-                {project.featured && (
+                {project.client && (
                   <span className="inline-block text-xs font-medium uppercase tracking-widest text-blue-400/80 mb-2">
-                    Featured
+                    Client work
                   </span>
                 )}
 
