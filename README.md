@@ -1,37 +1,33 @@
 # Jackson Bryant Portfolio
 
-A personal, dynamic, and animation-rich portfolio built with React, TypeScript, and TailwindCSS. Designed to showcase projects, resume, and contact info, with future plans for AI-powered features.
+Personal portfolio at [www.jacksonbryant.com](https://www.jacksonbryant.com). The visual theme is a LiDAR point cloud, a nod to my autonomous-driving research: a live Three.js scan landscape sits behind the page, with GSAP-driven scroll animations on top.
 
-## 🚀 Live Demo
-Visit www.jacksonbryant.com
+## Features
+- Three.js point-cloud background (custom shaders), loaded lazily after the page is idle
+- GSAP + ScrollTrigger + SplitText animations, with Lenis smooth scrolling
+- Pre-rendered to static HTML at build time, so content shows before JavaScript runs
+- Respects `prefers-reduced-motion`: no smooth scroll, no scroll animations, a still 3D frame
+- Accessible project dialog built on native `<dialog>`, skip link, keyboard support
 
-## ✨ Features
-- GSAP-powered hero animations
-- Dynamic project content from PocketBase
-- Admin panel protected by Clerk
-- Dark mode support
-- Modular design system (Typography, Colors, Buttons)
-- SEO-ready with React Helmet
+## Tech stack
+- React 19 + TypeScript + Vite
+- Tailwind CSS
+- GSAP, Lenis, Three.js
 
-## 🛠 Tech Stack
-- React + TypeScript + Vite
-- TailwindCSS
-- GSAP
-- React Router DOM
-- Zod
-## 📁 Folder Structure
-See `project_folder_structure.txt`
-
-## 🔧 Local Setup
+## Local setup
 ```bash
-git clone https://github.com/JacksonBryantFGCU/portfolio
-cd portfolio
 npm install
-npm run dev
+npm run dev      # http://localhost:5173
+npm run build    # type-check, build, and pre-render dist/index.html
+npm run lint
 ```
 
-## 📌 Future Additions
-See `ROADMAP.md`
+## Where things live
+- `src/constants/index.ts`: all content (projects, experience, education)
+- `src/three/pointCloud.ts`: the 3D scene
+- `src/hooks/usePageMotion.ts`: every scroll and hover animation, driven by `data-*` attributes
+- `src/hooks/useSmoothScroll.ts`: Lenis setup and in-page link handling
+- `tailwind.config.js`: design tokens (colors, fonts, sizes)
 
-## 📄 License
+## License
 MIT

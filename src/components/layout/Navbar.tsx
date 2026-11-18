@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { m } from "framer-motion";
-import { User, FolderOpen, Briefcase, GraduationCap, Mail, FileText } from "lucide-react";
+import { User, FolderOpen, Briefcase, Mail, FileText } from "lucide-react";
 import resumePDF from "/jackson-bryant-resume-fall-2026.pdf";
 
 // Desktop nav items
@@ -12,12 +11,11 @@ const desktopNavItems = [
   { label: "Contact", id: "contact" },
 ];
 
-// Mobile dock items (the resume is added at the end as a highlighted action)
+// Mobile dock items: Education is left out so the dock fits 360px phones (it sits right after Experience)
 const mobileNavItems = [
   { label: "About", id: "about", icon: User },
   { label: "Projects", id: "projects", icon: FolderOpen },
   { label: "Experience", id: "experience", icon: Briefcase },
-  { label: "Education", id: "education", icon: GraduationCap },
   { label: "Contact", id: "contact", icon: Mail },
 ];
 
@@ -71,15 +69,12 @@ export default function Navbar() {
       {/* ============================================ */}
       {/* DESKTOP NAVIGATION */}
       {/* ============================================ */}
-      <m.header
-        initial={false}
-        className="fixed top-6 inset-x-0 z-50 hidden md:flex justify-center items-center gap-5"
-      >
+      <header className="fixed top-6 inset-x-0 z-50 hidden md:flex justify-center items-center gap-5">
         {/* Navigation Pill */}
         <nav
           aria-label="Main"
           className={`
-            flex items-center gap-8 px-6 rounded-full border shadow-lg
+            relative overflow-hidden flex items-center gap-8 px-6 rounded-full border shadow-lg
             transition-all duration-300
             ${isScrolled ? "py-2 bg-ink/75 border-line backdrop-blur-xl" : "py-2.5 bg-ink/40 border-line/60 backdrop-blur-lg"}
           `}
@@ -120,13 +115,19 @@ export default function Navbar() {
                 {/* Active underline indicator */}
                 <span
                   aria-hidden="true"
-                  className={`absolute -bottom-1.5 left-0 right-0 mx-auto w-5 h-0.5 bg-accent rounded-full transition-all duration-300 ${
+                  className={`absolute -bottom-1.5 left-0 right-0 mx-auto w-5 h-0.5 bg-scan rounded-full transition-all duration-300 ${
                     isActive ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
                   }`}
                 />
               </a>
             );
           })}
+          {/* Scroll progress, drawn by usePageMotion */}
+          <span
+            aria-hidden="true"
+            data-progress
+            className="absolute inset-x-6 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-accent to-scan"
+          />
         </nav>
 
         {/* Resume Button - Outside pill */}
@@ -134,10 +135,11 @@ export default function Navbar() {
           href={resumePDF}
           download="Jackson Bryant Resume Fall 2026.pdf"
           className="btn-primary px-4 py-2"
+          data-magnetic
         >
           Resume
         </a>
-      </m.header>
+      </header>
 
       {/* ============================================ */}
       {/* MOBILE BOTTOM DOCK */}
@@ -158,17 +160,17 @@ export default function Navbar() {
                 key={item.label}
                 href={`#${item.id}`}
                 aria-current={isActive ? "true" : undefined}
-                className="relative flex flex-col items-center gap-0.5 px-1.5 py-1 group"
+                className="relative flex min-w-[3.25rem] flex-col items-center gap-0.5 px-2 py-1.5 group"
               >
                 <Icon size={18} aria-hidden="true" className={`transition-all duration-300 ${color}`} />
-                <span className={`text-[10px] font-medium transition-all duration-300 ${color}`}>
+                <span className={`text-[11px] font-medium transition-all duration-300 ${color}`}>
                   {item.label}
                 </span>
 
                 {/* Active underline indicator */}
                 <span
                   aria-hidden="true"
-                  className={`absolute -bottom-0.5 left-0 right-0 mx-auto w-4 h-0.5 bg-accent rounded-full transition-all duration-300 ${
+                  className={`absolute -bottom-0.5 left-0 right-0 mx-auto w-4 h-0.5 bg-scan rounded-full transition-all duration-300 ${
                     isActive ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
                   }`}
                 />
@@ -180,10 +182,10 @@ export default function Navbar() {
           <a
             href={resumePDF}
             download="Jackson Bryant Resume Fall 2026.pdf"
-            className="ml-1 flex flex-col items-center gap-0.5 rounded-full bg-accent px-3.5 py-2 text-white"
+            className="ml-1 flex flex-col items-center gap-0.5 rounded-full bg-accent px-4 py-2 text-white"
           >
             <FileText size={18} aria-hidden="true" />
-            <span className="text-[10px] font-medium">Resume</span>
+            <span className="text-[11px] font-medium">Resume</span>
           </a>
         </div>
       </nav>

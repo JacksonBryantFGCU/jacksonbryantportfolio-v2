@@ -6,14 +6,14 @@ export default function Education() {
   return (
     <section id="education" aria-labelledby="education-title" className="section">
       <div className="container-page">
-        <SectionHeader id="education" title="Education" />
+        <SectionHeader id="education" index="04" title="Education" />
 
         <div className="space-y-16">
           {/* Degree */}
           <div className="grid md:grid-cols-12 gap-x-8 gap-y-6">
-            <h3 className="md:col-span-3 font-display text-lg font-semibold">Degree</h3>
-            <div className="md:col-span-9">
-              <p className="font-display text-2xl md:text-3xl font-semibold tracking-tight">{EDUCATION.degree}</p>
+            <h3 className="md:col-span-3 label pt-1.5" data-reveal>Degree</h3>
+            <div className="md:col-span-9" data-reveal>
+              <p className="font-display text-3xl md:text-5xl font-semibold tracking-[-0.03em]">{EDUCATION.degree}</p>
               <p className="mt-1 text-muted">{EDUCATION.school}</p>
               <p className="mt-4">Graduating {EDUCATION.graduation}</p>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
@@ -24,19 +24,21 @@ export default function Education() {
 
           {/* Certifications */}
           <div className="grid md:grid-cols-12 gap-x-8 gap-y-6">
-            <h3 className="md:col-span-3 font-display text-lg font-semibold">Certifications</h3>
+            <h3 className="md:col-span-3 label pt-1.5" data-reveal>Certifications</h3>
             <ul className="md:col-span-9 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
               {CERTIFICATIONS.map((cert) => {
                 const { id, name, issuer, issueDate, credentialUrl, credentialId, image, imageSize } = cert;
                 const [fullWidth, fullHeight] = imageSize;
 
                 return (
-                  <li key={id} className="flex flex-col">
+                  <li key={id} className="flex flex-col" data-reveal>
+                    {/* Certificates differ in shape; each fits inside the same 3:2 frame so the row lines up */}
                     <a
                       href={`${image}-1200.webp`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block overflow-hidden rounded-[10px] border border-line transition-colors duration-200 hover:border-muted"
+                      data-tilt
+                      className="block aspect-[3/2] overflow-hidden rounded-media border border-line bg-surface transition-colors duration-200 hover:border-scan/60"
                       aria-label={`Open the full ${name} certificate`}
                     >
                       <img
@@ -48,12 +50,12 @@ export default function Education() {
                         alt={`${name} certificate`}
                         loading="lazy"
                         decoding="async"
-                        className="block w-full h-auto"
+                        className="block h-full w-full object-contain"
                       />
                     </a>
                     <p className="mt-4 font-medium leading-snug">{name}</p>
-                    <p className="mt-1 text-sm text-muted">
-                      {issuer}, {issueDate}
+                    <p className="label mt-2">
+                      {issuer} · {issueDate}
                     </p>
                     <div className="mt-2 text-sm">
                       {credentialUrl ? (

@@ -2,7 +2,7 @@ export interface ExperienceEntry {
   title: string;
   organization: string;
   /** One sentence: what you did and what came of it */
-  description: string;
+  description?: string;
   /** Display dates, e.g. "Mar 2026 – Present" */
   period: string;
   /** Used for ordering (newest first) */
@@ -35,7 +35,6 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
   {
     title: "President",
     organization: "Computer Science & Software Engineering Club (CSSEC)",
-    description: "Lead FGCU's Computer Science & Software Engineering Club.",
     period: "Aug 2026 – Present",
     sortDate: "2026-08",
     type: "leadership",
@@ -43,7 +42,6 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
   {
     title: "WCE Ambassador",
     organization: "Whitaker College of Engineering, FGCU",
-    description: "Represent the Whitaker College of Engineering as a student ambassador.",
     period: "Fall 2026 – Present",
     sortDate: "2026-08",
     type: "leadership",
@@ -51,7 +49,6 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
   {
     title: "Student Representative",
     organization: "FGCU Industry Advisory Board",
-    description: "Represent students on FGCU's Industry Advisory Board.",
     period: "Spring 2026 – Present",
     sortDate: "2026-01",
     type: "leadership",
@@ -153,25 +150,6 @@ export const PROJECTS: Project[] = [
     category: "frontend",
   },
   {
-    title: "Dev Operator",
-    description: "A desktop workspace that runs git, dev servers and project tooling from typed or spoken commands.",
-    problem:
-      "Day-to-day development is spread across terminals, git and browser tabs. Dev Operator puts those tasks in one desktop app you can drive by typing or talking.",
-    role: "Creator",
-    highlights: [
-      "Built a command bar that takes typed or spoken input (via Vapi) to run git operations, manage dev servers and open project tooling.",
-      "Added Claude-powered commit messages, code analysis and implementation prompts through the Anthropic SDK.",
-      "Built a multi-project sidebar with live git status and GitHub issue and PR counts, with API keys encrypted by Electron safeStorage.",
-    ],
-    result: "Released v1.0.0 with multi-platform builds from a GitHub Actions release workflow.",
-    status: "Released",
-    github: "https://github.com/JacksonBryantFGCU/dev-operator",
-    image: "/images/projects/dev-operator",
-    skills: ["Electron", "React", "TypeScript", "Vite", "Anthropic SDK", "Vapi"],
-    featured: false,
-    category: "fullstack",
-  },
-  {
     title: "AskLisa",
     description: "A neighborhood Q&A site that notifies Lisa the moment someone sends a question.",
     problem:
@@ -237,18 +215,36 @@ export const PROJECTS: Project[] = [
 export const ABOUT = {
   headline: "I build software that ships to real users.",
   paragraphs: [
-    "I'm a senior in Software Engineering at Florida Gulf Coast University, graduating in May 2027. Most of what I build goes live: websites for a Naples nonprofit and local businesses, a mock-interview platform my team built at EagleHacks, and a desktop tool for my own development workflow.",
+    "I'm a senior in Software Engineering at Florida Gulf Coast University, graduating in May 2027. Most of what I build goes live: websites for a Naples nonprofit and local businesses, and a mock-interview platform my team built at EagleHacks. I've also placed at three hackathons, including first place at FGCU AI Day.",
     "Beyond client work, I'm a research assistant on FGCU's autonomous driving project, president of the Computer Science & Software Engineering Club, and a tutor for upper-level math. I'm looking for software engineering internships and I'm open to freelance web projects.",
   ],
 };
 
 export const CORE_STACK: Record<string, string[]> = {
-  Languages: ["TypeScript", "JavaScript", "Python", "SQL", "Java", "C++"],
+  Languages: ["TypeScript", "JavaScript", "Python", "SQL", "C++"],
   Frontend: ["React", "Next.js", "Tailwind CSS"],
   Backend: ["Node.js", "Express", "PostgreSQL", "Supabase"],
-  Testing: ["Vitest", "Selenium", "JUnit"],
+  Testing: ["Vitest", "Playwright"],
   Tools: ["Git", "Vite", "Sanity CMS", "Stripe", "Vapi"],
 };
+
+export interface Award {
+  place: string;
+  event: string;
+  date: string;
+  detail?: string;
+}
+
+export const AWARDS: Award[] = [
+  { place: "1st place", event: "FGCU AI Day Hackathon", date: "Nov 2, 2026" },
+  {
+    place: "3rd place",
+    event: "FGCU Qiskit Quantum Hackathon",
+    date: "Oct 30 – Nov 6, 2026",
+    detail: "Week-long hybrid hackathon",
+  },
+  { place: "3rd place", event: "EagleHacks 2026", date: "Mar 2026", detail: "Plus a company challenge award, for ACE.AI" },
+];
 
 export interface ProofPoint {
   value: string;
@@ -258,7 +254,7 @@ export interface ProofPoint {
 // Shown right under the hero. Keep these to facts that are on the résumé.
 export const PROOF_POINTS: ProofPoint[] = [
   { value: "3", label: "Client websites live in production" },
-  { value: "3rd place", label: "EagleHacks 2026, plus a company challenge win" },
+  { value: "1st place", label: "FGCU AI Day hackathon, plus two 3rd-place finishes" },
   { value: "Research", label: "Undergraduate research assistant at FGCU" },
   { value: "May 2027", label: "B.S. Software Engineering graduation" },
 ];

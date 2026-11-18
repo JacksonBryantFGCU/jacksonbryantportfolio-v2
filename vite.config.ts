@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     sourcemap: true,
+    // three.js is ~530 kB but loads lazily after first paint (see SceneCanvas)
+    chunkSizeWarningLimit: 600,
   },
   server: {
         watch: {
